@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/25 16:46:12 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/07/25 18:16:49 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ typedef struct s_map
 
 int		parse(char *file, t_map *map);
 int		ft_tablen(char **tab);
-int		check_north(int fd, t_map *map);
-int		check_south(int fd, t_map *map);
-int		check_west(int fd, t_map *map);
-int		check_east(int fd, t_map *map);
-int		check_ceiling_color(int fd, t_map *map);
-int		check_floor_color(int fd, t_map *map);
+int		check_north(char *line, t_map *map);
+int		check_south(char *line, t_map *map);
+int		check_west(char *line, t_map *map);
+int		check_east(char *line, t_map *map);
+int		check_ceiling_color(char *line, t_map *map);
+int		check_floor_color(char *line, t_map *map);
 char	**ft_split_whitespaces(char *str);
 void	skip_empty_lines(int fd, t_map *map, char mode);
 int		check_map(int fd, t_map *map);

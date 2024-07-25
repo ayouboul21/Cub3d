@@ -4,7 +4,7 @@ OBJ     = $(SRC:.c=.o)
 HEADER  = cub3d.h
 NAME    = cub3d
 CC      = cc
-CFLAGS  = -Wall -Wextra -Werror -O3 -ffast-math -v
+CFLAGS  = -Wall -Wextra -Werror -O3 -ffast-math
 RM      = rm -f
 MLX     = .MLX42/libmlx42.a
 MLXFLAGS = -framework Cocoa -framework OpenGL -framework IOKit -lglfw

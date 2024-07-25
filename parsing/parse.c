@@ -3,14 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 10:55:51 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/25 16:26:32 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/07/25 18:25:03 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+void	fill_map(int fd, t_map *map)
+{
+	int		i;
+	int		ret;
+	char	*line;
+
+	(1) && (i = 0, ret = 1);
+	line = get_next_line(fd);
+	while (line)
+	{
+		if (line[0] == 'N' && line[1] == 'O')
+			ret = check_north(line, map);
+		else if (line[0] == 'S' && line[1] == 'O')
+			ret = check_south(line, map);
+		else if (line[0] == 'W' && line[1] == 'E')
+			ret = check_west(line, map);
+		else if (line[0] == 'E' && line[1] == 'A')
+			ret = check_east(line, map);
+		else if (line[0] == 'F' && line[1] == ' ')
+			ret = check_floor_color(line, map);
+		else if (line[0] == 'C' && line[1] == ' ')
+			ret = check_ceiling_color(line, map);
+		if (i == 6 || ret == 0)
+			break ;
+		(1) && (free(line), line = get_next_line(fd), i++);
+	}
+	(line) && (free(line), line = NULL);
+}
 
 int	parse(char *file, t_map *map)
 {
@@ -19,17 +48,10 @@ int	parse(char *file, t_map *map)
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		return (-1);
-	if (!check_north(fd, map))
-		return (-1);
-	if (!check_south(fd, map))
-		return (-1);
-	if (!check_west(fd, map))
-		return (-1);
-	if (!check_east(fd, map))
-		return (-1);
-	if (!check_floor_color(fd, map))
-		return (-1);
-	if (!check_ceiling_color(fd, map))
+	fill_map(fd, map);
+	if (map->north == NULL || map->south == NULL || map->west == NULL
+		|| map->east == NULL || map->floor_color == NULL
+		|| map->ceiling_color == NULL)
 		return (-1);
 	if (!check_map(fd, map))
 		return (-1);
