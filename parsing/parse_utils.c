@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:14:34 by hel-magh          #+#    #+#             */
-/*   Updated: 2024/07/25 13:38:39 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/25 15:49:50 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	check_line(char *line)
 	return (1);
 }
 
-void	skip_empty_lines(int fd, t_map *map)
+void	skip_empty_lines(int fd, t_map *map, char mode)
 {
 	char	*line;
 
@@ -76,7 +76,12 @@ void	skip_empty_lines(int fd, t_map *map)
 	}
 	if (line)
 	{
-		map->north = ft_strdup(line);
+		(mode == 's') && (map->south = ft_strdup(line));
+		(mode == 'n') && (map->north = ft_strdup(line));
+		(mode == 'w') && (map->west = ft_strdup(line));
+		(mode == 'e') && (map->east = ft_strdup(line));
+		(mode == 'f') && (map->floor_color = ft_strdup(line));
+		(mode == 'c') && (map->ceiling_color = ft_strdup(line));
 		free(line);
 	}
 }

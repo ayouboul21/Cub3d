@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 10:55:51 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/25 14:33:47 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/25 15:45:03 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ int	parse(char *file, t_map *map)
 		return (-1);
 	if (!check_east(fd, map))
 		return (-1);
-	if (!check_floor_color(fd, map))
-		return (-1);
-	if (!check_ceiling_color(fd, map))
-		return (-1);
+	// if (!check_floor_color(fd, map))
+	// 	return (-1);
+	// if (!check_ceiling_color(fd, map))
+	// 	return (-1);
 	// if (!check_map(fd, map))
 	// 	return (-1);
 	close(fd);
