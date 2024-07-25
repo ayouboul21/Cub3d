@@ -1,4 +1,4 @@
-SRC     = cub3d.c parsing/parse.c parsing/parse_utils.c parsing/check_directions.c parsing/check_color.c
+SRC     = cub3d.c parsing/parse.c parsing/parse_utils.c parsing/check_directions.c parsing/check_color.c parsing/check_map.c
 
 OBJ     = $(SRC:.c=.o)
 HEADER  = cub3d.h

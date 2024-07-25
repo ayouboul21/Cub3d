@@ -6,7 +6,7 @@
 /*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/25 16:21:41 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/07/25 16:46:12 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,8 @@ int		check_ceiling_color(int fd, t_map *map);
 int		check_floor_color(int fd, t_map *map);
 char	**ft_split_whitespaces(char *str);
 void	skip_empty_lines(int fd, t_map *map, char mode);
+int		check_map(int fd, t_map *map);
+void	add_last(char ***map, char *data);
+void	free_tab(char ***args);
 
 #endif

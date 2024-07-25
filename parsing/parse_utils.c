@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:14:34 by hel-magh          #+#    #+#             */
-/*   Updated: 2024/07/25 15:49:50 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/25 16:46:56 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ void	skip_empty_lines(int fd, t_map *map, char mode)
 		(mode == 'e') && (map->east = ft_strdup(line));
 		(mode == 'f') && (map->floor_color = ft_strdup(line));
 		(mode == 'c') && (map->ceiling_color = ft_strdup(line));
+		if (mode == 'm')
+			add_last(&map->map, line);
 		free(line);
 	}
 }
