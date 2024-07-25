@@ -1,30 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
+/*   ft_iswhitespace.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 16:16:49 by aoulahra          #+#    #+#             */
-/*   Updated: 2023/11/11 13:57:54 by aoulahra         ###   ########.fr       */
+/*   Created: 2024/07/25 12:55:36 by hel-magh          #+#    #+#             */
+/*   Updated: 2024/07/25 12:57:01 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+int	ft_iswhitespace(char c)
 {
-	t_list	*tmp;
-
-	tmp = *lst;
-	if (lst && !(*lst))
-	{
-		*lst = new;
-		new->next = NULL;
-	}
-	else if (lst)
-	{
-		tmp = ft_lstlast(*lst);
-		tmp->next = new;
-	}
+	return (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f'
+		|| c == '\r');
 }

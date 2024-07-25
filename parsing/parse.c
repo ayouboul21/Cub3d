@@ -6,28 +6,33 @@
 /*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 10:55:51 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/25 11:51:48 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:29:53 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	parse(char *file)
+int	parse(char *file, t_map *map)
 {
 	int		fd;
-	char	*line;
 
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		return (-1);
-	line = get_next_line(fd);
-	while (line)
-	{
-		printf("%s", line);
-		free(line);
-		line = get_next_line(fd);
-	}
-	free(line);
+	if (!check_north(fd, map))
+		return (-1);
+	if (!check_south(fd, map))
+		return (-1);
+	if (!check_west(fd, map))
+		return (-1);
+	if (!check_east(fd, map))
+		return (-1);
+	// if (!check_floor_color(fd, map))
+	// 	return (-1);
+	// if (!check_ceiling_color(fd, map))
+	// 	return (-1);
+	// if (!check_map(fd, map))
+	// 	return (-1);
 	close(fd);
 	return (0);
 }
