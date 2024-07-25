@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:29:00 by hel-magh          #+#    #+#             */
-/*   Updated: 2024/07/25 15:52:05 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/25 15:58:37 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	check_south(int fd, t_map *map)
 	char	**tmp;
 
 	skip_empty_lines(fd, map, 's');
-	line = map->north;
+	line = map->south;
 	if (line[0] != 'S' || line[1] != 'O' || !ft_iswhitespace(line[2]))
 		return (0);
 	tmp = ft_split_whitespaces(line);
@@ -58,7 +58,7 @@ int	check_west(int fd, t_map *map)
 	char	**tmp;
 
 	skip_empty_lines(fd, map, 'w');
-	line = map->north;
+	line = map->west;
 	if (line[0] != 'W' || line[1] != 'E' || !ft_iswhitespace(line[2]))
 		return (0);
 	tmp = ft_split_whitespaces(line);
@@ -78,7 +78,7 @@ int	check_east(int fd, t_map *map)
 	char	**tmp;
 
 	skip_empty_lines(fd, map, 'e');
-	line = map->north;
+	line = map->east;
 	if (line[0] != 'E' || line[1] != 'A' || !ft_iswhitespace(line[2]))
 		return (0);
 	tmp = ft_split_whitespaces(line);

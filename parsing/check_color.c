@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:34:02 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/25 15:53:35 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/25 15:56:35 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int	check_floor_color(int fd, t_map *map)
 	tmp = ft_split_whitespaces(line);
 	if (ft_tablen(tmp) != 2)
 		return (0);
-	printf("tmp[1]\n");
 	map->floor_color = ft_strdup(tmp[1]);
 	free(tmp[0]);
 	free(tmp[1]);
