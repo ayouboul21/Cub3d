@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 16:26:45 by hel-magh          #+#    #+#             */
-/*   Updated: 2024/07/25 16:48:28 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/07/25 16:58:50 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ void	add_last(char ***map, char *data)
 	i = 0;
 	if (!*map)
 	{
-		new = (char **)malloc(sizeof(char *) * 2);
+		new = (char **)ft_malloc(sizeof(char *) * 2);
 		new[0] = ft_strdup(data);
 		new[1] = NULL;
 		*map = new;
 		return ;
 	}
 	i = ft_tablen(*map);
-	new = (char **)malloc(sizeof(char *) * (i + 2));
+	new = (char **)ft_malloc(sizeof(char *) * (i + 2));
 	i = 0;
 	while ((*map)[i])
 	{
@@ -75,7 +75,7 @@ int	check_map(int fd, t_map *map)
 	}
 	while (map->map[i])
 	{
-		printf("%s\n", map->map[i]);
+		printf("%s", map->map[i]);
 		i++;
 	}
 	return (1);
