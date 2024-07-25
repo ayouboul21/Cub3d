@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/25 14:30:53 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/25 15:07:25 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,29 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <math.h>
-# include <mlx.h>
+// # include <mlx.h>
 # include "libft/libft.h"
+# include "MLX42/MLX42.h"
+
+typedef struct s_color
+{
+	int	red;
+	int	blue;
+	int	green;
+}		t_color;
 
 typedef struct s_map
 {
+	int			rows;
+	int			cols;
 	char		*north;
 	char		*south;
 	char		*west;
 	char		*east;
-	char		*sprite;
-	char		*floor;
-	char		*ceiling;
 	char		**map;
-	int			rows;
-	int			cols;
+	char		*sprite;
+	t_color		floor;
+	t_color		ceiling;
 }				t_map;
 
 int		parse(char *file, t_map *map);

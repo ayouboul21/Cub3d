@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:40:05 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/25 13:05:34 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/07/25 14:35:22 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	main(int ac, char *av[])
 {
+    atexit(f);
 	t_map	map;
 
 	if (ac != 2)
