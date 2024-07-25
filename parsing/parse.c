@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 10:55:51 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/25 10:56:32 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/25 11:09:31 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@ int	parse(char *file)
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		return (-1);
-	while (get_next_line(fd, &line))
+    line = get_next_line(fd);
+	while (line)
 	{
 		printf("%s\n", line);
 		free(line);
+        line = get_next_line(fd);
 	}
 	free(line);
 	close(fd);
