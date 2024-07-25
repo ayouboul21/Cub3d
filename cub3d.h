@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/25 14:23:13 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/25 14:30:53 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@
 # include <math.h>
 # include <mlx.h>
 # include "libft/libft.h"
-
-# define malloc(size) NULL
 
 typedef struct s_map
 {
