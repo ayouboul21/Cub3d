@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/25 13:38:39 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/25 14:23:13 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 # include <math.h>
 # include <mlx.h>
 # include "libft/libft.h"
-# include "get_next_line/get_next_line.h"
+
+# define malloc(size) NULL
 
 typedef struct s_map
 {
@@ -44,7 +45,6 @@ int		check_south(int fd, t_map *map);
 int		check_west(int fd, t_map *map);
 int		check_east(int fd, t_map *map);
 char	**ft_split_whitespaces(char *str);
-void	*ft_ft_malloc(size_t size);
 void	skip_empty_lines(int fd, t_map *map);
 
 #endif

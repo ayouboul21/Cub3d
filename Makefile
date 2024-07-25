@@ -1,4 +1,4 @@
-SRC		=	 ft_malloc.c cub3d.c parsing/parse.c parsing/parse_utils.c parsing/check_directions.c
+SRC		=	cub3d.c parsing/parse.c parsing/parse_utils.c parsing/check_directions.c
 
 OBJ		= $(SRC:.c=.o)
 HEADER	= cub3d.h
@@ -8,17 +8,14 @@ CFLAGS	= -Wall -Wextra -Werror
 RM		= rm -f
 MLXFLAGS = -lmlx -framework OpenGL -framework AppKit -O3
 LIBFT	= libft/libft.a
-GNL = get_next_line/get_next_line.c
-GNL_UTILS = get_next_line/get_next_line_utils.c
-GNL_HEADER = get_next_line/get_next_line.h
 
 all: pre $(NAME)
 
-$(NAME): $(OBJ) $(LIBFT) $(HEADER) $(GNL) $(GNL_UTILS) $(GNL_HEADER)
-	$(CC) $(OBJ) $(CFLAGS) -o $(NAME) $(MLXFLAGS) $(LIBFT) $(GNL) $(GNL_UTILS)
+$(NAME): $(OBJ) $(LIBFT) $(HEADER)
+	$(CC) $(OBJ) $(CFLAGS) -o $(NAME) $(MLXFLAGS) $(LIBFT)
 
-%.o : %.c $(HEADER) $(GNL) $(GNL_UTILS) $(GNL_HEADER)
-	$(CC) $(CFLAGS) -c $< -o $@ -I libft -I get_next_line
+%.o : %.c $(HEADER)
+	$(CC) $(CFLAGS) -c $< -o $@ 
 
 pre:
 	@$(MAKE) -C libft
