@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:14:34 by hel-magh          #+#    #+#             */
-/*   Updated: 2024/07/25 13:29:44 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:38:39 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	**ft_split_whitespaces(char *str)
 	int		k;
 	char	**tab;
 
-	tab = (char **)malloc(sizeof(char *) * (ft_strlen(str) + 1));
+	tab = (char **)ft_malloc(sizeof(char *) * (ft_strlen(str) + 1));
 	i = 0;
 	j = 0;
 	while (str[i])
@@ -41,7 +41,7 @@ char	**ft_split_whitespaces(char *str)
 			i++;
 		if (i > k)
 		{
-			tab[j] = (char *)malloc(i - k + 1);
+			tab[j] = (char *)ft_malloc(i - k + 1);
 			ft_strlcpy(tab[j], str + k, i - k + 1);
 			j++;
 		}

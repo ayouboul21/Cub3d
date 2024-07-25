@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 18:16:15 by aoulahra          #+#    #+#             */
-/*   Updated: 2023/11/07 12:40:44 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:38:39 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*ft_itoa(int n)
 
 	num = n;
 	array_len = count_num(num);
-	arr = (char *) malloc ((array_len + 1) * sizeof(char ));
+	arr = (char *) ft_malloc ((array_len + 1) * sizeof(char ));
 	if (!arr)
 		return (NULL);
 	fill_array(arr, num, array_len);

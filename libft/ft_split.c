@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 12:29:18 by aoulahra          #+#    #+#             */
-/*   Updated: 2023/11/11 13:44:23 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:38:39 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ char	**ft_split(char const *s, char c)
 	size_t	i;
 
 	len_words = count_words(s, c);
-	words = (char **) malloc (sizeof(char *) * (len_words + 1));
+	words = (char **) ft_malloc (sizeof(char *) * (len_words + 1));
 	if (!s || !words)
 		return (NULL);
 	i = -1;

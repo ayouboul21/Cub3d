@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/25 13:32:29 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:38:39 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int		check_south(int fd, t_map *map);
 int		check_west(int fd, t_map *map);
 int		check_east(int fd, t_map *map);
 char	**ft_split_whitespaces(char *str);
+void	*ft_ft_malloc(size_t size);
 void	skip_empty_lines(int fd, t_map *map);
 
 #endif

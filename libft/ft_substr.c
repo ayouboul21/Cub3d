@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 17:18:56 by aoulahra          #+#    #+#             */
-/*   Updated: 2023/11/11 13:25:30 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:38:39 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		len_substr = size_s - start;
 	if (start >= size_s)
 		len_substr = 0;
-	substr = (char *) malloc (sizeof(char ) * len_substr + 1);
+	substr = (char *) ft_malloc (sizeof(char ) * len_substr + 1);
 	if (!substr)
 		return (NULL);
 	while (i < len_substr)

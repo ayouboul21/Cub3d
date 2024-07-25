@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 09:43:13 by hel-magh          #+#    #+#             */
-/*   Updated: 2023/12/13 10:07:08 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:38:39 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char	*get_next_line(int fd)
 		complete_line = NULL;
 		return (NULL);
 	}
-	buffer = malloc(((size_t)BUFFER_SIZE + 1) * sizeof(char));
+	buffer = ft_malloc(((size_t)BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
 		return (free(complete_line), complete_line = NULL, NULL);
 	buffer[0] = '\0';

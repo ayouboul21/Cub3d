@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 12:05:41 by aoulahra          #+#    #+#             */
-/*   Updated: 2023/11/11 14:04:52 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:38:39 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	if (!s)
 		return (NULL);
 	len = ft_strlen(s);
-	res = (char *) malloc (sizeof(char ) * len + 1);
+	res = (char *) ft_malloc (sizeof(char ) * len + 1);
 	if (!res)
 		return (NULL);
 	i = 0;
