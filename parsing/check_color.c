@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:34:02 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/25 15:56:35 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/25 16:20:05 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,26 +69,26 @@ int	check_floor_color(int fd, t_map *map)
 
 int	check_ceiling_color(int fd, t_map *map)
 {
-    char	*line;
-    char	**tmp;
+	char	*line;
+	char	**tmp;
 
 	skip_empty_lines(fd, map, 'c');
-    line = map->ceiling_color;
-    if (line[0] != 'C' || !ft_iswhitespace(line[1]))
-        return (0);
-    tmp = ft_split_whitespaces(line);
-    if (ft_tablen(tmp) != 2)
-        return (0);
-    map->ceiling_color = ft_strdup(tmp[1]);
-    free(tmp[0]);
-    free(tmp[1]);
-    free(tmp);
-    free(line);
+	line = map->ceiling_color;
+	if (line[0] != 'C' || !ft_iswhitespace(line[1]))
+		return (0);
+	tmp = ft_split_whitespaces(line);
+	if (ft_tablen(tmp) != 2)
+		return (0);
+	map->ceiling_color = ft_strdup(tmp[1]);
+	free(tmp[0]);
+	free(tmp[1]);
+	free(tmp);
+	free(line);
 	if (!fill_color(&map->ceiling, map->ceiling_color))
 		return (0);
 	if (map->ceiling.red < 0 || map->ceiling.red > 255
 		|| map->ceiling.green < 0 || map->ceiling.green > 255
 		|| map->ceiling.blue < 0 || map->ceiling.blue > 255)
 		return (0);
-    return (1);
+	return (1);
 }

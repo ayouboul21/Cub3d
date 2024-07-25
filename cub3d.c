@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:40:05 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/25 15:45:32 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/25 16:22:13 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void    leaks(void)
+void	leaks(void)
 {
-    system("leaks cub3d");
+	system("leaks cub3d");
 }
 
 int	main(int ac, char *av[])

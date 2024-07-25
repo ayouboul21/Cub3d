@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/25 15:52:21 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/25 16:21:41 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <stdio.h>
 # include <math.h>
 # include "libft/libft.h"
-# include "MLX42/MLX42.h"
+# include ".MLX42/MLX42.h"
 
 typedef struct s_color
 {
@@ -39,8 +39,8 @@ typedef struct s_map
 	char	*east;
 	char	**map;
 	char	*sprite;
-    char	*floor_color;
-    char	*ceiling_color;
+	char	*floor_color;
+	char	*ceiling_color;
 	t_color	floor;
 	t_color	ceiling;
 }				t_map;
