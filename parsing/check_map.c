@@ -6,7 +6,7 @@
 /*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 16:26:45 by hel-magh          #+#    #+#             */
-/*   Updated: 2024/07/26 16:40:22 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/07/26 19:57:17 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,13 @@ int spliter(char*str)
 	return (1);
 }
 int chek_zero(t_map *map)
-{
+{	
+	if(ft_strlen(map->map[map->i + 1]) < (size_t) map->j 
+		|| ft_strlen(map->map[map->i - 1]) < (size_t) map->j)
+	{
+		ft_putstr_fd("Error too short\n", 2);
+		return (0);
+	}
 	if(ft_iswhitespace(map->map[map->i + 1][map->j]) 
 		|| ft_iswhitespace(map->map[map->i - 1][map->j]))
 	{
