@@ -6,7 +6,7 @@
 /*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 16:26:45 by hel-magh          #+#    #+#             */
-/*   Updated: 2024/07/26 10:58:05 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/07/26 15:31:31 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	printer(t_map *map)
 		printf("%s", map->map[i]);
 		i++;
 	}
+	printf("\nplayer x : %d player y : %d\n", map->player.x, map->player.y);
 }
 
 void	free_tab(char ***args)
@@ -95,25 +96,97 @@ int	first_line_last(t_map *map)
 	}
 	return (1);
 }
+int spliter(char*str)
+{
+	char **tab;
+	int i;
+	
+	i = 0;
+	tab = ft_split_whitespaces(str);
+	while(tab[i])
+	{
+		
+		if(tab[i][0] != '1' ||  tab[i][ft_strlen(tab[i]) - 1] != '1')
+		{
+			ft_putstr_fd("Error 1 on efirts and last\n", 2);
+			return (0);
+		}
+		i++;
+	}
+	free_tab(&tab);
+	return (1);
+}
+int chek_zero(t_map *map)
+{
+	if(ft_iswhitespace(map->map[map->i + 1][map->j]) 
+		|| ft_iswhitespace(map->map[map->i - 1][map->j]))
+	{
+		ft_putstr_fd("Error 0\n", 2);
+		return (0);
+	}
+	return (1);
+}
+int check_line_map(t_map *map)
+{
+	if(!spliter(map->map[map->i]))
+			return (0);
+	while (map->map[map->i][map->j] == ' ' || map->map[map->i][map->j] == '\t')
+			map->j++;
+	if (map->map[map->i][map->j] != '1')
+	{
+		ft_putstr_fd("Error middle\n", 2);
+		return (0);
+	}
+	return (1);
+}
+int check_middle(t_map *map)
+{
+	if(map->i != 0 && map->i != map->rows - 1)
+	{
+		while (map->map[map->i][map->j])
+		{
+			if (map->map[map->i][map->j] != '1' && map->map[map->i][map->j] != '0'
+				&& map->map[map->i][map->j] != 'N' && (!ft_iswhitespace(map->map[map->i][map->j])))
+			{
+				ft_putstr_fd("Error middle\n", 2);
+				return (0);
+			}
+			if(map->map[map->i][map->j] == 'N')
+			{
+				map->player.x = map->j;
+				map->player.y = map->i;
+				map->p++;
+			}
+			if(map->map[map->i][map->j] == '0' && !chek_zero(map))
+				return(0);
+			map->j++;
+		}
+	}
+	return (1);
+}
 
 int	map_validation(t_map *map)
 {
 	map->i = 0;
+	map->p = 0;
 	while (map->i < map->rows)
 	{
 		map->j = 0;
-		if (!first_line_last(map))
+		if (!first_line_last(map) || !check_middle(map))
 			return (0);
 		map->i++;
+	}
+	if(map->p != 1)
+	{
+		ft_putstr_fd("Error player\n", 2);
+		return (0);
 	}
 	return(1);
 }
 int	check_map(int fd, t_map *map)
 {
 	char	*line;
-	int		i;
 
-	i = 0;
 	line = skip_empty_lines(fd, map);
 	while (1)
 	{

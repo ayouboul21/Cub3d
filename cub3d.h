@@ -6,7 +6,7 @@
 /*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/26 09:51:47 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/07/26 15:26:53 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,21 @@ typedef struct s_color
 	int	green;
 }		t_color;
 
+typedef struct s_player
+{
+	int	x;
+	int	y;
+	int	dir;
+}		t_player;
+
+
 typedef struct s_map
 {
 	int		rows;
 	int		cols;
 	int		i;
 	int		j;
+	int 	p;
 	char	*north;
 	char	*south;
 	char	*west;
@@ -45,6 +54,7 @@ typedef struct s_map
 	char	*ceiling_color;
 	t_color	floor;
 	t_color	ceiling;
+	t_player	player;
 }				t_map;
 
 int		parse(char *file, t_map *map);
