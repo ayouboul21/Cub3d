@@ -6,7 +6,7 @@
 /*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 16:26:45 by hel-magh          #+#    #+#             */
-/*   Updated: 2024/07/26 10:08:09 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/07/26 10:58:05 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,15 +75,17 @@ void	add_last(char ***map, char *data)
 	*map = new;
 }
 
-int	first_line(t_map *map)
+int	first_line_last(t_map *map)
 {
-	if (map->i == 0)
+	if (map->i == 0 || map->i == map->rows - 1)
 	{
-		while(map->map[map->i][map->j] == ' ' || map->map[map->i][map->j] == '\t')
+		while (map->map[map->i][map->j] == ' '
+			|| map->map[map->i][map->j] == '\t')
 			map->j++;
-		while(map->map[map->i][map->j])
+		while (map->map[map->i][map->j])
 		{
-			if(map->map[map->i][map->j] != '1' && (!ft_iswhitespace(map->map[map->i][map->j])))
+			if (map->map[map->i][map->j] != '1'
+				&& (!ft_iswhitespace(map->map[map->i][map->j])))
 			{
 				ft_putstr_fd("Error first line\n", 2);
 				return (0);
@@ -93,15 +95,15 @@ int	first_line(t_map *map)
 	}
 	return (1);
 }
-int map_validation(t_map *map)
+
+int	map_validation(t_map *map)
 {
 	map->i = 0;
 	while (map->i < map->rows)
 	{
 		map->j = 0;
-		if (!first_line(map))
+		if (!first_line_last(map))
 			return (0);
-		
 		map->i++;
 	}
 	return(1);
