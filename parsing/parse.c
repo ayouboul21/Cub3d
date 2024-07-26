@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 10:55:51 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/25 18:25:03 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/26 09:07:50 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	fill_map(int fd, t_map *map)
 	char	*line;
 
 	(1) && (i = 0, ret = 1);
-	line = get_next_line(fd);
-	while (line)
+	while (1)
 	{
+		line = skip_empty_lines(fd, map);
 		if (line[0] == 'N' && line[1] == 'O')
 			ret = check_north(line, map);
 		else if (line[0] == 'S' && line[1] == 'O')
@@ -34,9 +34,9 @@ void	fill_map(int fd, t_map *map)
 			ret = check_floor_color(line, map);
 		else if (line[0] == 'C' && line[1] == ' ')
 			ret = check_ceiling_color(line, map);
-		if (i == 6 || ret == 0)
+		if (i == 5 || ret == 0)
 			break ;
-		(1) && (free(line), line = get_next_line(fd), i++);
+		(1) && (free(line), i++);
 	}
 	(line) && (free(line), line = NULL);
 }

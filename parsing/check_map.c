@@ -3,14 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 16:26:45 by hel-magh          #+#    #+#             */
-/*   Updated: 2024/07/25 18:22:37 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/26 09:07:18 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+void	printer(t_map *map)
+{
+	int	i;
+
+	i = 0;
+	printf("NO :%s\n", map->north);
+	printf("SO :%s\n", map->south);
+	printf("WE :%s\n", map->west);
+	printf("EA :%s\n", map->east);
+	printf("FLOOR :%s\n", map->floor_color);
+	printf("CEILING :%s\n", map->ceiling_color);
+	printf("MAP :\n");
+	while (map->map[i])
+	{
+		printf("%s", map->map[i]);
+		i++;
+	}
+}
 
 void	free_tab(char ***args)
 {
@@ -59,24 +78,23 @@ void	add_last(char ***map, char *data)
 int	check_map(int fd, t_map *map)
 {
 	char	*line;
-	// char	**map_tab;
 	int		i;
 
 	i = 0;
-	// map_tab = NULL;
-	skip_empty_lines(fd, map, 'm');
+	line = skip_empty_lines(fd, map);
 	while (1)
 	{
-		line = get_next_line(fd);
 		if (!line)
 			break ;
+		if (check_line(line))
+		{
+			free(line);
+			return (0);
+		}
 		add_last(&map->map, line);
 		free(line);
+		line = get_next_line(fd);
 	}
-	while (map->map[i])
-	{
-		printf("%s", map->map[i]);
-		i++;
-	}
+	printer(map);
 	return (1);
 }

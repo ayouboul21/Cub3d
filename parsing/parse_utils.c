@@ -6,7 +6,7 @@
 /*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:14:34 by hel-magh          #+#    #+#             */
-/*   Updated: 2024/07/25 16:46:56 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/07/26 09:07:36 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,26 +64,16 @@ int	check_line(char *line)
 	return (1);
 }
 
-void	skip_empty_lines(int fd, t_map *map, char mode)
+char	*skip_empty_lines(int fd, t_map *map)
 {
 	char	*line;
 
+	(void)map;
 	line = get_next_line(fd);
 	while (line && check_line(line))
 	{
 		free(line);
 		line = get_next_line(fd);
 	}
-	if (line)
-	{
-		(mode == 's') && (map->south = ft_strdup(line));
-		(mode == 'n') && (map->north = ft_strdup(line));
-		(mode == 'w') && (map->west = ft_strdup(line));
-		(mode == 'e') && (map->east = ft_strdup(line));
-		(mode == 'f') && (map->floor_color = ft_strdup(line));
-		(mode == 'c') && (map->ceiling_color = ft_strdup(line));
-		if (mode == 'm')
-			add_last(&map->map, line);
-		free(line);
-	}
+	return (line);
 }

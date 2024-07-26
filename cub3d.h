@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/25 18:16:49 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/26 09:08:07 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,13 @@ int		check_east(char *line, t_map *map);
 int		check_ceiling_color(char *line, t_map *map);
 int		check_floor_color(char *line, t_map *map);
 char	**ft_split_whitespaces(char *str);
-void	skip_empty_lines(int fd, t_map *map, char mode);
+char	*skip_empty_lines(int fd, t_map *map);
 int		check_map(int fd, t_map *map);
+int		check_line(char *line);
 void	add_last(char ***map, char *data);
 void	free_tab(char ***args);
+
+//printer
+void	printer(t_map *map);
 
 #endif
