@@ -6,7 +6,7 @@
 /*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 16:26:45 by hel-magh          #+#    #+#             */
-/*   Updated: 2024/07/26 15:31:31 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/07/26 15:33:27 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,8 @@ int check_middle(t_map *map)
 {
 	if(map->i != 0 && map->i != map->rows - 1)
 	{
+		if(!check_line_map(map))
+			return (0);
 		while (map->map[map->i][map->j])
 		{
 			if (map->map[map->i][map->j] != '1' && map->map[map->i][map->j] != '0'
