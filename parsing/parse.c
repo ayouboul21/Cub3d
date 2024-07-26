@@ -3,14 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 10:55:51 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/26 09:07:50 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/07/26 15:57:20 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+int	check_color(t_map *map)
+{
+	if (map->ceiling.red < 0 || map->ceiling.red > 255
+		|| map->ceiling.green < 0 || map->ceiling.green > 255
+		|| map->ceiling.blue < 0 || map->ceiling.blue > 255)
+	{
+		ft_putstr_fd("Error\nInvalid ceiling color\n", 2);
+		return (0);
+	}
+	if (map->floor.red < 0 || map->floor.red > 255
+		|| map->floor.green < 0 || map->floor.green > 255
+		|| map->floor.blue < 0 || map->floor.blue > 255)
+	{
+		ft_putstr_fd("Error\nInvalid floor color\n", 2);
+		return (0);
+	}
+	return (1);
+}
 
 void	fill_map(int fd, t_map *map)
 {
@@ -22,13 +41,13 @@ void	fill_map(int fd, t_map *map)
 	while (1)
 	{
 		line = skip_empty_lines(fd, map);
-		if (line[0] == 'N' && line[1] == 'O')
+		if (line[0] == 'N' && line[1] == 'O' && line[2] == ' ')
 			ret = check_north(line, map);
-		else if (line[0] == 'S' && line[1] == 'O')
+		else if (line[0] == 'S' && line[1] == 'O' && line[2] == ' ')
 			ret = check_south(line, map);
-		else if (line[0] == 'W' && line[1] == 'E')
+		else if (line[0] == 'W' && line[1] == 'E' && line[2] == ' ')
 			ret = check_west(line, map);
-		else if (line[0] == 'E' && line[1] == 'A')
+		else if (line[0] == 'E' && line[1] == 'A' && line[2] == ' ')
 			ret = check_east(line, map);
 		else if (line[0] == 'F' && line[1] == ' ')
 			ret = check_floor_color(line, map);
@@ -47,14 +66,25 @@ int	parse(char *file, t_map *map)
 
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
+	{
+		ft_putstr_fd("Error\nFile not found\n", 2);
 		return (-1);
+	}
 	fill_map(fd, map);
 	if (map->north == NULL || map->south == NULL || map->west == NULL
 		|| map->east == NULL || map->floor_color == NULL
 		|| map->ceiling_color == NULL)
+	{
+		ft_putstr_fd("Error\nMissing information\n", 2);
+		return (-1);
+	}
+	if (!check_color(map))
 		return (-1);
 	if (!check_map(fd, map))
+	{
+		ft_putstr_fd("Error\nInvalid map\n", 2);
 		return (-1);
+	}
 	close(fd);
 	return (0);
 }

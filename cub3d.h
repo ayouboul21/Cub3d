@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/26 15:26:53 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/07/26 15:43:36 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int		check_map(int fd, t_map *map);
 int		check_line(char *line);
 void	add_last(char ***map, char *data);
 void	free_tab(char ***args);
+void	ft_exit(t_map map, int status);
 
 //printer
 void	printer(t_map *map);

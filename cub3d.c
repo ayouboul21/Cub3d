@@ -3,14 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:40:05 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/26 09:05:59 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/07/26 15:43:09 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	ft_exit(t_map map, int status)
+{
+	if (map.north)
+		free(map.north);
+	if (map.south)
+		free(map.south);
+	if (map.west)
+		free(map.west);
+	if (map.east)
+		free(map.east);
+	if (map.floor_color)
+		free(map.floor_color);
+	if (map.ceiling_color)
+		free(map.ceiling_color);
+	if (map.map)
+		free_tab(&map.map);
+	exit(status);
+}
 
 void	leaks(void)
 {
@@ -25,18 +44,15 @@ int	main(int ac, char *av[])
 	ft_bzero(&map, sizeof(t_map));
 	if (ac != 2)
 	{
-		write(2, "Error invalid number of arguments\n", 35);
-		exit(1);
+		ft_putstr_fd("Error\nInvalid number of arguments\n", 2);
+		ft_exit(map, 1);
 	}
 	if (ft_strncmp(av[1] + ft_strlen(av[1]) - 4, ".cub", 4) != 0)
 	{
-		write(2, "Error invalid file extension\n", 30);
-		exit(1);
+		ft_putstr_fd("Error\nInvalid file extension\n", 2);
+		ft_exit(map, 1);
 	}
 	if (parse(av[1], &map) == -1)
-	{
-		write(2, "Error invalid file\n", 19);
-		exit(1);
-	}
-    exit(0);
+		ft_exit(map, 1);
+    ft_exit(map, 0);
 }
