@@ -6,7 +6,7 @@
 /*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 16:26:45 by hel-magh          #+#    #+#             */
-/*   Updated: 2024/07/26 15:33:27 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/07/26 16:40:22 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int spliter(char*str)
 		
 		if(tab[i][0] != '1' ||  tab[i][ft_strlen(tab[i]) - 1] != '1')
 		{
-			ft_putstr_fd("Error 1 on efirts and last\n", 2);
+			ft_putstr_fd("Error 1 on first and last\n", 2);
 			return (0);
 		}
 		i++;
@@ -121,7 +121,7 @@ int chek_zero(t_map *map)
 	if(ft_iswhitespace(map->map[map->i + 1][map->j]) 
 		|| ft_iswhitespace(map->map[map->i - 1][map->j]))
 	{
-		ft_putstr_fd("Error 0\n", 2);
+		ft_putstr_fd("Error space middle\n", 2);
 		return (0);
 	}
 	return (1);
@@ -159,7 +159,8 @@ int check_middle(t_map *map)
 				map->player.y = map->i;
 				map->p++;
 			}
-			if(map->map[map->i][map->j] == '0' && !chek_zero(map))
+			if((map->map[map->i][map->j] == '0'
+				|| map->map[map->i][map->j] == 'N') && !chek_zero(map))
 				return(0);
 			map->j++;
 		}
