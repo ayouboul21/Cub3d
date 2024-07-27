@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/27 09:10:30 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/07/27 16:18:24 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,24 +36,23 @@ typedef struct s_player
 	int		dir;
 }		t_player;
 
-
 typedef struct s_map
 {
-	int		rows;
-	int		cols;
-	int		i;
-	int		j;
-	int 	p;
-	char	*north;
-	char	*south;
-	char	*west;
-	char	*east;
-	char	**map;
-	char	*sprite;
-	char	*floor_color;
-	char	*ceiling_color;
-	t_color	floor;
-	t_color	ceiling;
+	int			rows;
+	int			cols;
+	int			i;
+	int			j;
+	int			p;
+	char		*north;
+	char		*south;
+	char		*west;
+	char		*east;
+	char		**map;
+	char		*sprite;
+	char		*floor_color;
+	char		*ceiling_color;
+	t_color		floor;
+	t_color		ceiling;
 	t_player	player;
 }				t_map;
 

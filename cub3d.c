@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:40:05 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/26 15:43:09 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/27 16:18:05 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,8 @@ void	ft_exit(t_map map, int status)
 	exit(status);
 }
 
-void	leaks(void)
-{
-	system("leaks cub3d");
-}
-
 int	main(int ac, char *av[])
 {
-    // atexit(leaks);
 	t_map	map;
 
 	ft_bzero(&map, sizeof(t_map));
@@ -54,5 +48,5 @@ int	main(int ac, char *av[])
 	}
 	if (parse(av[1], &map) == -1)
 		ft_exit(map, 1);
-    ft_exit(map, 0);
+	ft_exit(map, 0);
 }
