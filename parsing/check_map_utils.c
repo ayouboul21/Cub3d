@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 09:01:36 by hel-magh          #+#    #+#             */
-/*   Updated: 2024/07/27 16:21:50 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/27 16:43:12 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	first_line_last(t_map *map)
 			if (map->map[map->i][map->j] != '1'
 					&& (!ft_iswhitespace(map->map[map->i][map->j])))
 			{
-				ft_putstr_fd("Error first line\n", 2);
+				ft_putstr_fd("Error\nFirst or last line has holes in it\n", 2);
 				return (0);
 			}
 			map->j++;
@@ -102,13 +102,13 @@ int	chek_zero(t_map *map)
 	if (ft_strlen(map->map[map->i + 1]) <= (size_t) map->j
 		|| ft_strlen(map->map[map->i - 1]) <= (size_t) map->j)
 	{
-		ft_putstr_fd("Error too short\n", 2);
+		ft_putstr_fd("Error\nEmpty space isnt surrounded by walls\n", 2);
 		return (0);
 	}
 	if (ft_iswhitespace(map->map[map->i + 1][map->j])
 			|| ft_iswhitespace(map->map[map->i - 1][map->j]))
 	{
-		ft_putstr_fd("Error space middle\n", 2);
+		ft_putstr_fd("Error\nEmpty space isnt surrounded by walls\n", 2);
 		return (0);
 	}
 	return (1);

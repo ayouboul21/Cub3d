@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 16:26:45 by hel-magh          #+#    #+#             */
-/*   Updated: 2024/07/27 16:31:23 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/27 16:38:15 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ int	check_map(int fd, t_map *map)
 			break ;
 		if (check_line(line))
 		{
+			printf("Error\nEmpty line in map\n");
 			free(line);
 			return (0);
 		}
