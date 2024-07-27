@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/26 15:43:36 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/27 09:10:30 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ typedef struct s_color
 
 typedef struct s_player
 {
-	int	x;
-	int	y;
-	int	dir;
+	int		x;
+	int		y;
+	int		dir;
 }		t_player;
 
 
@@ -72,6 +72,9 @@ int		check_line(char *line);
 void	add_last(char ***map, char *data);
 void	free_tab(char ***args);
 void	ft_exit(t_map map, int status);
+int		first_line_last(t_map *map);
+int		spliter(char*str);
+int		chek_zero(t_map *map);
 
 //printer
 void	printer(t_map *map);
