@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:34:02 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/25 18:18:27 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/29 10:53:09 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	fill_color(t_color *color, char *rgb)
 	i = 0;
 	while (ft_isdigit(rgb[i]))
 		i++;
-	if (rgb[i] != ',')
+	if (i == 0 || rgb[i] != ',')
 		return (0);
 	i++;
 	color->red = ft_atoi(rgb);
@@ -27,7 +27,7 @@ int	fill_color(t_color *color, char *rgb)
 	i = 0;
 	while (ft_isdigit(rgb[i]))
 		i++;
-	if (rgb[i] != ',')
+	if (i == 0 || rgb[i] != ',')
 		return (0);
 	i++;
 	color->green = ft_atoi(rgb);
@@ -35,7 +35,7 @@ int	fill_color(t_color *color, char *rgb)
 	i = 0;
 	while (ft_isdigit(rgb[i]))
 		i++;
-	if (rgb[i] != '\0')
+	if (i == 0 || rgb[i] != '\0')
 		return (0);
 	color->blue = ft_atoi(rgb + i);
 	return (1);

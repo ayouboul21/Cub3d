@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 10:55:51 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/27 19:55:12 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/29 10:39:21 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,22 @@ int	check_color(t_map *map, int fd)
 	return (1);
 }
 
+void	parse_line(char *line, t_map *map, int *ret)
+{
+	if (line[0] == 'N' && line[1] == 'O' && line[2] == ' ')
+		*ret = check_north(line, map);
+	else if (line[0] == 'S' && line[1] == 'O' && line[2] == ' ')
+		*ret = check_south(line, map);
+	else if (line[0] == 'W' && line[1] == 'E' && line[2] == ' ')
+		*ret = check_west(line, map);
+	else if (line[0] == 'E' && line[1] == 'A' && line[2] == ' ')
+		*ret = check_east(line, map);
+	else if (line[0] == 'F' && line[1] == ' ')
+		*ret = check_floor_color(line, map);
+	else if (line[0] == 'C' && line[1] == ' ')
+		*ret = check_ceiling_color(line, map);
+}
+
 void	fill_map(int fd, t_map *map)
 {
 	int		i;
@@ -43,18 +59,9 @@ void	fill_map(int fd, t_map *map)
 	while (1)
 	{
 		line = skip_empty_lines(fd, map);
-		if (line[0] == 'N' && line[1] == 'O' && line[2] == ' ')
-			ret = check_north(line, map);
-		else if (line[0] == 'S' && line[1] == 'O' && line[2] == ' ')
-			ret = check_south(line, map);
-		else if (line[0] == 'W' && line[1] == 'E' && line[2] == ' ')
-			ret = check_west(line, map);
-		else if (line[0] == 'E' && line[1] == 'A' && line[2] == ' ')
-			ret = check_east(line, map);
-		else if (line[0] == 'F' && line[1] == ' ')
-			ret = check_floor_color(line, map);
-		else if (line[0] == 'C' && line[1] == ' ')
-			ret = check_ceiling_color(line, map);
+		if (!line)
+			break ;
+		parse_line(line, map, &ret);
 		if (i == 5 || ret == 0)
 			break ;
 		(1) && (free(line), i++);
