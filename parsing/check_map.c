@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 16:26:45 by hel-magh          #+#    #+#             */
-/*   Updated: 2024/07/29 15:49:09 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/29 16:24:49 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ void	printer(t_map *map)
 	printf("WE :%s\n", map->west);
 	printf("EA :%s\n", map->east);
 	printf("FLOOR :%s\n", map->floor_color);
-	printf("CEILING :%s\n", map->ceiling_color);
+	printf("CEILING :%s", map->ceiling_color);
 	printf("MAP :\n");
 	while (map->map[i])
 	{
-		printf("%s", map->map[i]);
+		printf("%s\n", map->map[i]);
 		i++;
 	}
-	printf("\nplayer x : %d player y : %d\n", map->player.x, map->player.y);
+	printf("player x : %d player y : %d\n", map->player.x, map->player.y);
 }
 
 int	check_line_map(t_map *map)
@@ -118,6 +118,31 @@ int	map_validation(t_map *map)
 	return (1);
 }
 
+void	ft_remap(t_map *map)
+{
+	char **new_map;
+	map->i = 0;
+	map->j = 0;
+	new_map = (char **)ft_malloc(sizeof(char *) * (map->rows + 1));
+	while (map->map[map->i])
+	{
+		map->j =0;
+		new_map[map->i] = ft_malloc(sizeof(char) * (map->cols + 1));
+		ft_memset(new_map[map->i], ' ', map->cols);
+		new_map[map->i][map->cols] = '\0';
+		while(map->map[map->i][map->j] && map->map[map->i][map->j] != '\n')
+		{
+			new_map[map->i][map->j] = map->map[map->i][map->j];
+			map->j++;
+		}
+		free(map->map[map->i]);
+		
+		map->i++;
+	}
+	new_map[map->rows] = NULL;
+	free(map->map);
+	map->map = new_map;
+}
 int	check_map(int fd, t_map *map)
 {
 	char	*line;
@@ -146,6 +171,7 @@ int	check_map(int fd, t_map *map)
 		close(fd);
 		return (0);
 	}
+	ft_remap(map);
 	printer(map);
 	return (1);
 }
