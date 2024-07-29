@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 16:45:21 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/29 16:45:10 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/29 17:07:33 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,17 @@ void	color(mlx_image_t *img, uint32_t color, t_map *map)
 {
 	uint32_t	i;
 	uint32_t	j;
+	uint32_t	offset_x;
+	uint32_t	offset_y;
 
-	i = 0;
-	while (i < img->height / map->rows * map->i)
+	offset_x = (img->width / map->cols) * map->j;
+	offset_y = (img->height / map->rows) * map->i;
+	// printf("offset_x = %d, offset_y = %d\n", offset_x, offset_y);
+	i = offset_x;
+	while (i < offset_x + img->width / map->cols)
 	{
-		j = 0;
-		while (j < img->width / map->cols * map->j)
+		j = offset_y;
+		while (j < offset_y + img->height / map->rows)
 		{
 			mlx_put_pixel(img, j, i, color);
 			j++;
