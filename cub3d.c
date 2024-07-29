@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:40:05 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/29 09:40:08 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/29 11:16:27 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,6 @@ int	main(int ac, char *av[])
 	}
 	if (parse(av[1], &map) == -1)
 		ft_exit(map, 1);
+	render_map(&map);
 	ft_exit(map, 0);
 }

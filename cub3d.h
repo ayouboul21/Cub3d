@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/27 16:18:24 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/29 14:20:29 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,25 @@ typedef struct s_player
 	int		dir;
 }		t_player;
 
+
+typedef struct s_mlx
+{
+	int			width;
+	int			height;
+	mlx_t		*mlx;
+	mlx_image_t	*wall_img;
+	mlx_image_t	*ground_img;
+	mlx_image_t	*player_img;
+}				t_mlx;
+
+typedef struct s_ray
+{
+	double		angle;
+	double		x;
+	double		y;
+	double		distance;
+}				t_ray;
+
 typedef struct s_map
 {
 	int			rows;
@@ -51,6 +70,7 @@ typedef struct s_map
 	char		*sprite;
 	char		*floor_color;
 	char		*ceiling_color;
+	t_mlx		mlx;
 	t_color		floor;
 	t_color		ceiling;
 	t_player	player;
@@ -74,6 +94,7 @@ void	ft_exit(t_map map, int status);
 int		first_line_last(t_map *map);
 int		spliter(char*str);
 int		chek_zero(t_map *map);
+void	render_map(t_map *map);
 
 //printer
 void	printer(t_map *map);

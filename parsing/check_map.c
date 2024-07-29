@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 16:26:45 by hel-magh          #+#    #+#             */
-/*   Updated: 2024/07/27 19:56:36 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/29 15:49:09 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,8 @@ int	check_map(int fd, t_map *map)
 			close(fd);
 			return (0);
 		}
+		if (map->cols < (int)ft_strlen(line) - 1)
+			map->cols = ft_strlen(line) - 1;
 		map->rows++;
 		add_last(&map->map, line);
 		free(line);
