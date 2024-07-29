@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 16:45:21 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/29 17:57:04 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/29 18:00:12 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,17 +92,17 @@ void	render_frame(t_map *map)
 			if (map->map[i][j] == '1')
 			{
 				(1) && (map->i = i, map->j = j);
-				color(map->mlx.img, ft_pixel(0, 0, 0, 255), map);
+				color(map->mlx.img, ft_pixel(0, 0, 0, 127), map);
 			}
 			else if (map->map[i][j] == '0' || map->map[i][j] == ' ')
 			{
 				(1) && (map->i = i, map->j = j);
-				color(map->mlx.img, ft_pixel(255, 255, 255, 255), map);
+				color(map->mlx.img, ft_pixel(255, 255, 255, 127), map);
 			}
 			else
 			{
 				(1) && (map->i = i, map->j = j);
-				color(map->mlx.img, ft_pixel(0, 255, 255, 255), map);
+				color(map->mlx.img, ft_pixel(255, 0, 0, 255), map);
 			}
 			j++;
 		}
