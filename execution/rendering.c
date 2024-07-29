@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 16:45:21 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/29 17:07:33 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/29 17:57:04 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	color(mlx_image_t *img, uint32_t color, t_map *map)
 
 	offset_x = (img->width / map->cols) * map->j;
 	offset_y = (img->height / map->rows) * map->i;
-	// printf("offset_x = %d, offset_y = %d\n", offset_x, offset_y);
 	i = offset_x;
 	while (i < offset_x + img->width / map->cols)
 	{
@@ -40,23 +39,23 @@ void	color(mlx_image_t *img, uint32_t color, t_map *map)
 	}
 }
 
-void	color_player(mlx_image_t *img, uint32_t color)
+void	color_player(mlx_image_t *img, uint32_t color, t_map *map)
 {
 	uint32_t	i;
 	uint32_t	j;
-	uint32_t	player_color;
+	uint32_t	offset_x;
+	uint32_t	offset_y;
 
-	i = 0;
-	player_color = ft_pixel(0, 0, 255, 0);
-	while (i < img->height)
+	(void)color;
+	offset_x = (img->width / map->cols) * map->j;
+	offset_y = (img->height / map->rows) * map->i;
+	i = offset_x;
+	while (i < offset_x + img->width / map->cols)
 	{
-		j = 0;
-		while (j < img->width)
+		j = offset_y;
+		while (j < offset_y + img->height / map->rows)
 		{
-			if (i >= img->height / 2 && j >= img->width / 4 && j <= img->width * 3 / 4)
-				mlx_put_pixel(img, j, i, player_color);
-			else
-				mlx_put_pixel(img, j, i, color);
+			mlx_put_pixel(img, j, i, ft_pixel(0, 0, 255, 255));
 			j++;
 		}
 		i++;
@@ -93,12 +92,17 @@ void	render_frame(t_map *map)
 			if (map->map[i][j] == '1')
 			{
 				(1) && (map->i = i, map->j = j);
-				color(map->mlx.img, ft_pixel(255, 255, 255, 255), map);
+				color(map->mlx.img, ft_pixel(0, 0, 0, 255), map);
 			}
 			else if (map->map[i][j] == '0' || map->map[i][j] == ' ')
 			{
 				(1) && (map->i = i, map->j = j);
-				color(map->mlx.img, ft_pixel(0, 0, 0, 0), map);
+				color(map->mlx.img, ft_pixel(255, 255, 255, 255), map);
+			}
+			else
+			{
+				(1) && (map->i = i, map->j = j);
+				color(map->mlx.img, ft_pixel(0, 255, 255, 255), map);
 			}
 			j++;
 		}
