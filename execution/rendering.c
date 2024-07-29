@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 16:45:21 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/29 18:00:12 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/29 18:06:23 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	color(mlx_image_t *img, uint32_t color, t_map *map)
 		j = offset_y;
 		while (j < offset_y + img->height / map->rows)
 		{
-			mlx_put_pixel(img, j, i, color);
+			mlx_put_pixel(img, i, j, color);
 			j++;
 		}
 		i++;
@@ -55,7 +55,7 @@ void	color_player(mlx_image_t *img, uint32_t color, t_map *map)
 		j = offset_y;
 		while (j < offset_y + img->height / map->rows)
 		{
-			mlx_put_pixel(img, j, i, ft_pixel(0, 0, 255, 255));
+			mlx_put_pixel(img, i, j, ft_pixel(0, 0, 255, 255));
 			j++;
 		}
 		i++;
@@ -65,8 +65,8 @@ void	color_player(mlx_image_t *img, uint32_t color, t_map *map)
 void	init_mlx(t_mlx *mlx)
 {
 	mlx->width = 800;
-	mlx->height = 800;
-	mlx->mlx = mlx_init(mlx->width, mlx->height, "cub3d", true);
+	mlx->height = 600;
+	mlx->mlx = mlx_init(mlx->width, mlx->height, "cub3d", false);
 	mlx->img = mlx_new_image(mlx->mlx, mlx->width, mlx->height);
 }
 
