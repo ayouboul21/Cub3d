@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/29 14:20:29 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/29 16:36:01 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,7 @@ typedef struct s_mlx
 	int			width;
 	int			height;
 	mlx_t		*mlx;
-	mlx_image_t	*wall_img;
-	mlx_image_t	*ground_img;
-	mlx_image_t	*player_img;
+	mlx_image_t	*img;
 }				t_mlx;
 
 typedef struct s_ray
