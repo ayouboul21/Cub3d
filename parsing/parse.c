@@ -6,19 +6,20 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 10:55:51 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/27 14:26:23 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/27 19:55:12 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	check_color(t_map *map)
+int	check_color(t_map *map, int fd)
 {
 	if (map->ceiling.red < 0 || map->ceiling.red > 255
 		|| map->ceiling.green < 0 || map->ceiling.green > 255
 		|| map->ceiling.blue < 0 || map->ceiling.blue > 255)
 	{
 		ft_putstr_fd("Error\nInvalid ceiling color\n", 2);
+		close(fd);
 		return (0);
 	}
 	if (map->floor.red < 0 || map->floor.red > 255
@@ -26,6 +27,7 @@ int	check_color(t_map *map)
 		|| map->floor.blue < 0 || map->floor.blue > 255)
 	{
 		ft_putstr_fd("Error\nInvalid floor color\n", 2);
+		close(fd);
 		return (0);
 	}
 	return (1);
@@ -75,10 +77,11 @@ int	parse(char *file, t_map *map)
 		|| map->east == NULL || map->floor_color == NULL
 		|| map->ceiling_color == NULL)
 	{
+		close(fd);
 		ft_putstr_fd("Error\nMissing information\n", 2);
 		return (-1);
 	}
-	if (!check_color(map))
+	if (!check_color(map, fd))
 		return (-1);
 	if (!check_map(fd, map))
 		return (-1);
