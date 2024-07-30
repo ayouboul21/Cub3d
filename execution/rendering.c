@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 16:45:21 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/30 15:15:35 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/30 16:31:45 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,19 @@ uint32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
     return (r << 24 | g << 16 | b << 8 | a);
 }
 
-void	color(mlx_image_t *img, uint32_t color, t_map *map)
+int is_inside_triangle(int i, int j, int *v)
+{
+    float	alpha;
+	float	beta;
+	float	denominator;
+
+    denominator = (float)((v[3] - v[5]) * (v[0] - v[4]) + (v[4] - v[2]) * (v[1] - v[5]));
+    alpha = ((float)((v[3] - v[5]) * (i - v[4]) + (v[4] - v[2]) * (j - v[5]))) / denominator;
+    beta = ((float)((v[5] - v[1]) * (i - v[4]) + (v[0] - v[4]) * (j - v[5]))) / denominator;
+    return (alpha >= 0 && beta >= 0 && 1 - alpha - beta >= 0);
+}
+
+void	color(mlx_image_t *img, uint32_t color, t_map *map, int *vertices)
 {
 	uint32_t	i;
 	uint32_t	j;
@@ -32,7 +44,10 @@ void	color(mlx_image_t *img, uint32_t color, t_map *map)
 		j = offset_y;
 		while (j < offset_y + img->height / map->rows)
 		{
-			mlx_put_pixel(img, i, j, color);
+			if (is_inside_triangle(i, j, vertices) && map->map[map->i][map->j] != ' ')
+                mlx_put_pixel(img, i, j, ft_pixel(0, 127, 127, 255));
+			else
+				mlx_put_pixel(img, i, j, color);
 			j++;
 		}
 		i++;
@@ -60,43 +75,6 @@ void calculate_vertices(t_map *map, float half_width, float half_height, int *v)
 		* sin(angle) + (player.y + half_height - player.y) * cos(angle);
 }
 
-int is_inside_triangle(int i, int j, int *v)
-{
-    float	alpha;
-	float	beta;
-	float	denominator;
-
-    denominator = (float)((v[3] - v[5]) * (v[0] - v[4]) + (v[4] - v[2]) * (v[1] - v[5]));
-    alpha = ((float)((v[3] - v[5]) * (i - v[4]) + (v[4] - v[2]) * (j - v[5]))) / denominator;
-    beta = ((float)((v[5] - v[1]) * (i - v[4]) + (v[0] - v[4]) * (j - v[5]))) / denominator;
-    return (alpha >= 0 && beta >= 0 && 1 - alpha - beta >= 0);
-}
-
-void draw_triangle(mlx_image_t *img, int offset_x, int offset_y, t_map *map)
-{
-    int		i;
-	int		j;
-    float	half_width = map->cell_width / 2.0;
-	float	half_height = map->cell_height / 2.0;
-    int		vertices[6];
-
-	i = offset_x;
-    calculate_vertices(map, half_width, half_height, vertices);
-    while (i < offset_x + map->cell_width)
-    {
-        j = offset_y;
-        while (j < offset_y + map->cell_height)
-        {
-            if (is_inside_triangle(i, j, vertices))
-                mlx_put_pixel(img, i, j, ft_pixel(0, 0, 255, 127));
-            else
-                mlx_put_pixel(img, i, j, ft_pixel(255, 255, 255, 127));
-            j++;
-        }
-        i++;
-    }
-}
-
 void	init_mlx(t_mlx *mlx)
 {
 	mlx->width = 1200;
@@ -117,12 +95,16 @@ void ft_hook(void* param)
 		mlx_delete_image(map->mlx.mlx, map->mlx.img);
 		map->mlx.img = mlx_new_image(map->mlx.mlx, map->mlx.width, map->mlx.height);
 		map->player.angle -= 5;
+		if (map->player.angle < 0)
+			map->player.angle += 360;
 	}
 	else if (mlx_is_key_down(map->mlx.mlx, MLX_KEY_RIGHT))
 	{
 		mlx_delete_image(map->mlx.mlx, map->mlx.img);
 		map->mlx.img = mlx_new_image(map->mlx.mlx, map->mlx.width, map->mlx.height);
 		map->player.angle += 5;
+		if (map->player.angle >= 360)
+			map->player.angle -= 360;
 	}
 	render_frame(map);
 }
@@ -137,6 +119,7 @@ void	init_map(t_map *map)
 
 void	render_frame(t_map *map)
 {
+	int		vertices[6];
 	int32_t	i;
 	int32_t	j;
 
@@ -146,18 +129,18 @@ void	render_frame(t_map *map)
 		j = -1;
 		while (++j < map->cols)
 		{
+			(1) && (map->i = i, map->j = j);
 			if (map->map[i][j] == '1')
+				color(map->mlx.img, ft_pixel(0, 0, 0, 255), map, vertices);
+			else if (map->map[i][j] != ' ')
 			{
+				calculate_vertices(map, map->cell_width / 4,
+					map->cell_height / 4, vertices);
 				(1) && (map->i = i, map->j = j);
-				color(map->mlx.img, ft_pixel(0, 0, 0, 127), map);
-			}
-			else if (map->map[i][j] == '0' || map->map[i][j] == ' ')
-			{
-				(1) && (map->i = i, map->j = j);
-				color(map->mlx.img, ft_pixel(255, 255, 255, 127), map);
+				color(map->mlx.img, ft_pixel(255, 255, 255, 255), map, vertices);
 			}
 			else
-				draw_triangle(map->mlx.img, j * map->cell_width, i * map->cell_height, map);
+				color(map->mlx.img, ft_pixel(255, 255, 255, 255), map, vertices);
 		}
 	}
 	mlx_image_to_window(map->mlx.mlx, map->mlx.img, 0, 0);
