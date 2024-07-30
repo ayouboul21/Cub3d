@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 16:45:21 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/30 16:47:34 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/30 17:13:16 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,57 +85,93 @@ void	init_mlx(t_mlx *mlx)
 
 void ft_hook(void* param)
 {
-	t_map	*map;
+    t_map *map;
+    float new_x;
+    float new_y;
+    int cell_x;
+    int cell_y;
 
-	map = (t_map *)param;
-	if (mlx_is_key_down(map->mlx.mlx, MLX_KEY_ESCAPE))
-		return (mlx_close_window(map->mlx.mlx));
-	else if (mlx_is_key_down(map->mlx.mlx, MLX_KEY_LEFT))
-	{
+    map = (t_map *)param;
+    if (mlx_is_key_down(map->mlx.mlx, MLX_KEY_ESCAPE))
+        return (mlx_close_window(map->mlx.mlx));
+    else if (mlx_is_key_down(map->mlx.mlx, MLX_KEY_LEFT))
+    {
 		mlx_delete_image(map->mlx.mlx, map->mlx.img);
 		map->mlx.img = mlx_new_image(map->mlx.mlx, map->mlx.width, map->mlx.height);
-		map->player.angle -= 5;
-		if (map->player.angle < 0)
-			map->player.angle += 360;
-	}
-	else if (mlx_is_key_down(map->mlx.mlx, MLX_KEY_RIGHT))
-	{
+        map->player.angle -= 5;
+        if (map->player.angle < 0)
+            map->player.angle += 360;
+    }
+    else if (mlx_is_key_down(map->mlx.mlx, MLX_KEY_RIGHT))
+    {
 		mlx_delete_image(map->mlx.mlx, map->mlx.img);
 		map->mlx.img = mlx_new_image(map->mlx.mlx, map->mlx.width, map->mlx.height);
-		map->player.angle += 5;
-		if (map->player.angle >= 360)
-			map->player.angle -= 360;
-	}
-	else if (mlx_is_key_down(map->mlx.mlx, MLX_KEY_S))
-	{
+        map->player.angle += 5;
+        if (map->player.angle >= 360)
+            map->player.angle -= 360;
+    }
+    else if (mlx_is_key_down(map->mlx.mlx, MLX_KEY_S))
+    {
 		mlx_delete_image(map->mlx.mlx, map->mlx.img);
 		map->mlx.img = mlx_new_image(map->mlx.mlx, map->mlx.width, map->mlx.height);
-		map->player.x += 5 * cos((map->player.angle + 90) * M_PI / 180.0);
-		map->player.y += 5 * sin((map->player.angle + 90) * M_PI / 180.0);
-	}
-	else if (mlx_is_key_down(map->mlx.mlx, MLX_KEY_W))
-	{
+        new_x = map->player.x + 5 * cos((map->player.angle + 90) * M_PI / 180.0);
+        new_y = map->player.y + 5 * sin((map->player.angle + 90) * M_PI / 180.0);
+        cell_x = new_x / map->cell_width;
+        cell_y = new_y / map->cell_height;
+        if (map->map[cell_y][cell_x] != '1')
+        {
+            map->player.x = new_x;
+            map->player.y = new_y;
+        }
+    }
+    else if (mlx_is_key_down(map->mlx.mlx, MLX_KEY_W))
+    {
 		mlx_delete_image(map->mlx.mlx, map->mlx.img);
 		map->mlx.img = mlx_new_image(map->mlx.mlx, map->mlx.width, map->mlx.height);
-		map->player.x -= 5 * cos((map->player.angle + 90) * M_PI / 180.0);
-		map->player.y -= 5 * sin((map->player.angle + 90) * M_PI / 180.0);
-	}
-	else if (mlx_is_key_down(map->mlx.mlx, MLX_KEY_A))
-	{
+        new_x = map->player.x - 5 * cos((map->player.angle + 90) * M_PI / 180.0);
+        new_y = map->player.y - 5 * sin((map->player.angle + 90) * M_PI / 180.0);
+        cell_x = new_x / map->cell_width;
+        cell_y = new_y / map->cell_height;
+        if (map->map[cell_y][cell_x] != '1')
+        {
+            map->player.x = new_x;
+            map->player.y = new_y;
+        }
+    }
+    else if (mlx_is_key_down(map->mlx.mlx, MLX_KEY_A))
+    {
 		mlx_delete_image(map->mlx.mlx, map->mlx.img);
 		map->mlx.img = mlx_new_image(map->mlx.mlx, map->mlx.width, map->mlx.height);
-		map->player.x += 5 * cos(map->player.angle * M_PI / 180.0);
-		map->player.y += 5 * sin(map->player.angle * M_PI / 180.0);
-	}
-	else if (mlx_is_key_down(map->mlx.mlx, MLX_KEY_D))
-	{
+        new_x = map->player.x + 5 * cos(map->player.angle * M_PI / 180.0);
+        new_y = map->player.y + 5 * sin(map->player.angle * M_PI / 180.0);
+        cell_x = new_x / map->cell_width;
+        cell_y = new_y / map->cell_height;
+        if (map->map[cell_y][cell_x] != '1')
+        {
+            map->player.x = new_x;
+            map->player.y = new_y;
+        }
+    }
+    else if (mlx_is_key_down(map->mlx.mlx, MLX_KEY_D))
+    {
 		mlx_delete_image(map->mlx.mlx, map->mlx.img);
 		map->mlx.img = mlx_new_image(map->mlx.mlx, map->mlx.width, map->mlx.height);
-		map->player.x -= 5 * cos(map->player.angle * M_PI / 180.0);
-		map->player.y -= 5 * sin(map->player.angle * M_PI / 180.0);
-	}
-	render_frame(map);
+        new_x = map->player.x - 5 * cos(map->player.angle * M_PI / 180.0);
+        new_y = map->player.y - 5 * sin(map->player.angle * M_PI / 180.0);
+        cell_x = new_x / map->cell_width;
+        cell_y = new_y / map->cell_height;
+        if (map->map[cell_y][cell_x] != '1')
+        {
+            map->player.x = new_x;
+            map->player.y = new_y;
+        }
+    }
+
+    // Render the frame after handling input
+    render_frame(map);
 }
+
+
 
 void	init_map(t_map *map)
 {
@@ -183,3 +219,4 @@ void	render_map(t_map *map)
 	mlx_loop(map->mlx.mlx);
 	mlx_terminate(map->mlx.mlx);
 }
+
