@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 16:45:21 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/30 16:31:45 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/30 16:47:34 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,34 @@ void ft_hook(void* param)
 		map->player.angle += 5;
 		if (map->player.angle >= 360)
 			map->player.angle -= 360;
+	}
+	else if (mlx_is_key_down(map->mlx.mlx, MLX_KEY_S))
+	{
+		mlx_delete_image(map->mlx.mlx, map->mlx.img);
+		map->mlx.img = mlx_new_image(map->mlx.mlx, map->mlx.width, map->mlx.height);
+		map->player.x += 5 * cos((map->player.angle + 90) * M_PI / 180.0);
+		map->player.y += 5 * sin((map->player.angle + 90) * M_PI / 180.0);
+	}
+	else if (mlx_is_key_down(map->mlx.mlx, MLX_KEY_W))
+	{
+		mlx_delete_image(map->mlx.mlx, map->mlx.img);
+		map->mlx.img = mlx_new_image(map->mlx.mlx, map->mlx.width, map->mlx.height);
+		map->player.x -= 5 * cos((map->player.angle + 90) * M_PI / 180.0);
+		map->player.y -= 5 * sin((map->player.angle + 90) * M_PI / 180.0);
+	}
+	else if (mlx_is_key_down(map->mlx.mlx, MLX_KEY_A))
+	{
+		mlx_delete_image(map->mlx.mlx, map->mlx.img);
+		map->mlx.img = mlx_new_image(map->mlx.mlx, map->mlx.width, map->mlx.height);
+		map->player.x += 5 * cos(map->player.angle * M_PI / 180.0);
+		map->player.y += 5 * sin(map->player.angle * M_PI / 180.0);
+	}
+	else if (mlx_is_key_down(map->mlx.mlx, MLX_KEY_D))
+	{
+		mlx_delete_image(map->mlx.mlx, map->mlx.img);
+		map->mlx.img = mlx_new_image(map->mlx.mlx, map->mlx.width, map->mlx.height);
+		map->player.x -= 5 * cos(map->player.angle * M_PI / 180.0);
+		map->player.y -= 5 * sin(map->player.angle * M_PI / 180.0);
 	}
 	render_frame(map);
 }
