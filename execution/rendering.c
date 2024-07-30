@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 16:45:21 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/30 10:47:04 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/30 11:27:34 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void draw_triangle(mlx_image_t *img, int offset_x, int offset_y, int map_cols, i
 
 void	init_mlx(t_mlx *mlx)
 {
-	mlx->width = 800;
+	mlx->width = 1200;
 	mlx->height = 600;
 	mlx->mlx = mlx_init(mlx->width, mlx->height, "cub3d", false);
 	mlx->img = mlx_new_image(mlx->mlx, mlx->width, mlx->height);
