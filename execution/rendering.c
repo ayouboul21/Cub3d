@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 16:45:21 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/30 11:27:34 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/07/30 15:15:35 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,56 +39,53 @@ void	color(mlx_image_t *img, uint32_t color, t_map *map)
 	}
 }
 
-void calculate_rotated_vertices(int x, int y, float half_width, float half_height, float angle, int *vertices)
+void calculate_vertices(t_map *map, float half_width, float half_height, int *v)
 {
-    float angle_rad = angle * M_PI / 180.0;
-    float cos_angle = cos(angle_rad);
-    float sin_angle = sin(angle_rad);
+    float 		angle;
+	t_player	player;
 
-    int top_x = x;
-    int top_y = y - half_height;
-    int left_x = x - half_width;
-    int left_y = y + half_height;
-    int right_x = x + half_width;
-    int right_y = y + half_height;
-
-    vertices[0] = x + (int)((top_x - x) * cos_angle - (top_y - y) * sin_angle);
-    vertices[1] = y + (int)((top_x - x) * sin_angle + (top_y - y) * cos_angle);
-    vertices[2] = x + (int)((left_x - x) * cos_angle - (left_y - y) * sin_angle);
-    vertices[3] = y + (int)((left_x - x) * sin_angle + (left_y - y) * cos_angle);
-    vertices[4] = x + (int)((right_x - x) * cos_angle - (right_y - y) * sin_angle);
-    vertices[5] = y + (int)((right_x - x) * sin_angle + (right_y - y) * cos_angle);
+	player = map->player;
+	angle = map->player.angle * M_PI / 180.0;
+    v[0] = player.x + (player.x - player.x) * cos(angle)
+		- (player.y - half_height - player.y) * sin(angle);
+    v[1] = player.y + (player.x - player.x) * sin(angle)
+		+ (player.y - half_height - player.y) * cos(angle);
+    v[2] = player.x + (player.x - half_width - player.x)
+		* cos(angle) - (player.y + half_height - player.y) * sin(angle);
+    v[3] = player.y + (player.x - half_width - player.x)
+		* sin(angle) + (player.y + half_height - player.y) * cos(angle);
+    v[4] = player.x + (player.x + half_width - player.x)
+		* cos(angle) - (player.y + half_height - player.y) * sin(angle);
+    v[5] = player.y + (player.x + half_width - player.x)
+		* sin(angle) + (player.y + half_height - player.y) * cos(angle);
 }
 
-int is_inside_triangle(int i, int j, int *vertices)
+int is_inside_triangle(int i, int j, int *v)
 {
-    float alpha, beta, gamma;
-    int x1 = vertices[0], y1 = vertices[1];
-    int x2 = vertices[2], y2 = vertices[3];
-    int x3 = vertices[4], y3 = vertices[5];
+    float	alpha;
+	float	beta;
+	float	denominator;
 
-    float denominator = (float)((y2 - y3) * (x1 - x3) + (x3 - x2) * (y1 - y3));
-    alpha = ((float)((y2 - y3) * (i - x3) + (x3 - x2) * (j - y3))) / denominator;
-    beta = ((float)((y3 - y1) * (i - x3) + (x1 - x3) * (j - y3))) / denominator;
-    gamma = 1.0f - alpha - beta;
-
-    return (alpha >= 0 && beta >= 0 && gamma >= 0);
+    denominator = (float)((v[3] - v[5]) * (v[0] - v[4]) + (v[4] - v[2]) * (v[1] - v[5]));
+    alpha = ((float)((v[3] - v[5]) * (i - v[4]) + (v[4] - v[2]) * (j - v[5]))) / denominator;
+    beta = ((float)((v[5] - v[1]) * (i - v[4]) + (v[0] - v[4]) * (j - v[5]))) / denominator;
+    return (alpha >= 0 && beta >= 0 && 1 - alpha - beta >= 0);
 }
 
-
-void draw_triangle(mlx_image_t *img, int offset_x, int offset_y, int map_cols, int map_rows, int x, int y, float angle)
+void draw_triangle(mlx_image_t *img, int offset_x, int offset_y, t_map *map)
 {
-    int		i = offset_x, j;
-    int		img_width = img->width, img_height = img->height;
-    int		cell_width = img_width / map_cols, cell_height = img_height / map_rows;
-    float	half_width = cell_width / 2.0, half_height = cell_height / 2.0;
+    int		i;
+	int		j;
+    float	half_width = map->cell_width / 2.0;
+	float	half_height = map->cell_height / 2.0;
     int		vertices[6];
 
-    calculate_rotated_vertices(x, y, half_width, half_height, angle, vertices);
-    while (i < offset_x + cell_width)
+	i = offset_x;
+    calculate_vertices(map, half_width, half_height, vertices);
+    while (i < offset_x + map->cell_width)
     {
         j = offset_y;
-        while (j < offset_y + cell_height)
+        while (j < offset_y + map->cell_height)
         {
             if (is_inside_triangle(i, j, vertices))
                 mlx_put_pixel(img, i, j, ft_pixel(0, 0, 255, 127));
@@ -110,10 +107,32 @@ void	init_mlx(t_mlx *mlx)
 
 void ft_hook(void* param)
 {
-	t_mlx	*mlx = (t_mlx *)param;
+	t_map	*map;
 
-	if (mlx_is_key_down(mlx->mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(mlx->mlx);
+	map = (t_map *)param;
+	if (mlx_is_key_down(map->mlx.mlx, MLX_KEY_ESCAPE))
+		return (mlx_close_window(map->mlx.mlx));
+	else if (mlx_is_key_down(map->mlx.mlx, MLX_KEY_LEFT))
+	{
+		mlx_delete_image(map->mlx.mlx, map->mlx.img);
+		map->mlx.img = mlx_new_image(map->mlx.mlx, map->mlx.width, map->mlx.height);
+		map->player.angle -= 5;
+	}
+	else if (mlx_is_key_down(map->mlx.mlx, MLX_KEY_RIGHT))
+	{
+		mlx_delete_image(map->mlx.mlx, map->mlx.img);
+		map->mlx.img = mlx_new_image(map->mlx.mlx, map->mlx.width, map->mlx.height);
+		map->player.angle += 5;
+	}
+	render_frame(map);
+}
+
+void	init_map(t_map *map)
+{
+	map->player.x = map->player.x * map->mlx.width / map->cols + map->mlx.width / map->cols / 2;
+	map->player.y = map->player.y * map->mlx.height / map->rows + map->mlx.height / map->rows / 2;
+	map->cell_height = map->mlx.height / map->rows;
+	map->cell_width = map->mlx.width / map->cols;
 }
 
 void	render_frame(t_map *map)
@@ -121,11 +140,11 @@ void	render_frame(t_map *map)
 	int32_t	i;
 	int32_t	j;
 
-	i = 0;
-	while (i < map->rows)
+	i = -1;
+	while (++i < map->rows)
 	{
-		j = 0;
-		while (j < map->cols)
+		j = -1;
+		while (++j < map->cols)
 		{
 			if (map->map[i][j] == '1')
 			{
@@ -138,13 +157,8 @@ void	render_frame(t_map *map)
 				color(map->mlx.img, ft_pixel(255, 255, 255, 127), map);
 			}
 			else
-				draw_triangle(map->mlx.img, map->mlx.width / map->cols * j,
-					map->mlx.height / map->rows * i, map->cols, map->rows,
-					map->mlx.width / map->cols * j + map->mlx.width / map->cols / 2,
-					map->mlx.height / map->rows * i + map->mlx.height / map->rows / 2, map->player.angle);
-			j++;
+				draw_triangle(map->mlx.img, j * map->cell_width, i * map->cell_height, map);
 		}
-		i++;
 	}
 	mlx_image_to_window(map->mlx.mlx, map->mlx.img, 0, 0);
 }
@@ -152,8 +166,9 @@ void	render_frame(t_map *map)
 void	render_map(t_map *map)
 {
 	init_mlx(&map->mlx);
+	init_map(map);
 	render_frame(map);
-	mlx_loop_hook(map->mlx.mlx, ft_hook, &map->mlx);
+	mlx_loop_hook(map->mlx.mlx, ft_hook, map);
 	mlx_loop(map->mlx.mlx);
 	mlx_terminate(map->mlx.mlx);
 }

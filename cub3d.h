@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/30 10:44:46 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/30 15:06:36 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ typedef struct s_map
 	int			i;
 	int			j;
 	int			p;
+	int			cell_height;
+	int			cell_width;
 	char		*north;
 	char		*south;
 	char		*west;
@@ -94,6 +96,7 @@ int		first_line_last(t_map *map);
 int		spliter(char*str);
 int		chek_zero(t_map *map);
 void	render_map(t_map *map);
+void	render_frame(t_map *map);
 
 //printer
 void	printer(t_map *map);
