@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/30 17:11:36 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/07/30 18:16:44 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,10 @@ int		spliter(char*str);
 int		chek_zero(t_map *map);
 void	render_map(t_map *map);
 void	render_frame(t_map *map);
+void	move_forward(t_map *map);
+void	move_backward(t_map *map);
+void	move_left(t_map *map);
+void	move_right(t_map *map);
 
 //printer
 void	printer(t_map *map);
