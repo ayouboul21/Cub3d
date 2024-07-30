@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 16:45:21 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/29 18:06:23 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/07/30 10:47:04 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,27 +39,65 @@ void	color(mlx_image_t *img, uint32_t color, t_map *map)
 	}
 }
 
-void	color_player(mlx_image_t *img, uint32_t color, t_map *map)
+void calculate_rotated_vertices(int x, int y, float half_width, float half_height, float angle, int *vertices)
 {
-	uint32_t	i;
-	uint32_t	j;
-	uint32_t	offset_x;
-	uint32_t	offset_y;
+    float angle_rad = angle * M_PI / 180.0;
+    float cos_angle = cos(angle_rad);
+    float sin_angle = sin(angle_rad);
 
-	(void)color;
-	offset_x = (img->width / map->cols) * map->j;
-	offset_y = (img->height / map->rows) * map->i;
-	i = offset_x;
-	while (i < offset_x + img->width / map->cols)
-	{
-		j = offset_y;
-		while (j < offset_y + img->height / map->rows)
-		{
-			mlx_put_pixel(img, i, j, ft_pixel(0, 0, 255, 255));
-			j++;
-		}
-		i++;
-	}
+    int top_x = x;
+    int top_y = y - half_height;
+    int left_x = x - half_width;
+    int left_y = y + half_height;
+    int right_x = x + half_width;
+    int right_y = y + half_height;
+
+    vertices[0] = x + (int)((top_x - x) * cos_angle - (top_y - y) * sin_angle);
+    vertices[1] = y + (int)((top_x - x) * sin_angle + (top_y - y) * cos_angle);
+    vertices[2] = x + (int)((left_x - x) * cos_angle - (left_y - y) * sin_angle);
+    vertices[3] = y + (int)((left_x - x) * sin_angle + (left_y - y) * cos_angle);
+    vertices[4] = x + (int)((right_x - x) * cos_angle - (right_y - y) * sin_angle);
+    vertices[5] = y + (int)((right_x - x) * sin_angle + (right_y - y) * cos_angle);
+}
+
+int is_inside_triangle(int i, int j, int *vertices)
+{
+    float alpha, beta, gamma;
+    int x1 = vertices[0], y1 = vertices[1];
+    int x2 = vertices[2], y2 = vertices[3];
+    int x3 = vertices[4], y3 = vertices[5];
+
+    float denominator = (float)((y2 - y3) * (x1 - x3) + (x3 - x2) * (y1 - y3));
+    alpha = ((float)((y2 - y3) * (i - x3) + (x3 - x2) * (j - y3))) / denominator;
+    beta = ((float)((y3 - y1) * (i - x3) + (x1 - x3) * (j - y3))) / denominator;
+    gamma = 1.0f - alpha - beta;
+
+    return (alpha >= 0 && beta >= 0 && gamma >= 0);
+}
+
+
+void draw_triangle(mlx_image_t *img, int offset_x, int offset_y, int map_cols, int map_rows, int x, int y, float angle)
+{
+    int		i = offset_x, j;
+    int		img_width = img->width, img_height = img->height;
+    int		cell_width = img_width / map_cols, cell_height = img_height / map_rows;
+    float	half_width = cell_width / 2.0, half_height = cell_height / 2.0;
+    int		vertices[6];
+
+    calculate_rotated_vertices(x, y, half_width, half_height, angle, vertices);
+    while (i < offset_x + cell_width)
+    {
+        j = offset_y;
+        while (j < offset_y + cell_height)
+        {
+            if (is_inside_triangle(i, j, vertices))
+                mlx_put_pixel(img, i, j, ft_pixel(0, 0, 255, 127));
+            else
+                mlx_put_pixel(img, i, j, ft_pixel(255, 255, 255, 127));
+            j++;
+        }
+        i++;
+    }
 }
 
 void	init_mlx(t_mlx *mlx)
@@ -100,10 +138,10 @@ void	render_frame(t_map *map)
 				color(map->mlx.img, ft_pixel(255, 255, 255, 127), map);
 			}
 			else
-			{
-				(1) && (map->i = i, map->j = j);
-				color(map->mlx.img, ft_pixel(255, 0, 0, 255), map);
-			}
+				draw_triangle(map->mlx.img, map->mlx.width / map->cols * j,
+					map->mlx.height / map->rows * i, map->cols, map->rows,
+					map->mlx.width / map->cols * j + map->mlx.width / map->cols / 2,
+					map->mlx.height / map->rows * i + map->mlx.height / map->rows / 2, map->player.angle);
 			j++;
 		}
 		i++;

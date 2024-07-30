@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/29 16:36:01 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/30 10:44:46 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@ typedef struct s_color
 
 typedef struct s_player
 {
-	int		x;
-	int		y;
-	int		dir;
+	int	x;
+	int	y;
+	int	dir;
+	int	angle;
 }		t_player;
 
 
