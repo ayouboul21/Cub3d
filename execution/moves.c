@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:02:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/30 18:23:47 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/31 13:36:27 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	move_forward(t_map *map)
 
 	mlx_delete_image(map->mlx.mlx, map->mlx.img);
 	map->mlx.img = mlx_new_image(map->mlx.mlx, map->mlx.width, map->mlx.height);
-    new_x = map->player.x - 5 * cos((map->player.angle + 90) * M_PI / 180.0);
-    new_y = map->player.y - 5 * sin((map->player.angle + 90) * M_PI / 180.0);
+	new_x = map->player.x - 5 * cos((map->player.angle + 90) * M_PI / 180.0);
+	new_y = map->player.y - 5 * sin((map->player.angle + 90) * M_PI / 180.0);
     cell_x = new_x / map->cell_width;
     cell_y = new_y / map->cell_height;
     if (map->map[cell_y][cell_x] != '1' && check_diagonale(&map->player, map, cell_x, cell_y))

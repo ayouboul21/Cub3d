@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 16:45:21 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/30 18:18:05 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/31 14:35:53 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int is_inside_triangle(int i, int j, int *v)
     return (alpha >= 0 && beta >= 0 && 1 - alpha - beta >= 0);
 }
 
-void	color(mlx_image_t *img, uint32_t color, t_map *map, int *vertices)
+void	color(mlx_image_t *img, uint32_t color, t_map *map)
 {
 	uint32_t	i;
 	uint32_t	j;
@@ -44,10 +44,7 @@ void	color(mlx_image_t *img, uint32_t color, t_map *map, int *vertices)
 		j = offset_y;
 		while (j < offset_y + img->height / map->rows - 1)
 		{
-			if (is_inside_triangle(i, j, vertices) && map->map[map->i][map->j] != ' ')
-                mlx_put_pixel(img, i, j, ft_pixel(0, 127, 127, 255));
-			else
-				mlx_put_pixel(img, i, j, color);
+			mlx_put_pixel(img, i, j, color);
 			j++;
 		}
 		i++;
@@ -126,9 +123,52 @@ void	init_map(t_map *map)
 	map->cell_width = map->mlx.width / map->cols;
 }
 
+void	cast_ray(t_map *map)
+{
+	t_ray	ray;
+	int		i;
+	int		j;
+
+	ray.angle = (map->player.angle - 90) * M_PI / 180.0;
+	ray.x = map->player.x;
+	ray.y = map->player.y;
+	ray.distance = 0;
+	while (ray.distance < 1000)
+	{
+		ray.x += cos(ray.angle);
+		ray.y += sin(ray.angle);
+		ray.distance += 1;
+		i = ray.x;
+		j = ray.y;
+		if (i < 0 || i >= map->mlx.width || j < 0 || j >= map->mlx.height)
+			break ;
+		mlx_put_pixel(map->mlx.img, i, j, ft_pixel(255, 0, 0, 255));
+		if (map->map[(int)(j / map->cell_height)][(int)(i / map->cell_width)] == '1')
+			break ;
+	}
+	mlx_image_to_window(map->mlx.mlx, map->mlx.img, 0, 0);
+}
+
+void	draw_player(t_map *map)
+{
+	int	v[6];
+	int	i;
+	int	j;
+
+	calculate_vertices(map, map->cell_width / 4, map->cell_height / 4, v);
+	i = map->player.x - map->cell_width / 4;
+	while (++i < map->mlx.width)
+	{
+		j = map->player.y - map->cell_height / 4;
+		while (++j < map->mlx.height)
+			if (is_inside_triangle(i, j, v))
+				mlx_put_pixel(map->mlx.img, i, j, ft_pixel(0, 255, 0, 255));
+	}
+	cast_ray(map);
+}
+
 void	render_frame(t_map *map)
 {
-	int		vertices[6];
 	int32_t	i;
 	int32_t	j;
 
@@ -140,19 +180,15 @@ void	render_frame(t_map *map)
 		{
 			(1) && (map->i = i, map->j = j);
 			if (map->map[i][j] == '1')
-				color(map->mlx.img, ft_pixel(0, 0, 0, 255), map, vertices);
-			else if (map->map[i][j] != ' ')
-			{
-				calculate_vertices(map, map->cell_width / 4,
-					map->cell_height / 4, vertices);
-				(1) && (map->i = i, map->j = j);
-				color(map->mlx.img, ft_pixel(255, 255, 255, 255), map, vertices);
-			}
+				color(map->mlx.img, ft_pixel(0, 0, 0, 255), map);
 			else
-				color(map->mlx.img, ft_pixel(255, 255, 255, 255), map, vertices);
+			{
+				(1) && (map->i = i, map->j = j);
+				color(map->mlx.img, ft_pixel(255, 255, 255, 255), map);
+			}
 		}
 	}
-	mlx_image_to_window(map->mlx.mlx, map->mlx.img, 0, 0);
+	draw_player(map);
 }
 
 void	render_map(t_map *map)

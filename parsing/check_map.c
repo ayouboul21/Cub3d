@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 16:26:45 by hel-magh          #+#    #+#             */
-/*   Updated: 2024/07/29 16:24:49 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/07/31 13:32:38 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	printer(t_map *map)
 		printf("%s\n", map->map[i]);
 		i++;
 	}
-	printf("player x : %d player y : %d\n", map->player.x, map->player.y);
+	// printf("player x : %d player y : %d\n", map->player.x, map->player.y);
 }
 
 int	check_line_map(t_map *map)
