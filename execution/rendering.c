@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 16:45:21 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/31 14:35:53 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/31 15:23:38 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,24 @@ void	init_map(t_map *map)
 	map->player.y = map->player.y * map->mlx.height / map->rows + map->mlx.height / map->rows / 2;
 	map->cell_height = map->mlx.height / map->rows;
 	map->cell_width = map->mlx.width / map->cols;
+	map->fov = 60;
+	map->ray_count = 320;
+}
+
+int	check_diagonale_ray(t_ray *player, t_map *map, int new_x, int new_y)
+{
+	int player_x;
+	int player_y;
+
+	player_x = player->x / map->cell_width;
+	player_y = player->y / map->cell_height;
+	if (player_x != new_x && player_y != new_y)
+	{
+		if (map->map[new_y][player_x] == '1' ||
+			map->map[player_y][new_x] == '1')
+			return (0);
+	}
+	return (1);
 }
 
 void	cast_ray(t_map *map)
@@ -129,7 +147,7 @@ void	cast_ray(t_map *map)
 	int		i;
 	int		j;
 
-	ray.angle = (map->player.angle - 90) * M_PI / 180.0;
+	ray.angle = (map->player.ray_angle - 90) * M_PI / 180.0;
 	ray.x = map->player.x;
 	ray.y = map->player.y;
 	ray.distance = 0;
@@ -143,10 +161,25 @@ void	cast_ray(t_map *map)
 		if (i < 0 || i >= map->mlx.width || j < 0 || j >= map->mlx.height)
 			break ;
 		mlx_put_pixel(map->mlx.img, i, j, ft_pixel(255, 0, 0, 255));
-		if (map->map[(int)(j / map->cell_height)][(int)(i / map->cell_width)] == '1')
+		if (map->map[(int)(j / map->cell_height)][(int)(i / map->cell_width)] == '1'
+			|| !check_diagonale_ray(&ray, map, i / map->cell_width, j / map->cell_height))
 			break ;
 	}
 	mlx_image_to_window(map->mlx.mlx, map->mlx.img, 0, 0);
+}
+
+void	cast_rays(t_map *map)
+{
+	double	i;
+
+	i = 0;
+	map->player.ray_angle = map->player.angle + map->fov / 2;
+	while (i < 60)
+	{
+		map->player.ray_angle = map->player.ray_angle - map->fov / map->ray_count;
+		cast_ray(map);
+		i += map->fov / map->ray_count;
+	}
 }
 
 void	draw_player(t_map *map)
@@ -164,7 +197,7 @@ void	draw_player(t_map *map)
 			if (is_inside_triangle(i, j, v))
 				mlx_put_pixel(map->mlx.img, i, j, ft_pixel(0, 255, 0, 255));
 	}
-	cast_ray(map);
+	cast_rays(map);
 }
 
 void	render_frame(t_map *map)

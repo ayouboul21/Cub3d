@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/31 13:36:10 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/31 15:23:02 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ typedef struct s_color
 typedef struct s_player
 {
 	int		dir;
-	int		angle;
+	double	angle;
+	double	ray_angle;
 	double	x;
 	double	y;
 	double	speed;
@@ -72,6 +73,8 @@ typedef struct s_map
 	char		*sprite;
 	char		*floor_color;
 	char		*ceiling_color;
+	double		fov;
+	double		ray_count;
 	t_mlx		mlx;
 	t_color		floor;
 	t_color		ceiling;
