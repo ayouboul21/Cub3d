@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:34:02 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/29 10:53:09 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/07/31 09:57:09 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,7 @@ int	check_floor_color(char *line, t_map *map)
 	if (ft_tablen(tmp) != 2)
 		return (0);
 	map->floor_color = ft_strdup(tmp[1]);
-	free(tmp[0]);
-	free(tmp[1]);
-	free(tmp);
+	free_tab(&tmp);
 	if (!fill_color(&map->floor, map->floor_color))
 		return (0);
 	if (map->floor.red < 0 || map->floor.red > 255
@@ -69,9 +67,7 @@ int	check_ceiling_color(char *line, t_map *map)
 	if (ft_tablen(tmp) != 2)
 		return (0);
 	map->ceiling_color = ft_strdup(tmp[1]);
-	free(tmp[0]);
-	free(tmp[1]);
-	free(tmp);
+	free_tab(&tmp);
 	if (!fill_color(&map->ceiling, map->ceiling_color))
 		return (0);
 	if (map->ceiling.red < 0 || map->ceiling.red > 255

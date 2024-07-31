@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 10:55:51 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/30 11:31:02 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/07/31 10:09:27 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,17 @@ void	fill_map(int fd, t_map *map)
 		(1) && (free(line), i++);
 	}
 	(line) && (free(line), line = NULL);
+	if (ret == 0)
+	{
+		ft_putstr_fd("Error\nInvalid information\n", 2);
+		close(fd);
+		ft_exit(*map, 1);
+	}
 }
 void initdir(t_map *map)
 {
 	if(map->player.dir == 'N')
 		map->player.angle = 0;
-
 	else if(map->player.dir == 'S')
 		map->player.angle = 180;
 	else if(map->player.dir == 'W')
