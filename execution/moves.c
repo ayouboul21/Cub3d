@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:02:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/31 13:36:27 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/01 10:38:38 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	check_diagonale(t_player *player, t_map *map, int new_x, int new_y)
 {
-	int player_x;
-	int player_y;
+	int	player_x;
+	int	player_y;
 
 	player_x = player->x / map->cell_width;
 	player_y = player->y / map->cell_height;
@@ -37,15 +37,16 @@ void	move_forward(t_map *map)
 
 	mlx_delete_image(map->mlx.mlx, map->mlx.img);
 	map->mlx.img = mlx_new_image(map->mlx.mlx, map->mlx.width, map->mlx.height);
-	new_x = map->player.x - 5 * cos((map->player.angle + 90) * M_PI / 180.0);
-	new_y = map->player.y - 5 * sin((map->player.angle + 90) * M_PI / 180.0);
-    cell_x = new_x / map->cell_width;
-    cell_y = new_y / map->cell_height;
-    if (map->map[cell_y][cell_x] != '1' && check_diagonale(&map->player, map, cell_x, cell_y))
-    {
-        map->player.x = new_x;
-        map->player.y = new_y;
-    }
+	new_x = map->player.x - 2 * cos((map->player.angle + 90) * M_PI / 180.0);
+	new_y = map->player.y - 2 * sin((map->player.angle + 90) * M_PI / 180.0);
+	cell_x = new_x / map->cell_width;
+	cell_y = new_y / map->cell_height;
+	if (map->map[cell_y][cell_x] != '1'
+		&& check_diagonale(&map->player, map, cell_x, cell_y))
+	{
+		map->player.x = new_x;
+		map->player.y = new_y;
+	}
 	render_frame(map);
 }
 
@@ -58,15 +59,16 @@ void	move_backward(t_map *map)
 
 	mlx_delete_image(map->mlx.mlx, map->mlx.img);
 	map->mlx.img = mlx_new_image(map->mlx.mlx, map->mlx.width, map->mlx.height);
-    new_x = map->player.x + 5 * cos((map->player.angle + 90) * M_PI / 180.0);
-    new_y = map->player.y + 5 * sin((map->player.angle + 90) * M_PI / 180.0);
-    cell_x = new_x / map->cell_width;
-    cell_y = new_y / map->cell_height;
-    if (map->map[cell_y][cell_x] != '1' && check_diagonale(&map->player, map, cell_x, cell_y))
-    {
-        map->player.x = new_x;
-        map->player.y = new_y;
-    }
+	new_x = map->player.x + 2 * cos((map->player.angle + 90) * M_PI / 180.0);
+	new_y = map->player.y + 2 * sin((map->player.angle + 90) * M_PI / 180.0);
+	cell_x = new_x / map->cell_width;
+	cell_y = new_y / map->cell_height;
+	if (map->map[cell_y][cell_x] != '1'
+		&& check_diagonale(&map->player, map, cell_x, cell_y))
+	{
+		map->player.x = new_x;
+		map->player.y = new_y;
+	}
 	render_frame(map);
 }
 
@@ -79,15 +81,16 @@ void	move_left(t_map *map)
 
 	mlx_delete_image(map->mlx.mlx, map->mlx.img);
 	map->mlx.img = mlx_new_image(map->mlx.mlx, map->mlx.width, map->mlx.height);
-    new_x = map->player.x - 5 * cos(map->player.angle * M_PI / 180.0);
-    new_y = map->player.y - 5 * sin(map->player.angle * M_PI / 180.0);
-    cell_x = new_x / map->cell_width;
-    cell_y = new_y / map->cell_height;
-    if (map->map[cell_y][cell_x] != '1' && check_diagonale(&map->player, map, cell_x, cell_y))
-    {
-        map->player.x = new_x;
-        map->player.y = new_y;
-    }
+	new_x = map->player.x - 2 * cos(map->player.angle * M_PI / 180.0);
+	new_y = map->player.y - 2 * sin(map->player.angle * M_PI / 180.0);
+	cell_x = new_x / map->cell_width;
+	cell_y = new_y / map->cell_height;
+	if (map->map[cell_y][cell_x] != '1'
+		&& check_diagonale(&map->player, map, cell_x, cell_y))
+	{
+		map->player.x = new_x;
+		map->player.y = new_y;
+	}
 	render_frame(map);
 }
 
@@ -100,11 +103,12 @@ void	move_right(t_map *map)
 
 	mlx_delete_image(map->mlx.mlx, map->mlx.img);
 	map->mlx.img = mlx_new_image(map->mlx.mlx, map->mlx.width, map->mlx.height);
-	new_x = map->player.x + 5 * cos(map->player.angle * M_PI / 180.0);
-	new_y = map->player.y + 5 * sin(map->player.angle * M_PI / 180.0);
+	new_x = map->player.x + 2 * cos(map->player.angle * M_PI / 180.0);
+	new_y = map->player.y + 2 * sin(map->player.angle * M_PI / 180.0);
 	cell_x = new_x / map->cell_width;
 	cell_y = new_y / map->cell_height;
-	if (map->map[cell_y][cell_x] != '1' && check_diagonale(&map->player, map, cell_x, cell_y))
+	if (map->map[cell_y][cell_x] != '1'
+		&& check_diagonale(&map->player, map, cell_x, cell_y))
 	{
 		map->player.x = new_x;
 		map->player.y = new_y;

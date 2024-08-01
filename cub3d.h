@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/31 15:23:02 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/01 11:00:46 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ typedef struct s_player
 	double	y;
 	double	speed;
 }		t_player;
-
 
 typedef struct s_mlx
 {
@@ -105,6 +104,12 @@ void	move_forward(t_map *map);
 void	move_backward(t_map *map);
 void	move_left(t_map *map);
 void	move_right(t_map *map);
+void	rotate_left(t_map *map);
+void	rotate_right(t_map *map);
+void	cast_rays(t_map *map);
+void	cast_ray(t_map *map);
+void	ft_hook(void *param);
+void	ft_remap(t_map *map);
 
 //printer
 void	printer(t_map *map);

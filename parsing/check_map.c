@@ -6,31 +6,11 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 16:26:45 by hel-magh          #+#    #+#             */
-/*   Updated: 2024/07/31 13:32:38 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/01 11:03:31 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-void	printer(t_map *map)
-{
-	int	i;
-
-	i = 0;
-	printf("NO :%s\n", map->north);
-	printf("SO :%s\n", map->south);
-	printf("WE :%s\n", map->west);
-	printf("EA :%s\n", map->east);
-	printf("FLOOR :%s\n", map->floor_color);
-	printf("CEILING :%s", map->ceiling_color);
-	printf("MAP :\n");
-	while (map->map[i])
-	{
-		printf("%s\n", map->map[i]);
-		i++;
-	}
-	// printf("player x : %d player y : %d\n", map->player.x, map->player.y);
-}
 
 int	check_line_map(t_map *map)
 {
@@ -118,31 +98,6 @@ int	map_validation(t_map *map)
 	return (1);
 }
 
-void	ft_remap(t_map *map)
-{
-	char **new_map;
-	map->i = 0;
-	map->j = 0;
-	new_map = (char **)ft_malloc(sizeof(char *) * (map->rows + 1));
-	while (map->map[map->i])
-	{
-		map->j =0;
-		new_map[map->i] = ft_malloc(sizeof(char) * (map->cols + 1));
-		ft_memset(new_map[map->i], ' ', map->cols);
-		new_map[map->i][map->cols] = '\0';
-		while(map->map[map->i][map->j] && map->map[map->i][map->j] != '\n')
-		{
-			new_map[map->i][map->j] = map->map[map->i][map->j];
-			map->j++;
-		}
-		free(map->map[map->i]);
-		
-		map->i++;
-	}
-	new_map[map->rows] = NULL;
-	free(map->map);
-	map->map = new_map;
-}
 int	check_map(int fd, t_map *map)
 {
 	char	*line;
@@ -154,17 +109,14 @@ int	check_map(int fd, t_map *map)
 			break ;
 		if (check_line(line))
 		{
-			printf("Error\nEmpty line in map\n");
-			free(line);
-			close(fd);
+			(printf("Error\nEmpty line in map\n")) && ((free(line), close(fd)));
 			return (0);
 		}
 		if (map->cols < (int)ft_strlen(line) - 1)
 			map->cols = ft_strlen(line) - 1;
 		map->rows++;
 		add_last(&map->map, line);
-		free(line);
-		line = get_next_line(fd);
+		(1) && (free(line), line = get_next_line(fd));
 	}
 	if (!map_validation(map))
 	{

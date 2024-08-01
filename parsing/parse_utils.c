@@ -3,14 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:14:34 by hel-magh          #+#    #+#             */
-/*   Updated: 2024/07/26 09:07:36 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/08/01 11:00:25 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+void	ft_remap(t_map *map)
+{
+	char	**new_map;
+
+	map->i = 0;
+	map->j = 0;
+	new_map = (char **)ft_malloc(sizeof(char *) * (map->rows + 1));
+	while (map->map[map->i])
+	{
+		map->j = 0;
+		new_map[map->i] = ft_malloc(sizeof(char) * (map->cols + 1));
+		ft_memset(new_map[map->i], ' ', map->cols);
+		new_map[map->i][map->cols] = '\0';
+		while (map->map[map->i][map->j] && map->map[map->i][map->j] != '\n')
+		{
+			new_map[map->i][map->j] = map->map[map->i][map->j];
+			map->j++;
+		}
+		free(map->map[map->i]);
+		map->i++;
+	}
+	new_map[map->rows] = NULL;
+	free(map->map);
+	map->map = new_map;
+}
 
 int	ft_tablen(char **tab)
 {
