@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 10:32:53 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/01 10:41:33 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/01 13:40:39 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,16 @@ void	cast_rays(t_map *map)
 	}
 }
 
+int	cast(double num)
+{
+	return ((int)num);
+}
+
 void	cast_ray(t_map *map)
 {
+	double	i;
+	double	j;
 	t_ray	ray;
-	int		i;
-	int		j;
 
 	ray.angle = (map->player.ray_angle - 90) * M_PI / 180.0;
 	ray.x = map->player.x;
@@ -47,8 +52,7 @@ void	cast_ray(t_map *map)
 		if (i < 0 || i >= map->mlx.width || j < 0 || j >= map->mlx.height)
 			break ;
 		mlx_put_pixel(map->mlx.img, i, j, ft_pixel(255, 0, 0, 255));
-		if (map->map[(int)(j
-				/ map->cell_height)][(int)(i / map->cell_width)] == '1')
+		if (map->map[(int)(j / map->cell_height)][(int)(i / map->cell_width)] == '1')
 			break ;
 	}
 	mlx_image_to_window(map->mlx.mlx, map->mlx.img, 0, 0);
