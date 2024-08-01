@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:02:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/01 10:38:38 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/01 15:34:13 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,8 @@ void	move_forward(t_map *map)
 	float	new_y;
 	float	new_x;
 
-	mlx_delete_image(map->mlx.mlx, map->mlx.img);
-	map->mlx.img = mlx_new_image(map->mlx.mlx, map->mlx.width, map->mlx.height);
-	new_x = map->player.x - 2 * cos((map->player.angle + 90) * M_PI / 180.0);
-	new_y = map->player.y - 2 * sin((map->player.angle + 90) * M_PI / 180.0);
+	new_x = map->player.x - map->player.speed * cos((map->player.angle + 90) * M_PI / 180.0);
+	new_y = map->player.y - map->player.speed * sin((map->player.angle + 90) * M_PI / 180.0);
 	cell_x = new_x / map->cell_width;
 	cell_y = new_y / map->cell_height;
 	if (map->map[cell_y][cell_x] != '1'
@@ -47,7 +45,6 @@ void	move_forward(t_map *map)
 		map->player.x = new_x;
 		map->player.y = new_y;
 	}
-	render_frame(map);
 }
 
 void	move_backward(t_map *map)
@@ -57,8 +54,6 @@ void	move_backward(t_map *map)
 	float	new_y;
 	float	new_x;
 
-	mlx_delete_image(map->mlx.mlx, map->mlx.img);
-	map->mlx.img = mlx_new_image(map->mlx.mlx, map->mlx.width, map->mlx.height);
 	new_x = map->player.x + 2 * cos((map->player.angle + 90) * M_PI / 180.0);
 	new_y = map->player.y + 2 * sin((map->player.angle + 90) * M_PI / 180.0);
 	cell_x = new_x / map->cell_width;
@@ -69,7 +64,6 @@ void	move_backward(t_map *map)
 		map->player.x = new_x;
 		map->player.y = new_y;
 	}
-	render_frame(map);
 }
 
 void	move_left(t_map *map)
@@ -79,10 +73,8 @@ void	move_left(t_map *map)
 	float	new_y;
 	float	new_x;
 
-	mlx_delete_image(map->mlx.mlx, map->mlx.img);
-	map->mlx.img = mlx_new_image(map->mlx.mlx, map->mlx.width, map->mlx.height);
-	new_x = map->player.x - 2 * cos(map->player.angle * M_PI / 180.0);
-	new_y = map->player.y - 2 * sin(map->player.angle * M_PI / 180.0);
+	new_x = map->player.x - map->player.speed * cos(map->player.angle * M_PI / 180.0);
+	new_y = map->player.y - map->player.speed * sin(map->player.angle * M_PI / 180.0);
 	cell_x = new_x / map->cell_width;
 	cell_y = new_y / map->cell_height;
 	if (map->map[cell_y][cell_x] != '1'
@@ -91,7 +83,6 @@ void	move_left(t_map *map)
 		map->player.x = new_x;
 		map->player.y = new_y;
 	}
-	render_frame(map);
 }
 
 void	move_right(t_map *map)
@@ -101,10 +92,8 @@ void	move_right(t_map *map)
 	float	new_y;
 	float	new_x;
 
-	mlx_delete_image(map->mlx.mlx, map->mlx.img);
-	map->mlx.img = mlx_new_image(map->mlx.mlx, map->mlx.width, map->mlx.height);
-	new_x = map->player.x + 2 * cos(map->player.angle * M_PI / 180.0);
-	new_y = map->player.y + 2 * sin(map->player.angle * M_PI / 180.0);
+	new_x = map->player.x + map->player.speed * cos(map->player.angle * M_PI / 180.0);
+	new_y = map->player.y + map->player.speed * sin(map->player.angle * M_PI / 180.0);
 	cell_x = new_x / map->cell_width;
 	cell_y = new_y / map->cell_height;
 	if (map->map[cell_y][cell_x] != '1'
@@ -113,5 +102,4 @@ void	move_right(t_map *map)
 		map->player.x = new_x;
 		map->player.y = new_y;
 	}
-	render_frame(map);
 }

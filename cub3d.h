@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/01 13:19:40 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/08/01 14:21:37 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,37 +80,38 @@ typedef struct s_map
 	t_player	player;
 }				t_map;
 
-int		parse(char *file, t_map *map);
-int		ft_tablen(char **tab);
-int		check_north(char *line, t_map *map);
-int		check_south(char *line, t_map *map);
-int		check_west(char *line, t_map *map);
-int		check_east(char *line, t_map *map);
-int		check_ceiling_color(char *line, t_map *map);
-int		check_floor_color(char *line, t_map *map);
-char	**ft_split_whitespaces(char *str);
-char	*skip_empty_lines(int fd, t_map *map);
-int		check_map(int fd, t_map *map);
-int		check_line(char *line);
-void	add_last(char ***map, char *data);
-void	free_tab(char ***args);
-void	ft_exit(t_map map, int status);
-int		first_line_last(t_map *map);
-int		spliter(char*str);
-int		chek_zero(t_map *map);
-void	render_map(t_map *map);
-void	render_frame(t_map *map);
-void	move_forward(t_map *map);
-void	move_backward(t_map *map);
-void	move_left(t_map *map);
-void	move_right(t_map *map);
-void	rotate_left(t_map *map);
-void	rotate_right(t_map *map);
-void	cast_rays(t_map *map);
-void	cast_ray(t_map *map);
-void	ft_hook(void *param);
-void	ft_remap(t_map *map);
-void	draw_player(t_map *map);
+int			parse(char *file, t_map *map);
+int			ft_tablen(char **tab);
+int			check_north(char *line, t_map *map);
+int			check_south(char *line, t_map *map);
+int			check_west(char *line, t_map *map);
+int			check_east(char *line, t_map *map);
+int			check_ceiling_color(char *line, t_map *map);
+int			check_floor_color(char *line, t_map *map);
+char		**ft_split_whitespaces(char *str);
+char		*skip_empty_lines(int fd, t_map *map);
+int			check_map(int fd, t_map *map);
+int			check_line(char *line);
+void		add_last(char ***map, char *data);
+void		free_tab(char ***args);
+void		ft_exit(t_map map, int status);
+int			first_line_last(t_map *map);
+int			spliter(char*str);
+int			chek_zero(t_map *map);
+void		render_map(t_map *map);
+void		render_frame(t_map *map);
+void		move_forward(t_map *map);
+void		move_backward(t_map *map);
+void		move_left(t_map *map);
+void		move_right(t_map *map);
+void		rotate_left(t_map *map);
+void		rotate_right(t_map *map);
+void		cast_rays(t_map *map);
+void		cast_ray(t_map *map);
+void		ft_hook(void *param);
+void		ft_remap(t_map *map);
+void		draw_player(t_map *map);
+void		color(mlx_image_t *img, uint32_t color, t_map *map);
 uint32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 
 //printer
