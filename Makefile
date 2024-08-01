@@ -1,11 +1,11 @@
  SRC     = cub3d.c parsing/parse.c parsing/parse_utils.c parsing/check_directions.c parsing/check_color.c parsing/check_map.c  parsing/check_map_utils.c \
- 			execution/rendering.c execution/moves.c
+ 			execution/rendering.c execution/moves.c execution/ray_casting.c execution/hooks.c execution/render_player.c .print.c
 
 OBJ     = $(SRC:.c=.o)
 HEADER  = cub3d.h
 NAME    = cub3d
 CC      = cc
-CFLAGS  = -Wall -Wextra -Werror -O3 -ffast-math
+CFLAGS  = -Wall -Wextra -Werror -O3 -ffast-math -fsanitize=address -g
 RM      = rm -f
 MLX     = .MLX42/libmlx42.a
 MLXFLAGS = -framework Cocoa -framework OpenGL -framework IOKit -lglfw
