@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 10:32:53 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/03 14:23:18 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/03 16:22:52 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ void	cast_rays(t_map *map)
 	double	i;
 
 	i = 0;
-	map->player.ray_angle = map->player.angle + map->fov / 2;
+	map->player.ray_angle = (map->player.angle - 90) + map->fov / 2;
+    printf("ray angle : %f\n", map->player.ray_angle);
+    exit(0);
 	while (i < map->fov)
 	{
 		map->player.ray_angle = map->player.ray_angle
@@ -32,23 +34,31 @@ double	get_horizontal_distance(t_map *map, t_ray ray)
 {
 	double	x;
 	double	y;
+    int     looksright;
 
 	x = ray.x;
 	y = ray.y;
 	if (cos(ray.angle) >= 0)
-		x = floor((x / map->cell_width)) * map->cell_width + map->cell_width + 0.0001;
+    {
+        looksright = 1;
+		x = floor((x / map->cell_width)) * map->cell_width + map->cell_width;
+    }
 	else
+    {
+        looksright = -1;
 		x = floor((x / map->cell_width)) * map->cell_width - 0.0001;
+    }
 	y += (x - ray.x) * tan(ray.angle);
 	while (1)
 	{
-        if (floor((y / map->cell_height)) >= map->rows && floor((x / map->cell_width)) >= map->cols
-            && floor(y / map->cell_height) < 0 && floor(x / map->cell_width) < 0)
+        if (floor((y / map->cell_height)) >= map->rows || floor(((x + (looksright == 1) * 0.0001) / map->cell_width)) >= map->cols
+            || floor(y / map->cell_height) < 0 || floor((x + (looksright == 1) * 0.0001) / map->cell_width) < 0)
             break ;
-        if (map->map[(int)(y / map->cell_height)][(int)(x / map->cell_width)] == '1')
+        printf("floor y : %f floor x : %f\n", floor(y / map->cell_height), floor((x + (looksright == 1) * 0.0001) / map->cell_width));
+        if (map->map[(int)(y / map->cell_height)][(int)((x + (looksright == 1) * 0.0001) / map->cell_width)] == '1')
             break ;
 		y += map->cell_width * tan(ray.angle);
-		x += map->cell_width;
+		x += map->cell_width * looksright;
 	}
 	return (sqrt(pow(ray.x - x, 2) + pow(ray.y - y, 2)));
 }
@@ -57,23 +67,30 @@ double	get_vertical_distance(t_map *map, t_ray ray)
 {
 	double	x;
 	double	y;
+    int     looksup;
 
 	x = ray.x;
 	y = ray.y;
 	if (sin(ray.angle) >= 0)
-		y = floor((y / map->cell_height)) * map->cell_height + map->cell_height + 0.0001;
+    {
+        looksup = -1;
+		y = floor((y / map->cell_height)) * map->cell_height;
+    }
 	else
-		y = floor((y / map->cell_height)) * map->cell_height - 0.0001;
+    {
+        looksup = 1;
+		y = floor((y / map->cell_height)) * map->cell_height + map->cell_height + 0.0001;
+    }
 	x += (y - ray.y) / tan(ray.angle);
 	while (1)
 	{
-        if (floor((y / map->cell_height)) >= map->rows && floor((x / map->cell_width)) >= map->cols
-            && floor(y / map->cell_height) < 0 && floor(x / map->cell_width) < 0)
+        if (floor(((y - (looksup == -1) * 0.0001) / map->cell_height)) >= map->rows || floor((x / map->cell_width)) >= map->cols
+            || floor((y - (looksup == -1) * 0.0001) / map->cell_height) < 0 || floor(x / map->cell_width) < 0)
             break ;
-        if (map->map[(int)(y / map->cell_height)][(int)(x / map->cell_width)] == '1')
+        if (map->map[(int)((y - (looksup == -1) * 0.0001) / map->cell_height)][(int)(x / map->cell_width)] == '1')
             break ;
 		x += map->cell_height / tan(ray.angle);
-		y += map->cell_height;
+		y += map->cell_height * looksup;
 	}
 	return (sqrt(pow(ray.x - x, 2) + pow(ray.y - y, 2)));
 }
@@ -123,7 +140,7 @@ void	cast_ray(t_map *map)
 	t_ray	ray;
 
     ft_bzero(&ray, sizeof(t_ray));
-	ray.angle = (map->player.ray_angle - 90) * M_PI / 180.0;
+	ray.angle = map->player.ray_angle * M_PI / 180.0;
 	ray.x = map->player.x;
 	ray.y = map->player.y;
 	get_ray_distance(map, &ray);

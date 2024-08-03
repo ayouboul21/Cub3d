@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 10:55:51 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/01 11:02:58 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/03 15:42:19 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,13 @@ void	fill_map(int fd, t_map *map)
 void	initdir(t_map *map)
 {
 	if (map->player.dir == 'N')
-		map->player.angle = 0;
-	else if (map->player.dir == 'S')
-		map->player.angle = 180;
-	else if (map->player.dir == 'W')
 		map->player.angle = 270;
-	else if (map->player.dir == 'E')
+	else if (map->player.dir == 'S')
 		map->player.angle = 90;
+	else if (map->player.dir == 'W')
+		map->player.angle = 180;
+	else if (map->player.dir == 'E')
+		map->player.angle = 0;
 }
 
 int	parse(char *file, t_map *map)
@@ -112,5 +112,6 @@ int	parse(char *file, t_map *map)
 		return (-1);
 	close(fd);
 	initdir(map);
+	printer(map);
 	return (0);
 }

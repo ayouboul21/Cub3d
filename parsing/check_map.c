@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 16:26:45 by hel-magh          #+#    #+#             */
-/*   Updated: 2024/08/01 11:03:31 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/03 14:34:46 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,5 @@ int	check_map(int fd, t_map *map)
 		return (0);
 	}
 	ft_remap(map);
-	printer(map);
 	return (1);
 }
