@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 10:32:53 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/03 13:41:23 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/03 14:23:18 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 void	cast_rays(t_map *map)
 {
-	// double	i;
+	double	i;
 
-	// i = 0;
-	// map->player.ray_angle = map->player.angle + map->fov / 2;
-	// while (i < map->fov)
-	// {
-	// 	map->player.ray_angle = map->player.ray_angle
-	// 		- map->fov / map->ray_count;
-	// 	cast_ray(map);
-	// 	i += map->fov / map->ray_count;
-	// }
+	i = 0;
+	map->player.ray_angle = map->player.angle + map->fov / 2;
+	while (i < map->fov)
+	{
+		map->player.ray_angle = map->player.ray_angle
+			- map->fov / map->ray_count;
+		cast_ray(map);
+		i += map->fov / map->ray_count;
+	}
     mlx_image_to_window(map->mlx.mlx, map->mlx.img, 0, 0);
 }
 
@@ -88,25 +88,34 @@ void	get_ray_distance(t_map *map, t_ray *ray)
 	ray->distance = fmin(hor_distance, ver_distance);
 }
 
-void	draw_line(t_map *map, t_ray ray)
+void    draw_line(t_map *map, t_ray ray)
 {
-	double	x;
-	double	y;
-	double	steps;
-	double	i;
+    double x_increment, y_increment;
+    double x, y;
+    double delta_x, delta_y;
+    int steps, i;
 
-	i = 0;
-	steps = ray.distance / 1000;
-	while (i < ray.distance)
-	{
-		x = ray.x + i * cos(ray.angle);
-		y = ray.y + i * sin(ray.angle);
-		if (x >= 0 && x < map->mlx.width && y >= 0 && y < map->mlx.height)
-			mlx_put_pixel(map->mlx.img, x, y, ft_pixel(255, 0, 0, 255));
-		else
-			break ;
-		i += steps;
-	}
+    delta_x = ray.distance * cos(ray.angle);
+    delta_y = ray.distance * sin(ray.angle);
+
+    steps = (int)fmax(fabs(delta_x), fabs(delta_y));
+    x_increment = delta_x / steps;
+    y_increment = delta_y / steps;
+
+    x = ray.x;
+    y = ray.y;
+    i = 0;
+
+    while (i <= steps)
+    {
+        if (x >= 0 && x < map->mlx.width && y >= 0 && y < map->mlx.height)
+            mlx_put_pixel(map->mlx.img, (int)x, (int)y, ft_pixel(255, 0, 0, 255));
+        else
+            break;
+        x += x_increment;
+        y += y_increment;
+        i++;
+    }
 }
 
 void	cast_ray(t_map *map)
