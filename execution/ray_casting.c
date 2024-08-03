@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 10:32:53 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/01 15:24:06 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/03 13:41:23 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,46 +14,109 @@
 
 void	cast_rays(t_map *map)
 {
+	// double	i;
+
+	// i = 0;
+	// map->player.ray_angle = map->player.angle + map->fov / 2;
+	// while (i < map->fov)
+	// {
+	// 	map->player.ray_angle = map->player.ray_angle
+	// 		- map->fov / map->ray_count;
+	// 	cast_ray(map);
+	// 	i += map->fov / map->ray_count;
+	// }
+    mlx_image_to_window(map->mlx.mlx, map->mlx.img, 0, 0);
+}
+
+double	get_horizontal_distance(t_map *map, t_ray ray)
+{
+	double	x;
+	double	y;
+
+	x = ray.x;
+	y = ray.y;
+	if (cos(ray.angle) >= 0)
+		x = floor((x / map->cell_width)) * map->cell_width + map->cell_width + 0.0001;
+	else
+		x = floor((x / map->cell_width)) * map->cell_width - 0.0001;
+	y += (x - ray.x) * tan(ray.angle);
+	while (1)
+	{
+        if (floor((y / map->cell_height)) >= map->rows && floor((x / map->cell_width)) >= map->cols
+            && floor(y / map->cell_height) < 0 && floor(x / map->cell_width) < 0)
+            break ;
+        if (map->map[(int)(y / map->cell_height)][(int)(x / map->cell_width)] == '1')
+            break ;
+		y += map->cell_width * tan(ray.angle);
+		x += map->cell_width;
+	}
+	return (sqrt(pow(ray.x - x, 2) + pow(ray.y - y, 2)));
+}
+
+double	get_vertical_distance(t_map *map, t_ray ray)
+{
+	double	x;
+	double	y;
+
+	x = ray.x;
+	y = ray.y;
+	if (sin(ray.angle) >= 0)
+		y = floor((y / map->cell_height)) * map->cell_height + map->cell_height + 0.0001;
+	else
+		y = floor((y / map->cell_height)) * map->cell_height - 0.0001;
+	x += (y - ray.y) / tan(ray.angle);
+	while (1)
+	{
+        if (floor((y / map->cell_height)) >= map->rows && floor((x / map->cell_width)) >= map->cols
+            && floor(y / map->cell_height) < 0 && floor(x / map->cell_width) < 0)
+            break ;
+        if (map->map[(int)(y / map->cell_height)][(int)(x / map->cell_width)] == '1')
+            break ;
+		x += map->cell_height / tan(ray.angle);
+		y += map->cell_height;
+	}
+	return (sqrt(pow(ray.x - x, 2) + pow(ray.y - y, 2)));
+}
+
+void	get_ray_distance(t_map *map, t_ray *ray)
+{
+	double	hor_distance;
+	double	ver_distance;
+
+	hor_distance = get_horizontal_distance(map, *ray);
+	ver_distance = get_vertical_distance(map, *ray);
+	ray->distance = fmin(hor_distance, ver_distance);
+}
+
+void	draw_line(t_map *map, t_ray ray)
+{
+	double	x;
+	double	y;
+	double	steps;
 	double	i;
 
 	i = 0;
-	map->player.ray_angle = map->player.angle + map->fov / 2;
-	while (i < 60)
+	steps = ray.distance / 1000;
+	while (i < ray.distance)
 	{
-		map->player.ray_angle = map->player.ray_angle
-			- map->fov / map->ray_count;
-		cast_ray(map);
-		i += map->fov / map->ray_count;
+		x = ray.x + i * cos(ray.angle);
+		y = ray.y + i * sin(ray.angle);
+		if (x >= 0 && x < map->mlx.width && y >= 0 && y < map->mlx.height)
+			mlx_put_pixel(map->mlx.img, x, y, ft_pixel(255, 0, 0, 255));
+		else
+			break ;
+		i += steps;
 	}
-}
-
-int	cast(double num)
-{
-	return ((int)num);
 }
 
 void	cast_ray(t_map *map)
 {
-	double	i;
-	double	j;
 	t_ray	ray;
 
+    ft_bzero(&ray, sizeof(t_ray));
 	ray.angle = (map->player.ray_angle - 90) * M_PI / 180.0;
 	ray.x = map->player.x;
 	ray.y = map->player.y;
-	ray.distance = 0;
-	while (ray.distance < 1000)
-	{
-		ray.x += cos(ray.angle);
-		ray.y += sin(ray.angle);
-		ray.distance += 1;
-		i = ray.x;
-		j = ray.y;
-		if (i < 0 || i >= map->mlx.width || j < 0 || j >= map->mlx.height)
-			break ;
-		mlx_put_pixel(map->mlx.img, i, j, ft_pixel(255, 0, 0, 255));
-		if (map->map[(int)(j / map->cell_height)][(int)(i / map->cell_width)] == '1')
-			break ;
-	}
-	mlx_image_to_window(map->mlx.mlx, map->mlx.img, 0, 0);
+	get_ray_distance(map, &ray);
+	draw_line(map, ray);
 }

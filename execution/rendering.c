@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 16:45:21 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/01 15:34:40 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/03 13:43:40 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,17 @@ void	color(mlx_image_t *img, uint32_t color, t_map *map)
 
 void	init_map(t_map *map)
 {
-	map->mlx.width = 1200;
-	map->mlx.height = 600;
+	map->mlx.width = 800;
+	map->mlx.height = 800;
 	map->mlx.mlx = mlx_init(map->mlx.width, map->mlx.height, "cub3d", false);
 	map->mlx.img = mlx_new_image(map->mlx.mlx, map->mlx.width, map->mlx.height);
 	map->cell_height = map->mlx.height / map->rows;
 	map->cell_width = map->mlx.width / map->cols;
 	map->player.x = map->player.x * map->cell_width + map->cell_width / 2;
 	map->player.y = map->player.y * map->cell_height + map->cell_height / 2;
-	map->player.speed = 1;
-	map->fov = 60;
-	map->ray_count = 320;
+	map->player.speed = 1.5;
+	map->fov = 1;
+	map->ray_count = 1;
 }
 
 void	render_frame(t_map *map)
