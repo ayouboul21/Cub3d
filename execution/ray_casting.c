@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 10:32:53 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/03 16:22:52 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/08 15:53:21 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ void	cast_rays(t_map *map)
 
 	i = 0;
 	map->player.ray_angle = (map->player.angle - 90) + map->fov / 2;
-    printf("ray angle : %f\n", map->player.ray_angle);
-    exit(0);
+    if (map->player.ray_angle < 0)
+        map->player.ray_angle += 360;
+    // printf("ray angle : %f\n", map->player.ray_angle);
 	while (i < map->fov)
 	{
 		map->player.ray_angle = map->player.ray_angle
@@ -30,68 +31,61 @@ void	cast_rays(t_map *map)
     mlx_image_to_window(map->mlx.mlx, map->mlx.img, 0, 0);
 }
 
-double	get_horizontal_distance(t_map *map, t_ray ray)
+double	get_horizontal_distance(t_map *map, t_ray ray, int looksup, int looksright)
 {
 	double	x;
 	double	y;
-    int     looksright;
+	double	small_x;
+	double	small_y;
 
-	x = ray.x;
-	y = ray.y;
-	if (cos(ray.angle) >= 0)
-    {
-        looksright = 1;
-		x = floor((x / map->cell_width)) * map->cell_width + map->cell_width;
-    }
-	else
-    {
+    (void)looksup;
+	if (ray.angle == 0 || ray.angle == M_PI)
+		return (INT_MAX);
+    if (looksright == 0)
         looksright = -1;
-		x = floor((x / map->cell_width)) * map->cell_width - 0.0001;
-    }
-	y += (x - ray.x) * tan(ray.angle);
+    small_x = floor((ray.x / map->cell_width)) * map->cell_width;
+	small_y = fabs((small_x - ray.x) * tan(ray.angle) + ray.y);
+	x = small_x;
 	while (1)
 	{
-        if (floor((y / map->cell_height)) >= map->rows || floor(((x + (looksright == 1) * 0.0001) / map->cell_width)) >= map->cols
-            || floor(y / map->cell_height) < 0 || floor((x + (looksright == 1) * 0.0001) / map->cell_width) < 0)
+        if (floor(((x + (looksright == 1) * 0.0001) / map->cell_width)) >= map->cols
+            || floor((x + looksright * 0.0001) / map->cell_width) < 0)
             break ;
-        printf("floor y : %f floor x : %f\n", floor(y / map->cell_height), floor((x + (looksright == 1) * 0.0001) / map->cell_width));
-        if (map->map[(int)(y / map->cell_height)][(int)((x + (looksright == 1) * 0.0001) / map->cell_width)] == '1')
+        if (map->map[(int)(ray.y / map->cell_height)][(int)((x + looksright * 0.0001) / map->cell_width)] == '1')
             break ;
-		y += map->cell_width * tan(ray.angle);
-		x += map->cell_width * looksright;
+		x += map->cell_width;
 	}
+	y = (small_y * x) / small_x + ray.y;
+	x *= looksright;
 	return (sqrt(pow(ray.x - x, 2) + pow(ray.y - y, 2)));
 }
 
-double	get_vertical_distance(t_map *map, t_ray ray)
+double	get_vertical_distance(t_map *map, t_ray ray, int looksdown, int looksright)
 {
 	double	x;
 	double	y;
-    int     looksup;
+	double	small_x;
+	double	small_y;
 
-	x = ray.x;
-	y = ray.y;
-	if (sin(ray.angle) >= 0)
-    {
-        looksup = -1;
-		y = floor((y / map->cell_height)) * map->cell_height;
-    }
-	else
-    {
-        looksup = 1;
-		y = floor((y / map->cell_height)) * map->cell_height + map->cell_height + 0.0001;
-    }
-	x += (y - ray.y) / tan(ray.angle);
+    (void)looksright;
+	if (ray.angle == M_PI / 2 || ray.angle == 3 * M_PI / 2)
+		return (INT_MAX);
+	if (looksdown == 0)
+		looksdown = -1;
+    small_y = floor((ray.y / map->cell_height)) * map->cell_height;
+	small_x = fabs((small_y - ray.y) / tan(ray.angle) + ray.x);
+	y = small_y;
 	while (1)
 	{
-        if (floor(((y - (looksup == -1) * 0.0001) / map->cell_height)) >= map->rows || floor((x / map->cell_width)) >= map->cols
-            || floor((y - (looksup == -1) * 0.0001) / map->cell_height) < 0 || floor(x / map->cell_width) < 0)
+        if (floor(((y) / map->cell_height)) >= map->rows
+            || floor((y) / map->cell_height) < 0)
             break ;
-        if (map->map[(int)((y - (looksup == -1) * 0.0001) / map->cell_height)][(int)(x / map->cell_width)] == '1')
+        if (map->map[(int)((y) / map->cell_height)][(int)(ray.x / map->cell_width)] == '1')
             break ;
-		x += map->cell_height / tan(ray.angle);
-		y += map->cell_height * looksup;
+		y += map->cell_height * looksdown;
 	}
+	x = (small_x * y) / small_y + ray.x;
+	y *= looksdown;
 	return (sqrt(pow(ray.x - x, 2) + pow(ray.y - y, 2)));
 }
 
@@ -100,8 +94,8 @@ void	get_ray_distance(t_map *map, t_ray *ray)
 	double	hor_distance;
 	double	ver_distance;
 
-	hor_distance = get_horizontal_distance(map, *ray);
-	ver_distance = get_vertical_distance(map, *ray);
+	hor_distance = get_horizontal_distance(map, *ray, cos(ray->angle) >= 0, sin(ray->angle) >= 0);
+	ver_distance = get_vertical_distance(map, *ray, cos(ray->angle) >= 0, sin(ray->angle) >= 0);
 	ray->distance = fmin(hor_distance, ver_distance);
 }
 
@@ -114,15 +108,12 @@ void    draw_line(t_map *map, t_ray ray)
 
     delta_x = ray.distance * cos(ray.angle);
     delta_y = ray.distance * sin(ray.angle);
-
     steps = (int)fmax(fabs(delta_x), fabs(delta_y));
     x_increment = delta_x / steps;
     y_increment = delta_y / steps;
-
     x = ray.x;
     y = ray.y;
     i = 0;
-
     while (i <= steps)
     {
         if (x >= 0 && x < map->mlx.width && y >= 0 && y < map->mlx.height)
