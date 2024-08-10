@@ -17,5 +17,8 @@ void	printer(t_map *map)
 		printf("%s\n", map->map[i]);
 		i++;
 	}
-	// printf("player x : %f player y : %f\n", map->player.x, map->player.y);
+	printf("map rows : %d\n", map->rows);
+	printf("map cols : %d\n", map->cols);
+	printf("player angle : %f\n", map->player.angle);
+	printf("player x : %f player y : %f\n", map->player.x, map->player.y);
 }

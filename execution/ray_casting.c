@@ -6,13 +6,13 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 10:32:53 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/10 11:13:44 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/10 14:38:59 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	wall_hit(t_map *map, double x, double y)
+int	wall_hit(t_map *map, double x, double y, t_ray *ray)
 {
 	int		cell_x;
 	int		cell_y;
@@ -24,6 +24,18 @@ int	wall_hit(t_map *map, double x, double y)
 		return (1);
 	if (map->map[cell_y][cell_x] == '1')
 		return (1);
+	if (cos(ray->angle) >= 0 && sin(ray->angle) <= 0)
+		if (map->map[cell_y + 1][cell_x] == '1'
+			&& map->map[cell_y][cell_x - 1] == '1')
+			return (1);
+	if (cos(ray->angle) <= 0 && sin(ray->angle) <= 0)
+		if (map->map[cell_y + 1][cell_x] == '1'
+			&& map->map[cell_y][cell_x + 1] == '1')
+			return (1);
+	if (cos(ray->angle) <= 0 && sin(ray->angle) >= 0)
+		if (map->map[cell_y - 1][cell_x] == '1'
+			&& map->map[cell_y][cell_x + 1] == '1')
+			return (1);
 	return (0);
 }
 
@@ -65,7 +77,7 @@ double	get_horizontal_distance(t_map *map, t_ray ray, int looksdown, int looksri
 		ray.y_step *= -1;
 	if (looksdown && ray.y_step < 0)
 		ray.y_step *= -1;
-	while (!wall_hit(map, x, y))
+	while (!wall_hit(map, x, y, &ray))
 	{
 		x += ray.x_step;
 		y += ray.y_step;
@@ -92,7 +104,7 @@ double	get_vertical_distance(t_map *map, t_ray ray, int looksdown, int looksrigh
 		ray.x_step *= -1;
 	if (looksright && ray.x_step < 0)
 		ray.x_step *= -1;
-	while (!wall_hit(map, x, y))
+	while (!wall_hit(map, x, y, &ray))
 	{
 		y += ray.y_step;
 		x += ray.x_step;
@@ -147,4 +159,5 @@ void	cast_ray(t_map *map)
 	ray.y = map->player.y;
 	get_ray_distance(map, &ray);
 	draw_line(map, ray);
+	// draw_wall(map, ray);
 }

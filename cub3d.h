@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/10 11:01:02 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/10 12:07:32 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_player
 	double	x;
 	double	y;
 	double	speed;
+	double	distance_to_plane;
 }		t_player;
 
 typedef struct s_mlx
