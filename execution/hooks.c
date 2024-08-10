@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 10:46:36 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/01 15:35:48 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/10 09:37:39 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	rotate_left(t_map *map)
 {
-	map->player.angle -= 5;
+	map->player.angle -= 2;
 	if (map->player.angle < 0)
 		map->player.angle += 360;
 }
 
 void	rotate_right(t_map *map)
 {
-	map->player.angle += 5;
+	map->player.angle += 2;
 	if (map->player.angle >= 360)
 		map->player.angle -= 360;
 }

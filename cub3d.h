@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/01 14:21:37 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/10 11:01:02 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,12 @@ typedef struct s_mlx
 
 typedef struct s_ray
 {
-	double		angle;
-	double		x;
-	double		y;
-	double		distance;
+	double	angle;
+	double	x;
+	double	y;
+	double	x_step;
+	double	y_step;
+	double	distance;
 }				t_ray;
 
 typedef struct s_map

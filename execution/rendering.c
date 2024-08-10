@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 16:45:21 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/08 15:36:44 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/10 10:55:05 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	init_map(t_map *map)
 	map->player.y = map->player.y * map->cell_height + map->cell_height / 2;
 	map->player.speed = 1.5;
 	map->fov = 60;
-	map->ray_count = 100;
+	map->ray_count = map->mlx.width;
 }
 
 void	render_frame(t_map *map)
