@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:34:02 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/07/31 09:57:09 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/12 11:56:26 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	fill_color(t_color *color, char *rgb)
 		i++;
 	if (i == 0 || rgb[i] != '\0')
 		return (0);
-	color->blue = ft_atoi(rgb + i);
+	color->blue = ft_atoi(rgb);
 	return (1);
 }
 

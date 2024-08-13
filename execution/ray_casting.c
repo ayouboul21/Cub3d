@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 10:32:53 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/10 14:38:59 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/13 09:11:10 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ void	cast_rays(t_map *map)
         map->player.ray_angle += 360;
 	if (map->player.ray_angle > 360)
 		map->player.ray_angle -= 360;
-	while (i < map->ray_count)
+	while ((int)i < map->mlx.width)
 	{
-		cast_ray(map);
+		cast_ray(map, i);
 		map->player.ray_angle += map->fov / map->ray_count;
 		i++;
 	}
@@ -63,7 +63,6 @@ double	get_horizontal_distance(t_map *map, t_ray ray, int looksdown, int looksri
 	double	x;
 	double	y;
 
-	(void)looksdown;
 	if (looksright)
     	x = floor((ray.x / map->cell_width)) * map->cell_width + map->cell_width;
 	else
@@ -82,7 +81,9 @@ double	get_horizontal_distance(t_map *map, t_ray ray, int looksdown, int looksri
 		x += ray.x_step;
 		y += ray.y_step;
 	}
-	return (sqrt(pow(ray.x - x, 2) + pow(ray.y - y, 2)));
+	ray.x_check = x + (!looksright);
+	ray.y_check = y;
+	return (sqrt(pow(ray.x - ray.x_check, 2) + pow(ray.y - ray.y_check, 2)));
 }
 
 double	get_vertical_distance(t_map *map, t_ray ray, int looksdown, int looksright)
@@ -90,7 +91,6 @@ double	get_vertical_distance(t_map *map, t_ray ray, int looksdown, int looksrigh
 	double	x;
 	double	y;
 
-    (void)looksright;
 	if (looksdown)
     	y = floor((ray.y / map->cell_height)) * map->cell_height + map->cell_height;
 	else
@@ -109,7 +109,9 @@ double	get_vertical_distance(t_map *map, t_ray ray, int looksdown, int looksrigh
 		y += ray.y_step;
 		x += ray.x_step;
 	}
-	return (sqrt(pow(ray.x - x, 2) + pow(ray.y - y, 2)));
+	ray.x_check = x;
+	ray.y_check = y + (!looksdown);
+	return (sqrt(pow(ray.x - ray.x_check, 2) + pow(ray.y - ray.y_check, 2)));
 }
 
 void	get_ray_distance(t_map *map, t_ray *ray)
@@ -149,15 +151,40 @@ void    draw_line(t_map *map, t_ray ray)
     }
 }
 
-void	cast_ray(t_map *map)
+void	draw_wall(t_map *map, t_ray ray, double i)
 {
-	t_ray	ray;
+	double	j;
+	double	wall_height_max;
+	double	wall_height_min;
+	double	wall_height;
+
+	j = 0;
+	map->player.distance_to_plane = (map->mlx.width / 2) / tan(map->fov / 2);
+	wall_height = (map->cell_height / ray.distance) * map->player.distance_to_plane;
+	wall_height_min = (map->mlx.height / 2) + (wall_height / 2);
+	wall_height_max = (map->mlx.height / 2) - (wall_height / 2);
+	while ((int)j < map->mlx.height)
+	{
+		if (j < wall_height_min)
+			mlx_put_pixel(map->mlx.img, i, j, ft_pixel(map->ceiling.red, map->ceiling.green, map->ceiling.blue, 255));
+		else if (j >= wall_height_min && j <= wall_height_max)
+			mlx_put_pixel(map->mlx.img, i, j, ft_pixel(255, 0, 0, 255));
+		else
+			mlx_put_pixel(map->mlx.img, i, j, ft_pixel(map->floor.red, map->floor.green, map->floor.blue, 255));
+		j++;
+	}
+}
+
+void	cast_ray(t_map *map, double i)
+{
+	t_ray		ray;
 
     ft_bzero(&ray, sizeof(t_ray));
 	ray.angle = map->player.ray_angle * M_PI / 180.0;
 	ray.x = map->player.x;
 	ray.y = map->player.y;
 	get_ray_distance(map, &ray);
-	draw_line(map, ray);
-	// draw_wall(map, ray);
+	// draw_line(map, ray);
+	draw_wall(map, ray, i);
+	i++;
 }

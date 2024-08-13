@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 16:45:21 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/10 12:10:39 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/13 09:06:12 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ void	color(mlx_image_t *img, uint32_t color, t_map *map)
 
 void	init_map(t_map *map)
 {
-	map->mlx.width = map->cols * 32;
-	map->mlx.height = map->rows * 32;
+	map->mlx.width = 1280;
+	map->mlx.height = 720;
 	map->mlx.mlx = mlx_init(map->mlx.width, map->mlx.height, "cub3d", false);
 	map->mlx.img = mlx_new_image(map->mlx.mlx, map->mlx.width, map->mlx.height);
-	map->cell_height = map->mlx.height / map->rows;
-	map->cell_width = map->mlx.width / map->cols;
+	map->cell_height = 64;
+	map->cell_width = 64;
 	map->player.x = map->player.x * map->cell_width + map->cell_width / 2;
 	map->player.y = map->player.y * map->cell_height + map->cell_height / 2;
 	map->player.speed = 1.5;
@@ -56,25 +56,25 @@ void	init_map(t_map *map)
 
 void	render_frame(t_map *map)
 {
-	int32_t	i;
-	int32_t	j;
+	// int32_t	i;
+	// int32_t	j;
 
-	i = -1;
-	while (++i < map->rows)
-	{
-		j = -1;
-		while (++j < map->cols)
-		{
-			(1) && (map->i = i, map->j = j);
-			if (map->map[i][j] == '1')
-				color(map->mlx.img, ft_pixel(0, 0, 0, 255), map);
-			else
-			{
-				(1) && (map->i = i, map->j = j);
-				color(map->mlx.img, ft_pixel(255, 255, 255, 255), map);
-			}
-		}
-	}
+	// i = -1;
+	// while (++i < map->rows)
+	// {
+	// 	j = -1;
+	// 	while (++j < map->cols)
+	// 	{
+	// 		(1) && (map->i = i, map->j = j);
+	// 		if (map->map[i][j] == '1')
+	// 			color(map->mlx.img, ft_pixel(0, 0, 0, 255), map);
+	// 		else
+	// 		{
+	// 			(1) && (map->i = i, map->j = j);
+	// 			color(map->mlx.img, ft_pixel(255, 255, 255, 255), map);
+	// 		}
+	// 	}
+	// }
 	draw_player(map);
 }
 

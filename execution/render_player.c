@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 10:33:56 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/10 12:10:26 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/13 09:06:13 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,18 @@ int	is_inside_triangle(int i, int j, int *v)
 
 void	draw_player(t_map *map)
 {
-	int	v[6];
-	int	i;
-	int	j;
+	// int	v[6];
+	// int	i;
+	// int	j;
 
-	calculate_vertices(map, map->cell_width / 4, map->cell_height / 4, v);
-	i = map->player.x - map->cell_width / 4;
-	while (++i < map->mlx.width)
-	{
-		j = map->player.y - map->cell_height / 4;
-		while (++j < map->mlx.height)
-			if (is_inside_triangle(i, j, v))
-				mlx_put_pixel(map->mlx.img, i, j, ft_pixel(0, 255, 0, 255));
-	}
+	// calculate_vertices(map, map->cell_width / 4, map->cell_height / 4, v);
+	// i = map->player.x - map->cell_width / 4;
+	// while (++i < map->mlx.width)
+	// {
+	// 	j = map->player.y - map->cell_height / 4;
+	// 	while (++j < map->mlx.height)
+	// 		if (is_inside_triangle(i, j, v))
+	// 			mlx_put_pixel(map->mlx.img, i, j, ft_pixel(0, 255, 0, 255));
+	// }
 	cast_rays(map);
 }

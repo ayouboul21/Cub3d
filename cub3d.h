@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/10 12:07:32 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/13 08:31:24 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ typedef struct s_ray
 	double	y;
 	double	x_step;
 	double	y_step;
+	double	x_check;
+	double	y_check;
 	double	distance;
 }				t_ray;
 
@@ -110,7 +112,7 @@ void		move_right(t_map *map);
 void		rotate_left(t_map *map);
 void		rotate_right(t_map *map);
 void		cast_rays(t_map *map);
-void		cast_ray(t_map *map);
+void		cast_ray(t_map *map, double i);
 void		ft_hook(void *param);
 void		ft_remap(t_map *map);
 void		draw_player(t_map *map);
