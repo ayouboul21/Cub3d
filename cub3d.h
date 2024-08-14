@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/14 13:04:59 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/14 15:01:09 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct s_map
 	t_color		floor;
 	t_color		ceiling;
 	t_player	player;
+	mlx_texture_t	*texture;
 }				t_map;
 
 int			parse(char *file, t_map *map);
@@ -118,6 +119,7 @@ void		ft_remap(t_map *map);
 void		draw_player(t_map *map);
 void		color(mlx_image_t *img, uint32_t color, t_map *map);
 uint32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
+void		draw_image(t_map *map, double i, double j, double h_min, double h_max);
 
 //printer
 void	printer(t_map *map);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 10:32:53 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/14 13:04:34 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/14 15:54:02 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	cast_rays(t_map *map)
 
 	i = 0;
 	map->player.ray_angle = map->player.angle - map->fov / 2;
-    if (map->player.ray_angle < 0)
-        map->player.ray_angle += 360;
+	if (map->player.ray_angle < 0)
+		map->player.ray_angle += 360;
 	if (map->player.ray_angle > 360)
 		map->player.ray_angle -= 360;
 	while ((int)i < map->mlx.width)
@@ -55,63 +55,64 @@ void	cast_rays(t_map *map)
 		map->player.ray_angle += map->fov / map->ray_count;
 		i++;
 	}
-    mlx_image_to_window(map->mlx.mlx, map->mlx.img, 0, 0);
+	mlx_image_to_window(map->mlx.mlx, map->mlx.img, 0, 0);
 }
 
-double	get_vertical_distance(t_map *map, t_ray ray, int looksdown, int looksright)
+
+double	get_vertical_distance(t_map *map, t_ray *ray, int looksdown, int looksright)
 {
 	double	x;
 	double	y;
 
 	if (looksright)
-    	x = floor((ray.x / map->cell_width)) * map->cell_width + map->cell_width;
+    	x = floor((ray->x / map->cell_width)) * map->cell_width + map->cell_width;
 	else
-		x = floor((ray.x / map->cell_width)) * map->cell_width - 0.0001;
-	y = (x - ray.x) * tan(ray.angle) + ray.y;
-	ray.x_step = map->cell_width;
-	ray.y_step = map->cell_width * tan(ray.angle);
+		x = floor((ray->x / map->cell_width)) * map->cell_width - 0.0001;
+	y = (x - ray->x) * tan(ray->angle) + ray->y;
+	ray->x_step = map->cell_width;
+	ray->y_step = map->cell_width * tan(ray->angle);
 	if (!looksright)
-		ray.x_step *= -1;
-	if (!looksdown && ray.y_step > 0)
-		ray.y_step *= -1;
-	if (looksdown && ray.y_step < 0)
-		ray.y_step *= -1;
-	while (!wall_hit(map, x, y, &ray))
+		ray->x_step *= -1;
+	if (!looksdown && ray->y_step > 0)
+		ray->y_step *= -1;
+	if (looksdown && ray->y_step < 0)
+		ray->y_step *= -1;
+	while (!wall_hit(map, x, y, ray))
 	{
-		x += ray.x_step;
-		y += ray.y_step;
+		x += ray->x_step;
+		y += ray->y_step;
 	}
-	ray.x_check = x;
-	ray.y_check = y;
-	return (sqrt(pow(ray.x - ray.x_check, 2) + pow(ray.y - ray.y_check, 2)) * cos(ray.angle - (map->player.angle * M_PI / 180.0)));
+	ray->x_check = x;
+	ray->y_check = y;
+	return (sqrt(pow(ray->x - ray->x_check, 2) + pow(ray->y - ray->y_check, 2)) * cos(ray->angle - (map->player.angle * M_PI / 180.0)));
 }
 
-double	get_horizontal_distance(t_map *map, t_ray ray, int looksdown, int looksright)
+double	get_horizontal_distance(t_map *map, t_ray *ray, int looksdown, int looksright)
 {
 	double	x;
 	double	y;
 
 	if (looksdown)
-    	y = floor((ray.y / map->cell_height)) * map->cell_height + map->cell_height;
+    	y = floor((ray->y / map->cell_height)) * map->cell_height + map->cell_height;
 	else
-		y = floor((ray.y / map->cell_height)) * map->cell_height - 0.0001;
-	x = (y - ray.y) / tan(ray.angle) + ray.x;
-	ray.y_step = map->cell_height;
-	ray.x_step = map->cell_height / tan(ray.angle);
+		y = floor((ray->y / map->cell_height)) * map->cell_height - 0.0001;
+	x = (y - ray->y) / tan(ray->angle) + ray->x;
+	ray->y_step = map->cell_height;
+	ray->x_step = map->cell_height / tan(ray->angle);
 	if (!looksdown)
-		ray.y_step *= -1;
-	if (!looksright && ray.x_step > 0)
-		ray.x_step *= -1;
-	if (looksright && ray.x_step < 0)
-		ray.x_step *= -1;
-	while (!wall_hit(map, x, y, &ray))
+		ray->y_step *= -1;
+	if (!looksright && ray->x_step > 0)
+		ray->x_step *= -1;
+	if (looksright && ray->x_step < 0)
+		ray->x_step *= -1;
+	while (!wall_hit(map, x, y, ray))
 	{
-		y += ray.y_step;
-		x += ray.x_step;
+		y += ray->y_step;
+		x += ray->x_step;
 	}
-	ray.x_check = x;
-	ray.y_check = y;
-	return (sqrt(pow(ray.x - ray.x_check, 2) + pow(ray.y - ray.y_check, 2)) * cos(ray.angle- (map->player.angle * M_PI / 180.0)));
+	ray->x_check = x;
+	ray->y_check = y;
+	return (sqrt(pow(ray->x - ray->x_check, 2) + pow(ray->y - ray->y_check, 2)) * cos(ray->angle- (map->player.angle * M_PI / 180.0)));
 }
 
 void	get_ray_distance(t_map *map, t_ray *ray)
@@ -119,8 +120,8 @@ void	get_ray_distance(t_map *map, t_ray *ray)
 	double	hor_distance;
 	double	ver_distance;
 
-	hor_distance = get_horizontal_distance(map, *ray, sin(ray->angle) > 0, cos(ray->angle) > 0);
-	ver_distance = get_vertical_distance(map, *ray, sin(ray->angle) > 0, cos(ray->angle) > 0);
+	hor_distance = get_horizontal_distance(map, ray, sin(ray->angle) > 0, cos(ray->angle) > 0);
+	ver_distance = get_vertical_distance(map, ray, sin(ray->angle) > 0, cos(ray->angle) > 0);
 	ray->distance = fmin(hor_distance, ver_distance);
 }
 
@@ -167,7 +168,10 @@ void	draw_wall(t_map *map, t_ray ray, double i)
 		if (j <= wall_height_min)
 			mlx_put_pixel(map->mlx.img, i, j, ft_pixel(map->ceiling.red, map->ceiling.green, map->ceiling.blue, 255));
 		else if (j > wall_height_min && j < wall_height_max)
+		{
 			mlx_put_pixel(map->mlx.img, i, j, ft_pixel(255, 0, 0, 255));
+			// draw_image(map, i, j, wall_height_min, wall_height_max);
+		}
 		else
 			mlx_put_pixel(map->mlx.img, i, j, ft_pixel(map->floor.red, map->floor.green, map->floor.blue, 255));
 		j++;
@@ -185,5 +189,5 @@ void	cast_ray(t_map *map, double i)
 	get_ray_distance(map, &ray);
 	// draw_line(map, ray);
 	draw_wall(map, ray, i);
-	i++;
+	// i++;
 }

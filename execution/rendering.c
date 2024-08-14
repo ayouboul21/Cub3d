@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 16:45:21 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/14 13:05:23 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/14 15:40:04 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,20 @@ void	init_map(t_map *map)
 	map->mlx.height = 720;
 	map->mlx.mlx = mlx_init(map->mlx.width, map->mlx.height, "cub3d", false);
 	map->mlx.img = mlx_new_image(map->mlx.mlx, map->mlx.width, map->mlx.height);
-	map->cell_height = 32;
-	map->cell_width = 32;
+	map->texture = mlx_load_png("texture/wall.png");
+	if(!map->texture)
+	{
+		printf("Error\n");
+		exit(1);
+	}
+	map->cell_height = map->texture->height;
+	map->cell_width = map->texture->width;
 	map->player.x = map->player.x * map->cell_width + map->cell_width / 2;
 	map->player.y = map->player.y * map->cell_height + map->cell_height / 2;
-	map->player.speed = 1.5;
+	map->player.speed = map->cell_width / 20;
 	map->fov = 60;
 	map->ray_count = map->mlx.width;
-	map->player.wall_height = 64;
+	map->player.wall_height = map->texture->height;
 }
 
 void	render_frame(t_map *map)
