@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 10:32:53 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/14 11:31:39 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/14 13:04:34 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ void	draw_wall(t_map *map, t_ray ray, double i)
 	double	wall_height;
 
 	j = 0;
-	wall_height = (map->mlx.height / ray.distance) * 50;
+	wall_height = (map->mlx.height / ray.distance) * map->player.wall_height;
 	wall_height_min = (map->mlx.height / 2) - (wall_height / 2);
 	wall_height_max = wall_height_min + wall_height;
 	while ((int)j < map->mlx.height)
