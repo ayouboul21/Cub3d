@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 16:45:21 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/15 11:34:48 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/15 13:36:42 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,14 @@ void	init_map(t_map *map)
 		printf("Error\n");
 		exit(1);
 	}
-	map->cell_height = map->texture->height;
-	map->cell_width = map->texture->width;
+	map->cell_height = 64;
+	map->cell_width =  64;
 	map->player.x = map->player.x * map->cell_width + map->cell_width / 2;
 	map->player.y = map->player.y * map->cell_height + map->cell_height / 2;
 	map->player.speed = map->cell_width / 20;
 	map->fov = 60;
 	map->ray_count = map->mlx.width;
-	map->player.wall_height = map->texture->height;
+	map->player.wall_height = 64;
 }
 
 void	render_frame(t_map *map)

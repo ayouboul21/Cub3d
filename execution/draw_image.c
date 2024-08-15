@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_image.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 08:47:14 by hel-magh          #+#    #+#             */
-/*   Updated: 2024/08/15 11:57:13 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/15 13:30:45 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 
 int	mlx_get_pixel(mlx_texture_t *texture, int x, int y)
 {
-	int	color;
-	int	*data;
+	int	index;
 
-	data = (int *)texture->pixels;
-	color = data[y * texture->width + x];
-	return (color);
+	index = (y * texture->width + x) * texture->bytes_per_pixel;
+	return (ft_pixel(texture->pixels[index], texture->pixels[index + 1],
+			texture->pixels[index + 2], texture->pixels[index + 3]));
 }
 
 void	draw_image(t_map *map, double i, double j, double h_min, double h_max)
@@ -28,7 +27,8 @@ void	draw_image(t_map *map, double i, double j, double h_min, double h_max)
 	int	y;
 	int	color = ft_pixel(255, 0, 0, 255);
 
-	x = fmod(map->ray.x_check, map->texture->width);
+	x = fmod(map->ray.x_check, map->cell_width) * map->texture->width / map->cell_width;
+	// printf("x = %d\n", x);
 	y = (((int)(j - h_min) * map->texture->height)  / (h_max - h_min));
 	if (map->ray.rdir == VERTICAL)
 	{
