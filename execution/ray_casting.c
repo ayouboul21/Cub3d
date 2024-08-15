@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 10:32:53 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/14 16:27:42 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/14 18:01:17 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,9 +166,9 @@ void	draw_wall(t_map *map, t_ray ray, double i)
 	wall_height_max = wall_height_min + wall_height;
 	while ((int)j < map->mlx.height)
 	{
-		if (j < wall_height_min)
+		if (j <= wall_height_min)
 			mlx_put_pixel(map->mlx.img, i, j, ft_pixel(map->ceiling.red, map->ceiling.green, map->ceiling.blue, 255));
-		else if (j >= wall_height_min && j <= wall_height_max)
+		else if (j > wall_height_min && j < wall_height_max)
 			draw_image(map, i, j, wall_height_min, wall_height_max);
 		else
 			mlx_put_pixel(map->mlx.img, i, j, ft_pixel(map->floor.red, map->floor.green, map->floor.blue, 255));
