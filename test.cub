@@ -1,7 +1,7 @@
 NO ./texture/hel-magh.png
 SO ./texture/wall64.png
 EA ./texture/aoulahra.png
-WE ./texture/walla.png
+WE ./texture/wall.png
 
 F 255,255,255
 C 0,0,0

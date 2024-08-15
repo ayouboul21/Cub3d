@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 10:32:53 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/15 11:56:01 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:28:25 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void	cast_rays(t_map *map)
 	}
 	mlx_image_to_window(map->mlx.mlx, map->mlx.img, 0, 0);
 }
-
 
 double	get_vertical_distance(t_map *map, t_ray *ray, int looksdown, int looksright)
 {
@@ -166,21 +165,19 @@ void    draw_line(t_map *map, t_ray ray)
 void	draw_wall(t_map *map, t_ray ray, double i)
 {
 	double	j;
-	double	wall_height_max;
-	double	wall_height_min;
 	double	wall_height;
 
 	j = 0;
 	map->ray = ray;
 	wall_height = (map->mlx.height / ray.distance) * map->player.wall_height;
-	wall_height_min = (map->mlx.height / 2) - (wall_height / 2);
-	wall_height_max = wall_height_min + wall_height;
+	map->h_min = (map->mlx.height / 2) - (wall_height / 2);
+	map->h_max = map->h_min + wall_height;
 	while ((int)j < map->mlx.height)
 	{
-		if (j <= wall_height_min)
+		if (j <= map->h_min)
 			mlx_put_pixel(map->mlx.img, i, j, ft_pixel(map->ceiling.red, map->ceiling.green, map->ceiling.blue, 255));
-		else if (j > wall_height_min && j < wall_height_max)
-			draw_image(map, i, j, wall_height_min, wall_height_max);
+		else if (j > map->h_min && j < map->h_max)
+			draw_image(map, i, j);
 		else
 			mlx_put_pixel(map->mlx.img, i, j, ft_pixel(map->floor.red, map->floor.green, map->floor.blue, 255));
 		j++;

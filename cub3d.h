@@ -6,7 +6,7 @@
 /*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/15 14:10:26 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:27:43 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct s_mlx
 	mlx_image_t	*img;
 }				t_mlx;
 
-typedef	enum  e_direction
+typedef enum e_direction
 {
 	HORIZONTAL,
 	VERTICAL
@@ -71,29 +71,32 @@ typedef struct s_ray
 
 typedef struct s_map
 {
-	int			rows;
-	int			cols;
-	int			i;
-	int			j;
-	int			p;
-	int			cell_height;
-	int			cell_width;
-	char		*north;
-	char		*south;
-	char		*west;
-	char		*east;
-	char		**map;
-	char		*sprite;
-	char		*floor_color;
-	char		*ceiling_color;
-	double		fov;
-	double		ray_count;
-	t_mlx		mlx;
-	t_ray		ray;
-	t_color		floor;
-	t_color		ceiling;
-	t_player	player;
-	mlx_texture_t	*texture[4];
+	int				rows;
+	int				cols;
+	int				i;
+	int				j;
+	int				p;
+	int				cell_height;
+	int				cell_width;
+	int				clr;
+	double			h_max;
+	double			h_min;
+	char			*north;
+	char			*south;
+	char			*west;
+	char			*east;
+	char			**map;
+	char			*sprite;
+	char			*floor_color;
+	char			*ceiling_color;
+	double			fov;
+	double			ray_count;
+	t_mlx			mlx;
+	t_ray			ray;
+	t_color			floor;
+	t_color			ceiling;
+	t_player		player;
+	mlx_texture_t	*txt[4];
 }				t_map;
 
 int			parse(char *file, t_map *map);
@@ -128,7 +131,7 @@ void		ft_hook(void *param);
 void		ft_remap(t_map *map);
 void		draw_player(t_map *map);
 void		color(mlx_image_t *img, uint32_t color, t_map *map);
-void		draw_image(t_map *map, double i, double j, double h_min, double h_max);
+void		draw_image(t_map *map, double i, double j);
 uint32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 
 //printer
