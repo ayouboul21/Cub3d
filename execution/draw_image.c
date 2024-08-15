@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_image.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 08:47:14 by hel-magh          #+#    #+#             */
-/*   Updated: 2024/08/15 16:17:24 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/08/15 17:03:20 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,28 @@ void	draw_image(t_map *map, double i, double j)
 	else
 		draw_horizantal(map, j);
 	mlx_put_pixel(map->mlx.img, i, j, map->clr);
+}
+
+void	draw_wall(t_map *map, t_ray ray, double i)
+{
+	double	j;
+	double	wall_height;
+
+	j = 0;
+	map->ray = ray;
+	wall_height = (map->mlx.height / ray.distance) * map->player.wall_height;
+	map->h_min = (map->mlx.height / 2) - (wall_height / 2);
+	map->h_max = map->h_min + wall_height;
+	while ((int)j < map->mlx.height)
+	{
+		if (j <= map->h_min)
+			mlx_put_pixel(map->mlx.img, i, j, ft_pixel(map->ceiling.red,
+					map->ceiling.green, map->ceiling.blue, 255));
+		else if (j > map->h_min && j < map->h_max)
+			draw_image(map, i, j);
+		else
+			mlx_put_pixel(map->mlx.img, i, j, ft_pixel(map->floor.red,
+					map->floor.green, map->floor.blue, 255));
+		j++;
+	}
 }

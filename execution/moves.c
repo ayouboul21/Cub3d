@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:02:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/10 10:35:24 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:59:59 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,10 @@ void	move_forward(t_map *map)
 	float	new_y;
 	float	new_x;
 
-	new_x = map->player.x + map->player.speed * cos((map->player.angle) * M_PI / 180.0);
-	new_y = map->player.y + map->player.speed * sin((map->player.angle) * M_PI / 180.0);
+	new_x = map->player.x + map->player.speed
+		* cos((map->player.angle) * M_PI / 180.0);
+	new_y = map->player.y + map->player.speed
+		* sin((map->player.angle) * M_PI / 180.0);
 	cell_x = new_x / map->cell_width;
 	cell_y = new_y / map->cell_height;
 	if (map->map[cell_y][cell_x] != '1'
@@ -54,8 +56,10 @@ void	move_backward(t_map *map)
 	float	new_y;
 	float	new_x;
 
-	new_x = map->player.x - map->player.speed * cos((map->player.angle) * M_PI / 180.0);
-	new_y = map->player.y - map->player.speed * sin((map->player.angle) * M_PI / 180.0);
+	new_x = map->player.x - map->player.speed
+		* cos((map->player.angle) * M_PI / 180.0);
+	new_y = map->player.y - map->player.speed
+		* sin((map->player.angle) * M_PI / 180.0);
 	cell_x = new_x / map->cell_width;
 	cell_y = new_y / map->cell_height;
 	if (map->map[cell_y][cell_x] != '1'
@@ -73,8 +77,10 @@ void	move_left(t_map *map)
 	float	new_y;
 	float	new_x;
 
-	new_x = map->player.x - map->player.speed * cos((map->player.angle + 90) * M_PI / 180.0);
-	new_y = map->player.y - map->player.speed * sin((map->player.angle + 90) * M_PI / 180.0);
+	new_x = map->player.x - map->player.speed
+		* cos((map->player.angle + 90) * M_PI / 180.0);
+	new_y = map->player.y - map->player.speed
+		* sin((map->player.angle + 90) * M_PI / 180.0);
 	cell_x = new_x / map->cell_width;
 	cell_y = new_y / map->cell_height;
 	if (map->map[cell_y][cell_x] != '1'
@@ -92,8 +98,10 @@ void	move_right(t_map *map)
 	float	new_y;
 	float	new_x;
 
-	new_x = map->player.x + map->player.speed * cos((map->player.angle + 90) * M_PI / 180.0);
-	new_y = map->player.y + map->player.speed * sin((map->player.angle + 90) * M_PI / 180.0);
+	new_x = map->player.x + map->player.speed
+		* cos((map->player.angle + 90) * M_PI / 180.0);
+	new_y = map->player.y + map->player.speed
+		* sin((map->player.angle + 90) * M_PI / 180.0);
 	cell_x = new_x / map->cell_width;
 	cell_y = new_y / map->cell_height;
 	if (map->map[cell_y][cell_x] != '1'

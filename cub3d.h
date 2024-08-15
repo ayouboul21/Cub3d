@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/15 16:27:43 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/08/15 17:10:06 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,9 +132,10 @@ void		ft_remap(t_map *map);
 void		draw_player(t_map *map);
 void		color(mlx_image_t *img, uint32_t color, t_map *map);
 void		draw_image(t_map *map, double i, double j);
+void		draw_wall(t_map *map, t_ray ray, double i);
 uint32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 
 //printer
-void	printer(t_map *map);
+void		printer(t_map *map);
 
 #endif
