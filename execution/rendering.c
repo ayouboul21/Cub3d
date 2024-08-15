@@ -6,7 +6,7 @@
 /*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 16:45:21 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/15 13:36:42 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/08/15 15:36:34 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ void	init_map(t_map *map)
 	map->mlx.height = 720;
 	map->mlx.mlx = mlx_init(map->mlx.width, map->mlx.height, "cub3d", false);
 	map->mlx.img = mlx_new_image(map->mlx.mlx, map->mlx.width, map->mlx.height);
-	map->texture = mlx_load_png("texture/wall.png");
-	if(!map->texture)
-	{
-		printf("Error\n");
+	map->texture[0] = mlx_load_png(map->west);
+	map->texture[1] = mlx_load_png(map->north);
+	map->texture[2] = mlx_load_png(map->south);
+	map->texture[3] = mlx_load_png(map->east);
+	if(!map->texture[0] || !map->texture[1] || !map->texture[2] || !map->texture[3])
 		exit(1);
-	}
 	map->cell_height = 64;
 	map->cell_width =  64;
 	map->player.x = map->player.x * map->cell_width + map->cell_width / 2;
