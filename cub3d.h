@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/15 09:55:25 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/15 11:32:22 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,25 @@ typedef struct s_mlx
 	mlx_image_t	*img;
 }				t_mlx;
 
+typedef	enum  e_direction
+{
+	HORIZONTAL,
+	VERTICAL
+}				t_direction;
+
 typedef struct s_ray
 {
-	double	angle;
-	double	x;
-	double	y;
-	double	x_step;
-	double	y_step;
-	double	x_check;
-	double	y_check;
-	double	x_check_hor;
-	double	x_check_ver;
-	double	distance;
+	double		angle;
+	double		x;
+	double		y;
+	double		x_step;
+	double		y_step;
+	double		x_check;
+	double		y_check;
+	double		x_check_hor;
+	double		x_check_ver;
+	double		distance;
+	t_direction	rdir;
 }				t_ray;
 
 typedef struct s_map

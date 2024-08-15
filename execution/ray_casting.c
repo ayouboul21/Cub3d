@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 10:32:53 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/15 09:57:15 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/15 11:56:01 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@ void	cast_rays(t_map *map)
 
 	i = 0;
 	map->player.ray_angle = map->player.angle - map->fov / 2;
-	if (map->player.ray_angle < 0)
-		map->player.ray_angle += 360;
-	if (map->player.ray_angle > 360)
-		map->player.ray_angle -= 360;
 	while ((int)i < map->mlx.width)
 	{
 		cast_ray(map, i);
 		map->player.ray_angle += map->fov / map->ray_count;
+		if (map->player.ray_angle < 0)
+			map->player.ray_angle += 360;
+		if (map->player.ray_angle > 360)
+			map->player.ray_angle -= 360;
 		i++;
 	}
 	mlx_image_to_window(map->mlx.mlx, map->mlx.img, 0, 0);
@@ -123,9 +123,15 @@ void	get_ray_distance(t_map *map, t_ray *ray)
 	hor_distance = get_horizontal_distance(map, ray, sin(ray->angle) > 0, cos(ray->angle) > 0);
 	ver_distance = get_vertical_distance(map, ray, sin(ray->angle) > 0, cos(ray->angle) > 0);
 	if (hor_distance < ver_distance)
+	{
 		ray->x_check = ray->x_check_hor;
+		ray->rdir = HORIZONTAL;
+	}
 	else
+	{
 		ray->x_check = ray->y_check;
+		ray->rdir = VERTICAL;
+	}
 
 	ray->distance = fmin(hor_distance, ver_distance);
 }

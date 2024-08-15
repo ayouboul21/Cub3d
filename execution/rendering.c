@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 16:45:21 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/15 09:58:25 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/15 11:34:48 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	init_map(t_map *map)
 	map->mlx.height = 720;
 	map->mlx.mlx = mlx_init(map->mlx.width, map->mlx.height, "cub3d", false);
 	map->mlx.img = mlx_new_image(map->mlx.mlx, map->mlx.width, map->mlx.height);
-	map->texture = mlx_load_png("texture/wall64.png");
+	map->texture = mlx_load_png("texture/wall.png");
 	if(!map->texture)
 	{
 		printf("Error\n");
