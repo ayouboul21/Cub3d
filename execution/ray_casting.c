@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 10:32:53 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/14 18:01:17 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/08/15 09:57:15 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ double	get_vertical_distance(t_map *map, t_ray *ray, int looksdown, int looksrig
 	if (looksright)
     	x = floor((ray->x / map->cell_width)) * map->cell_width + map->cell_width;
 	else
-		x = floor((ray->x / map->cell_width)) * map->cell_width - 0.0001;
+		x = floor((ray->x / map->cell_width)) * map->cell_width - 0.001;
 	y = (x - ray->x) * tan(ray->angle) + ray->y;
 	ray->x_step = map->cell_width;
 	ray->y_step = map->cell_width * tan(ray->angle);
@@ -82,9 +82,9 @@ double	get_vertical_distance(t_map *map, t_ray *ray, int looksdown, int looksrig
 		x += ray->x_step;
 		y += ray->y_step;
 	}
-	ray->x_check = x;
+	ray->x_check_ver = x;
 	ray->y_check = y;
-	return (sqrt(pow(ray->x - ray->x_check, 2) + pow(ray->y - ray->y_check, 2)) * cos(ray->angle - (map->player.angle * M_PI / 180.0)));
+	return (sqrt(pow(ray->x - ray->x_check_ver, 2) + pow(ray->y - ray->y_check, 2)) * cos(ray->angle - (map->player.angle * M_PI / 180.0)));
 }
 
 double	get_horizontal_distance(t_map *map, t_ray *ray, int looksdown, int looksright)
@@ -95,7 +95,7 @@ double	get_horizontal_distance(t_map *map, t_ray *ray, int looksdown, int looksr
 	if (looksdown)
     	y = floor((ray->y / map->cell_height)) * map->cell_height + map->cell_height;
 	else
-		y = floor((ray->y / map->cell_height)) * map->cell_height - 0.0001;
+		y = floor((ray->y / map->cell_height)) * map->cell_height - 0.001;
 	x = (y - ray->y) / tan(ray->angle) + ray->x;
 	ray->y_step = map->cell_height;
 	ray->x_step = map->cell_height / tan(ray->angle);
@@ -110,9 +110,9 @@ double	get_horizontal_distance(t_map *map, t_ray *ray, int looksdown, int looksr
 		y += ray->y_step;
 		x += ray->x_step;
 	}
-	ray->x_check = x;
+	ray->x_check_hor = x;
 	ray->y_check = y;
-	return (sqrt(pow(ray->x - ray->x_check, 2) + pow(ray->y - ray->y_check, 2)) * cos(ray->angle- (map->player.angle * M_PI / 180.0)));
+	return (sqrt(pow(ray->x - ray->x_check_hor, 2) + pow(ray->y - ray->y_check, 2)) * cos(ray->angle- (map->player.angle * M_PI / 180.0)));
 }
 
 void	get_ray_distance(t_map *map, t_ray *ray)
@@ -122,6 +122,11 @@ void	get_ray_distance(t_map *map, t_ray *ray)
 
 	hor_distance = get_horizontal_distance(map, ray, sin(ray->angle) > 0, cos(ray->angle) > 0);
 	ver_distance = get_vertical_distance(map, ray, sin(ray->angle) > 0, cos(ray->angle) > 0);
+	if (hor_distance < ver_distance)
+		ray->x_check = ray->x_check_hor;
+	else
+		ray->x_check = ray->y_check;
+
 	ray->distance = fmin(hor_distance, ver_distance);
 }
 
