@@ -6,7 +6,7 @@
 /*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 16:26:45 by hel-magh          #+#    #+#             */
-/*   Updated: 2024/08/17 15:02:18 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/08/17 15:32:07 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	check_middle(t_map *map, int *i, int *j)
 		while (map->map[*i][*j])
 		{
 			if (map->map[*i][*j] != '1' && map->map[*i][*j] != '0'
+				&& map->map[*i][*j] != 'D'
 				&& map->map[*i][*j] != map->player.dir
 				&& (!ft_iswhitespace(map->map[*i][*j])))
 			{
@@ -42,11 +43,8 @@ int	check_middle(t_map *map, int *i, int *j)
 				return (0);
 			}
 			if (map->map[*i][*j] == map->player.dir)
-			{
-				map->player.x = *j;
-				map->player.y = *i;
-			}
-			if ((map->map[*i][*j] == '0'
+				(1) && (map->player.x = *j, map->player.y = *i);
+			if ((map->map[*i][*j] == '0' || map->map[*i][*j] == 'D'
 				|| map->map[*i][*j] == map->player.dir) && !chek_zero(map))
 				return (0);
 			(*j)++;
