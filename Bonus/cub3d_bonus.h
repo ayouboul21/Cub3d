@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/17 15:11:26 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/08/17 17:58:59 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ typedef struct s_ray
 	double		y_check;
 	double		x_check_hor;
 	double		x_check_ver;
+	double		x_intercept;
+	double		y_intercept;
 	double		distance;
 	t_direction	rdir;
 }				t_ray;

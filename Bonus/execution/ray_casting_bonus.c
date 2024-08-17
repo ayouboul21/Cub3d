@@ -3,38 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 10:32:53 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/17 15:01:58 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/08/17 17:59:31 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d_bonus.h"
 
-int	wall_hit(t_map *map, double x, double y, t_ray *ray)
+int	wall_hit(t_map *map, double c_x, double c_y, t_ray *ray)
 {
-	int		cell_x;
-	int		cell_y;
+	int		x;
+	int		y;
 
-	cell_x = floor(x / map->cell_width);
-	cell_y = floor(y / map->cell_height);
-	if (cell_x < 0 || cell_x >= map->cols
-		|| cell_y < 0 || cell_y >= map->rows)
+	x = floor(c_x / map->cell_width);
+	y = floor(c_y / map->cell_height);
+	if (x < 0 || x >= map->cols
+		|| y < 0 || y >= map->rows)
 		return (1);
-	if (map->map[cell_y][cell_x] == '1')
+	if (map->map[y][x] == '1' || map->map[y][x] == 'D')
 		return (1);
 	if (cos(ray->angle) >= 0 && sin(ray->angle) <= 0)
-		if (map->map[cell_y + 1][cell_x] == '1'
-			&& map->map[cell_y][cell_x - 1] == '1')
+		if ((map->map[y + 1][x] == '1' || map->map[y + 1][x] == 'D')
+			&& (map->map[y][x - 1] == '1' || map->map[y][x - 1] == 'D'))
 			return (1);
 	if (cos(ray->angle) <= 0 && sin(ray->angle) <= 0)
-		if (map->map[cell_y + 1][cell_x] == '1'
-			&& map->map[cell_y][cell_x + 1] == '1')
+		if ((map->map[y + 1][x] == '1' || map->map[y + 1][x] == 'D')
+			&& (map->map[y][x + 1] == '1' || map->map[y][x + 1] == 'D'))
 			return (1);
 	if (cos(ray->angle) <= 0 && sin(ray->angle) >= 0)
-		if (map->map[cell_y - 1][cell_x] == '1'
-			&& map->map[cell_y][cell_x + 1] == '1')
+		if ((map->map[y - 1][x] == '1' || map->map[y - 1][x] == 'D')
+			&& (map->map[y][x + 1] == '1' || map->map[y][x + 1] == 'D'))
 			return (1);
 	return (0);
 }
@@ -106,11 +106,15 @@ void	get_ray_distance(t_map *map, t_ray *ray)
 			sin(ray->angle) > 0, cos(ray->angle) > 0);
 	if (hor_distance < ver_distance)
 	{
+		ray->x_intercept = ray->x_check_hor;
+		ray->y_intercept = ray->y_check;
 		ray->x_check = ray->x_check_hor;
 		ray->rdir = HORIZONTAL;
 	}
 	else
 	{
+		ray->x_intercept = ray->x_check_ver;
+		ray->y_intercept = ray->y_check;
 		ray->x_check = ray->y_check;
 		ray->rdir = VERTICAL;
 	}
