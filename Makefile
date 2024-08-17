@@ -1,8 +1,11 @@
- SRC     = cub3d.c parsing/parse.c parsing/parse_utils.c parsing/check_directions.c parsing/check_color.c parsing/check_map.c  parsing/check_map_utils.c \
- 			execution/rendering.c execution/moves.c execution/ray_casting.c execution/hooks.c execution/draw_image.c .print.c
+ SRC     = Mandatory/cub3d.c Mandatory/parsing/parse.c Mandatory/parsing/parse_utils.c \
+ 			Mandatory/parsing/check_directions.c Mandatory/parsing/check_color.c \
+			Mandatory/parsing/check_map.c  Mandatory/parsing/check_map_utils.c \
+ 			Mandatory/execution/rendering.c Mandatory/execution/moves.c Mandatory/execution/ray_casting.c \
+			Mandatory/execution/hooks.c Mandatory/execution/draw_image.c Mandatory/.print.c
 
 OBJ     = $(SRC:.c=.o)
-HEADER  = cub3d.h
+HEADER  = Mandatory/cub3d.h
 NAME    = cub3d
 CC      = cc
 CFLAGS  = -Wall -Wextra -Werror -O3 -ffast-math
