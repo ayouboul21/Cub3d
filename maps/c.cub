@@ -1,7 +1,7 @@
-NO ./texture/my_texture.png
-SO ./texture/my_texture.png
-EA ./texture/wall64.png
-WE ./texture/wall64.png
+NO ./texture/wall.png
+SO ./texture/wall.png
+EA ./texture/wall.png
+WE ./texture/wall.png
 
 F 138,17,13
 C 0,0,0

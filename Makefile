@@ -4,9 +4,18 @@
  			Mandatory/execution/rendering.c Mandatory/execution/moves.c Mandatory/execution/ray_casting.c \
 			Mandatory/execution/hooks.c Mandatory/execution/draw_image.c Mandatory/.print.c
 
+SRC_BONUS = Bonus/cub3d_bonus.c Bonus/parsing/parse_bonus.c Bonus/parsing/parse_utils_bonus.c \
+ 			Bonus/parsing/check_directions_bonus.c Bonus/parsing/check_color_bonus.c \
+			Bonus/parsing/check_map_bonus.c  Bonus/parsing/check_map_utils_bonus.c \
+ 			Bonus/execution/rendering_bonus.c Bonus/execution/moves_bonus.c Bonus/execution/ray_casting_bonus.c \
+			Bonus/execution/hooks_bonus.c Bonus/execution/draw_image_bonus.c Bonus/.print_bonus.c
+
 OBJ     = $(SRC:.c=.o)
+OBJ_BONUS     = $(SRC_BONUS:.c=.o)
 HEADER  = Mandatory/cub3d.h
+HEADER_BONUS  = Bonus/cub3d_bonus.h
 NAME    = cub3d
+NAME_BONUS    = cub3d_bonus
 CC      = cc
 CFLAGS  = -Wall -Wextra -Werror -O3 -ffast-math
 RM      = rm -f
@@ -18,8 +27,14 @@ LIBFT   = libft/libft.a
 
 all: pre $(NAME)
 
+
 $(NAME): $(OBJ) $(LIBFT) $(HEADER)
 	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLX) $(LIB) $(MLXFLAGS) -o $(NAME)
+
+bonus : pre $(NAME_BONUS)
+
+$(NAME_BONUS): $(OBJ_BONUS) $(LIBFT) $(HEADER)
+	$(CC) $(CFLAGS) $(OBJ_BONUS) $(LIBFT) $(MLX) $(LIB) $(MLXFLAGS) -o $(NAME_BONUS)
 
 %.o : %.c $(HEADER)
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
@@ -32,11 +47,13 @@ pre: mlx
 
 clean:
 	$(RM) $(OBJ)
+	$(RM) $(OBJ_BONUS)
 	@cd libft && make clean
 	@cd .MLX42/build && make clean
 
 fclean: clean
 	$(RM) $(NAME) $(MLX)
+	$(RM) $(NAME_BONUS) $(MLX)
 	@cd libft && make fclean
 
 re: fclean all
