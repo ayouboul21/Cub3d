@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/15 17:10:06 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/17 11:29:07 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <stdio.h>
 # include <math.h>
 # include "libft/libft.h"
-# include ".MLX42/MLX42.h"
+# include ".MLX42/include/MLX42/MLX42.h"
 
 typedef struct s_color
 {

@@ -7,7 +7,7 @@ NAME    = cub3d
 CC      = cc
 CFLAGS  = -Wall -Wextra -Werror -O3 -ffast-math
 RM      = rm -f
-MLX     = .MLX42/libmlx42.a
+MLX     = .MLX42/build/libmlx42.a
 MLXFLAGS = -framework Cocoa -framework OpenGL -framework IOKit -lglfw
 INCLUDE = -Iinclude -IMLX42 -Ilibft
 LIB     = -L"/Users/${USER}/.brew/Cellar/glfw/3.4/lib/"
@@ -21,17 +21,21 @@ $(NAME): $(OBJ) $(LIBFT) $(HEADER)
 %.o : %.c $(HEADER)
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
-pre:
+mlx :
+	@cd .MLX42 && cmake -B build && cmake --build build -j4
+
+pre: mlx
 	@$(MAKE) -C libft
 
 clean:
 	$(RM) $(OBJ)
 	@cd libft && make clean
+	@cd .MLX42/build && make clean
 
 fclean: clean
-	$(RM) $(NAME)
+	$(RM) $(NAME) $(MLX)
 	@cd libft && make fclean
 
 re: fclean all
 
-.PHONY: clean
+.PHONY: clean mlx
