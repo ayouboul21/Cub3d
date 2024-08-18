@@ -6,7 +6,7 @@
 /*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/18 15:22:13 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/08/18 17:52:06 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ int			check_ceiling_color(char *line, t_map *map);
 int			check_floor_color(char *line, t_map *map);
 int			wall_hit_hor(t_map *map, double c_x, double c_y, t_ray *ray);
 int			wall_hit_ver(t_map *map, double c_x, double c_y, t_ray *ray);
+int			check_door(t_map *map, int i, int j);
 char		**ft_split_whitespaces(char *str);
 char		*skip_empty_lines(int fd, t_map *map);
 void		add_last(char ***map, char *data);
@@ -139,8 +140,8 @@ void		ft_remap(t_map *map);
 void		color(mlx_image_t *img, uint32_t color, t_map *map);
 void		draw_image(t_map *map, double i, double j);
 void		draw_wall(t_map *map, t_ray ray, double i);
+void		ft_mouse_hook(t_map *map);
 uint32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
-int			check_door(t_map *map, int i, int j);
 
 //printer
 void		printer(t_map *map);
