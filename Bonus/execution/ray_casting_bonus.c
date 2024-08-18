@@ -3,43 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 10:32:53 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/18 10:06:16 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/08/18 10:31:54 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d_bonus.h"
-
-int	wall_hit(t_map *map, double c_x, double c_y, t_ray *ray)
-{
-	int		x;
-	int		y;
-
-	x = floor(c_x / map->cell_width);
-	y = floor(c_y / map->cell_height);
-	if (x < 0 || x >= map->cols
-		|| y < 0 || y >= map->rows)
-		return (1);
-	if (!ray->wall)
-		ray->wall = (map->map[y][x] == 'D');
-	if (map->map[y][x] == '1' || map->map[y][x] == 'D')
-		return (1);
-	if (cos(ray->angle) >= 0 && sin(ray->angle) <= 0)
-		if ((map->map[y + 1][x] == '1' || map->map[y + 1][x] == 'D')
-			&& (map->map[y][x - 1] == '1' || map->map[y][x - 1] == 'D'))
-			return (1);
-	if (cos(ray->angle) <= 0 && sin(ray->angle) <= 0)
-		if ((map->map[y + 1][x] == '1' || map->map[y + 1][x] == 'D')
-			&& (map->map[y][x + 1] == '1' || map->map[y][x + 1] == 'D'))
-			return (1);
-	if (cos(ray->angle) <= 0 && sin(ray->angle) >= 0)
-		if ((map->map[y - 1][x] == '1' || map->map[y - 1][x] == 'D')
-			&& (map->map[y][x + 1] == '1' || map->map[y][x + 1] == 'D'))
-			return (1);
-	return (0);
-}
 
 double	get_ver_distance(t_map *map, t_ray *ray, int looksdown, int looksright)
 {
@@ -57,7 +28,7 @@ double	get_ver_distance(t_map *map, t_ray *ray, int looksdown, int looksright)
 	(!looksright) && (ray->x_step *= -1);
 	(!looksdown && ray->y_step > 0) && (ray->y_step *= -1);
 	(looksdown && ray->y_step < 0) && (ray->y_step *= -1);
-	while (!wall_hit(map, x, y, ray))
+	while (!wall_hit_ver(map, x, y, ray))
 	{
 		x += ray->x_step;
 		y += ray->y_step;
@@ -85,7 +56,7 @@ double	get_hor_distance(t_map *map, t_ray *ray, int looksdown, int looksright)
 	(!looksdown) && (ray->y_step *= -1);
 	(!looksright && ray->x_step > 0) && (ray->x_step *= -1);
 	(looksright && ray->x_step < 0) && (ray->x_step *= -1);
-	while (!wall_hit(map, x, y, ray))
+	while (!wall_hit_hor(map, x, y, ray))
 	{
 		y += ray->y_step;
 		x += ray->x_step;
@@ -108,11 +79,13 @@ void	get_ray_distance(t_map *map, t_ray *ray)
 			sin(ray->angle) > 0, cos(ray->angle) > 0);
 	if (hor_distance < ver_distance)
 	{
+		ray->wall = ray->wall_hor;
 		ray->x_check = ray->x_check_hor;
 		ray->rdir = HORIZONTAL;
 	}
 	else
 	{
+		ray->wall = ray->wall_ver;
 		ray->x_check = ray->y_check;
 		ray->rdir = VERTICAL;
 	}

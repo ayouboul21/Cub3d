@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map_utils_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 09:01:36 by hel-magh          #+#    #+#             */
-/*   Updated: 2024/08/17 15:02:23 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/08/18 10:33:52 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	spliter(char*str)
 	return (1);
 }
 
-int	chek_zero(t_map *map)
+int	check_zero(t_map *map)
 {
 	if (ft_strlen(map->map[map->i + 1]) <= (size_t) map->j
 		|| ft_strlen(map->map[map->i - 1]) <= (size_t) map->j)

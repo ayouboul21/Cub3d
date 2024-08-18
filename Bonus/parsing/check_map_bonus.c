@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 16:26:45 by hel-magh          #+#    #+#             */
-/*   Updated: 2024/08/17 15:32:07 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/08/18 10:34:47 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	check_middle(t_map *map, int *i, int *j)
 			if (map->map[*i][*j] == map->player.dir)
 				(1) && (map->player.x = *j, map->player.y = *i);
 			if ((map->map[*i][*j] == '0' || map->map[*i][*j] == 'D'
-				|| map->map[*i][*j] == map->player.dir) && !chek_zero(map))
+				|| map->map[*i][*j] == map->player.dir) && !check_zero(map))
 				return (0);
 			(*j)++;
 		}

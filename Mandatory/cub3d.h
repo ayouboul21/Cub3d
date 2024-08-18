@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/17 14:41:13 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/18 10:37:56 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void		free_tab(char ***args);
 void		ft_exit(t_map map, int status);
 int			first_line_last(t_map *map);
 int			spliter(char*str);
-int			chek_zero(t_map *map);
+int			check_zero(t_map *map);
 void		render_map(t_map *map);
 void		render_frame(t_map *map);
 void		move_forward(t_map *map);
@@ -126,10 +126,8 @@ void		move_right(t_map *map);
 void		rotate_left(t_map *map);
 void		rotate_right(t_map *map);
 void		cast_rays(t_map *map);
-void		cast_ray(t_map *map, double i);
 void		ft_hook(void *param);
 void		ft_remap(t_map *map);
-void		draw_player(t_map *map);
 void		color(mlx_image_t *img, uint32_t color, t_map *map);
 void		draw_image(t_map *map, double i, double j);
 void		draw_wall(t_map *map, t_ray ray, double i);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/17 20:07:37 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/08/18 10:34:28 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ typedef enum e_direction
 typedef struct s_ray
 {
 	int			wall;
+	int			wall_ver;
+	int			wall_hor;
 	double		angle;
 	double		x;
 	double		y;
@@ -101,23 +103,25 @@ typedef struct s_map
 }				t_map;
 
 int			parse(char *file, t_map *map);
+int			spliter(char*str);
+int			check_map(int fd, t_map *map);
 int			ft_tablen(char **tab);
+int			check_line(char *line);
+int			check_zero(t_map *map);
 int			check_north(char *line, t_map *map);
 int			check_south(char *line, t_map *map);
 int			check_west(char *line, t_map *map);
 int			check_east(char *line, t_map *map);
+int			first_line_last(t_map *map);
 int			check_ceiling_color(char *line, t_map *map);
 int			check_floor_color(char *line, t_map *map);
+int			wall_hit_hor(t_map *map, double c_x, double c_y, t_ray *ray);
+int			wall_hit_ver(t_map *map, double c_x, double c_y, t_ray *ray);
 char		**ft_split_whitespaces(char *str);
 char		*skip_empty_lines(int fd, t_map *map);
-int			check_map(int fd, t_map *map);
-int			check_line(char *line);
 void		add_last(char ***map, char *data);
 void		free_tab(char ***args);
 void		ft_exit(t_map map, int status);
-int			first_line_last(t_map *map);
-int			spliter(char*str);
-int			chek_zero(t_map *map);
 void		render_map(t_map *map);
 void		render_frame(t_map *map);
 void		move_forward(t_map *map);
@@ -127,10 +131,8 @@ void		move_right(t_map *map);
 void		rotate_left(t_map *map);
 void		rotate_right(t_map *map);
 void		cast_rays(t_map *map);
-void		cast_ray(t_map *map, double i);
 void		ft_hook(void *param);
 void		ft_remap(t_map *map);
-void		draw_player(t_map *map);
 void		color(mlx_image_t *img, uint32_t color, t_map *map);
 void		draw_image(t_map *map, double i, double j);
 void		draw_wall(t_map *map, t_ray ray, double i);
