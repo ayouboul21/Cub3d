@@ -6,7 +6,7 @@
 /*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 08:47:14 by hel-magh          #+#    #+#             */
-/*   Updated: 2024/08/18 10:03:06 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/08/18 10:15:40 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,78 +20,33 @@ int	mlx_get_pixel(mlx_texture_t *texture, int x, int y)
 	return (ft_pixel(texture->pixels[index], texture->pixels[index + 1],
 			texture->pixels[index + 2], texture->pixels[index + 3]));
 }
-void	draw_door_horizantal(t_map *map, double j)
-{
-	int	x;
-	int	y;
-
-	if (map->ray.angle >= 0 && map->ray.angle <= M_PI)
-	{
-		x = fmod(map->ray.x_check, map->cell_width)
-			* map->txt[2]->width / map->cell_width;
-		y = (((int)(j - map->h_min) * map->txt[4]->height)
-				/ (map->h_max - map->h_min));
-		map->clr = mlx_get_pixel(map->txt[4], map->txt[4]->width - x - 1, y);
-	}
-	else
-	{
-		x = fmod(map->ray.x_check, map->cell_width)
-			* map->txt[4]->width / map->cell_width;
-		y = (((int)(j - map->h_min) * map->txt[4]->height)
-				/ (map->h_max - map->h_min));
-		map->clr = mlx_get_pixel(map->txt[4], x, y);
-	}
-}
-
-void	draw_door_image(t_map *map, double j, double i)
-{
-	int	x;
-	int	y;
-
-	if (map->ray.rdir == VERTICAL)
-	{
-		if (map->ray.angle <= (3 * M_PI / 2) && map->ray.angle >= (M_PI / 2))
-		{
-			x = fmod(map->ray.x_check, map->cell_width)
-				* map->txt[4]->width / map->cell_width;
-			y = (((int)(j - map->h_min) * map->txt[4]->height)
-					/ (map->h_max - map->h_min));
-			map->clr = mlx_get_pixel(map->txt[4], map->txt[4]->width - x -1, y);
-		}
-		else
-		{
-			x = fmod(map->ray.x_check, map->cell_width) * map->txt[4]->width
-				/ map->cell_width;
-			y = (((int)(j - map->h_min) * map->txt[4]->height)
-					/ (map->h_max - map->h_min));
-			map->clr = mlx_get_pixel(map->txt[4], x, y);
-		}
-	}
-	else
-		draw_door_horizantal(map, j);
-	mlx_put_pixel(map->mlx.img, i, j, map->clr);
-}
 
 void	draw_horizantal(t_map *map, double j)
 {
 	int	x;
 	int	y;
-
+	int c =0;
 	if (map->ray.angle >= 0 && map->ray.angle <= M_PI)
 	{
+		c = 2;
+		if(map->ray.wall)
+			c = 4;
 		x = fmod(map->ray.x_check, map->cell_width)
-			* map->txt[2]->width / map->cell_width;
-		y = (((int)(j - map->h_min) * map->txt[2]->height)
+			* map->txt[c]->width / map->cell_width;
+		y = (((int)(j - map->h_min) * map->txt[c]->height)
 				/ (map->h_max - map->h_min));
-		map->clr = mlx_get_pixel(map->txt[2], map->txt[2]->width - x - 1, y);
+		map->clr = mlx_get_pixel(map->txt[c], map->txt[c]->width - x - 1, y);
 	}
 	else
 	{
+		c = 1;
+		if(map->ray.wall)
+			c = 4;
 		x = fmod(map->ray.x_check, map->cell_width)
-			* map->txt[1]->width / map->cell_width;
-		y = (((int)(j - map->h_min) * map->txt[1]->height)
+			* map->txt[c]->width / map->cell_width;
+		y = (((int)(j - map->h_min) * map->txt[c]->height)
 				/ (map->h_max - map->h_min));
-		map->clr = mlx_get_pixel(map->txt[1], x, y);
+		map->clr = mlx_get_pixel(map->txt[c], x, y);
 	}
 }
 
@@ -99,29 +54,30 @@ void	draw_image(t_map *map, double i, double j)
 {
 	int	x;
 	int	y;
-
-	if(map->ray.wall)
-	{
-		draw_door_image(map, j, i);
-		return ;
-	}
+	int c = 0;
 	if (map->ray.rdir == VERTICAL)
 	{
 		if (map->ray.angle <= (3 * M_PI / 2) && map->ray.angle >= (M_PI / 2))
 		{
+			c = 0;
+			if(map->ray.wall)
+				c = 4;
 			x = fmod(map->ray.x_check, map->cell_width)
-				* map->txt[0]->width / map->cell_width;
-			y = (((int)(j - map->h_min) * map->txt[0]->height)
+				* map->txt[c]->width / map->cell_width;
+			y = (((int)(j - map->h_min) * map->txt[c]->height)
 					/ (map->h_max - map->h_min));
-			map->clr = mlx_get_pixel(map->txt[0], map->txt[0]->width - x -1, y);
+			map->clr = mlx_get_pixel(map->txt[c], map->txt[c]->width - x -1, y);
 		}
 		else
 		{
-			x = fmod(map->ray.x_check, map->cell_width) * map->txt[3]->width
+			c = 3;
+			if(map->ray.wall)
+				c = 4;
+			x = fmod(map->ray.x_check, map->cell_width) * map->txt[c]->width
 				/ map->cell_width;
-			y = (((int)(j - map->h_min) * map->txt[3]->height)
+			y = (((int)(j - map->h_min) * map->txt[c]->height)
 					/ (map->h_max - map->h_min));
-			map->clr = mlx_get_pixel(map->txt[3], x, y);
+			map->clr = mlx_get_pixel(map->txt[c], x, y);
 		}
 	}
 	else
