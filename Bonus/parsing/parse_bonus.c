@@ -6,7 +6,7 @@
 /*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 10:55:51 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/17 15:32:25 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/08/18 14:27:37 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,5 @@ int	parse(char *file, t_map *map)
 	close(fd);
 	initdir(map);
 	printer(map);
-	// exit(1);
 	return (0);
 }
