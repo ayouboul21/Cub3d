@@ -59,4 +59,6 @@ fclean: clean
 
 re: fclean all
 
+bre: fclean bonus
+
 .PHONY: clean mlx
