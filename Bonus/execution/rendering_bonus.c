@@ -6,7 +6,7 @@
 /*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 16:45:21 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/17 15:02:04 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/08/18 10:01:17 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,9 @@ void	init_map(t_map *map)
 	map->txt[1] = mlx_load_png(map->north);
 	map->txt[2] = mlx_load_png(map->south);
 	map->txt[3] = mlx_load_png(map->east);
-	if (!map->txt[0] || !map->txt[1] || !map->txt[2] || !map->txt[3])
+	map->txt[4] = mlx_load_png("./texture/dooro.png");
+	if (!map->txt[0] || !map->txt[1] || !map->txt[2]
+		|| !map->txt[3] || !map->txt[4])
 		ft_exit(*map, 1);
 	map->cell_height = 64;
 	map->cell_width = 64;

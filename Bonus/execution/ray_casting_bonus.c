@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 10:32:53 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/17 17:59:31 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/18 10:06:16 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	wall_hit(t_map *map, double c_x, double c_y, t_ray *ray)
 	if (x < 0 || x >= map->cols
 		|| y < 0 || y >= map->rows)
 		return (1);
+	if (!ray->wall)
+		ray->wall = (map->map[y][x] == 'D');
 	if (map->map[y][x] == '1' || map->map[y][x] == 'D')
 		return (1);
 	if (cos(ray->angle) >= 0 && sin(ray->angle) <= 0)
@@ -106,15 +108,11 @@ void	get_ray_distance(t_map *map, t_ray *ray)
 			sin(ray->angle) > 0, cos(ray->angle) > 0);
 	if (hor_distance < ver_distance)
 	{
-		ray->x_intercept = ray->x_check_hor;
-		ray->y_intercept = ray->y_check;
 		ray->x_check = ray->x_check_hor;
 		ray->rdir = HORIZONTAL;
 	}
 	else
 	{
-		ray->x_intercept = ray->x_check_ver;
-		ray->y_intercept = ray->y_check;
 		ray->x_check = ray->y_check;
 		ray->rdir = VERTICAL;
 	}

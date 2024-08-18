@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/17 17:58:59 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/17 20:07:37 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef enum e_direction
 
 typedef struct s_ray
 {
+	int			wall;
 	double		angle;
 	double		x;
 	double		y;
@@ -65,8 +66,6 @@ typedef struct s_ray
 	double		y_check;
 	double		x_check_hor;
 	double		x_check_ver;
-	double		x_intercept;
-	double		y_intercept;
 	double		distance;
 	t_direction	rdir;
 }				t_ray;
@@ -98,7 +97,7 @@ typedef struct s_map
 	t_color			floor;
 	t_color			ceiling;
 	t_player		player;
-	mlx_texture_t	*txt[4];
+	mlx_texture_t	*txt[5];
 }				t_map;
 
 int			parse(char *file, t_map *map);
