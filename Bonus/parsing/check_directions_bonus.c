@@ -6,7 +6,7 @@
 /*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:29:00 by hel-magh          #+#    #+#             */
-/*   Updated: 2024/08/18 15:23:14 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/08/19 15:56:43 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,49 +14,61 @@
 
 int	check_north(char *line, t_map *map)
 {
-	char	**tmp;
+	int	i;
 
-	tmp = ft_split_whitespaces(line);
-	if (ft_tablen(tmp) != 2)
+	i = 0;
+	line += 2;
+	while (ft_iswhitespace(line[i]))
+		i++;
+	if (!i || !line[i])
 		return (0);
-	map->north = ft_strdup(tmp[1]);
-	free_tab(&tmp);
+	line += i;
+	map->north = ft_substr(line, 0, ft_strlen(line) - 1);
 	return (1);
 }
 
 int	check_south(char *line, t_map *map)
 {
-	char	**tmp;
+	int	i;
 
-	tmp = ft_split_whitespaces(line);
-	if (ft_tablen(tmp) != 2)
+	i = 0;
+	line += 2;
+	while (ft_iswhitespace(line[i]))
+		i++;
+	if (!i || !line[i])
 		return (0);
-	map->south = ft_strdup(tmp[1]);
-	free_tab(&tmp);
+	line += i;
+	map->south = ft_substr(line, 0, ft_strlen(line) - 1);
 	return (1);
 }
 
 int	check_west(char *line, t_map *map)
 {
-	char	**tmp;
+	int	i;
 
-	tmp = ft_split_whitespaces(line);
-	if (ft_tablen(tmp) != 2)
+	i = 0;
+	line += 2;
+	while (ft_iswhitespace(line[i]))
+		i++;
+	if (!i || !line[i])
 		return (0);
-	map->west = ft_strdup(tmp[1]);
-	free_tab(&tmp);
+	line += i;
+	map->west = ft_substr(line, 0, ft_strlen(line) - 1);
 	return (1);
 }
 
 int	check_east(char *line, t_map *map)
 {
-	char	**tmp;
+	int	i;
 
-	tmp = ft_split_whitespaces(line);
-	if (ft_tablen(tmp) != 2)
+	i = 0;
+	line += 2;
+	while (ft_iswhitespace(line[i]))
+		i++;
+	if (!i || !line[i])
 		return (0);
-	map->east = ft_strdup(tmp[1]);
-	free_tab(&tmp);
+	line += i;
+	map->east = ft_substr(line, 0, ft_strlen(line) - 1);
 	return (1);
 }
 

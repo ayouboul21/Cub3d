@@ -1,5 +1,5 @@
 NO ./texture/my_texture.png
-SO ./texture/sky.png
+SO ./texture/my_texture.png
 EA ./texture/wall.png
 WE ./texture/wall64.png
 
