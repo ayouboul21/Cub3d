@@ -6,7 +6,7 @@
 /*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 10:46:36 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/19 12:27:35 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/08/20 12:12:53 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,38 @@ void	ft_hook(void *param)
 	render_frame(map);
 }
 
+void	mouse_vis(t_map *map)
+{
+	if (mlx_is_mouse_down(map->mlx.mlx, MLX_MOUSE_BUTTON_RIGHT))
+	{
+		mlx_set_cursor_mode(map->mlx.mlx, MLX_MOUSE_HIDDEN);
+		map->m = 0;
+	}
+	else if (mlx_is_mouse_down(map->mlx.mlx, MLX_MOUSE_BUTTON_LEFT))
+	{
+		mlx_set_cursor_mode(map->mlx.mlx, MLX_MOUSE_NORMAL);
+		map->m = 1;
+	}
+}
+
 void	ft_mouse_hook(t_map *map)
 {
 	int32_t	x;
 	int32_t	y;
 
-	x = 0;
-	y = 0;
-	mlx_set_cursor_mode(map->mlx.mlx, MLX_MOUSE_HIDDEN);
-	mlx_get_mouse_pos(map->mlx.mlx, &x, &y);
-	map->player.angle -= ((((map->mlx.width / 2) - x)) * 180
-			/ map->mlx.width) * M_PI / 4;
-	if (y < 0)
+	if (!map->m)
+	{
+		x = 0;
 		y = 0;
-	else if (y >= map->mlx.height)
-		y = map->mlx.height - 1;
-	mlx_set_mouse_pos(map->mlx.mlx, map->mlx.width / 2, y);
+		mlx_set_cursor_mode(map->mlx.mlx, MLX_MOUSE_HIDDEN);
+		mlx_get_mouse_pos(map->mlx.mlx, &x, &y);
+		map->player.angle -= ((((map->mlx.width / 2) - x)) * 180
+				/ map->mlx.width) * M_PI / 4;
+		if (y < 0)
+			y = 0;
+		else if (y >= map->mlx.height)
+			y = map->mlx.height - 1;
+		mlx_set_mouse_pos(map->mlx.mlx, map->mlx.width / 2, y);
+	}
+	mouse_vis(map);
 }
