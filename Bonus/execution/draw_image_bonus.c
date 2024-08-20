@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_image_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 08:47:14 by hel-magh          #+#    #+#             */
-/*   Updated: 2024/08/18 13:32:57 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:48:13 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	draw_wall(t_map *map, t_ray ray, double i)
 			draw_image(map, i, j);
 		else
 			mlx_put_pixel(map->mlx.img, i, j, ft_pixel(map->floor.red,
-					map->floor.green, map->floor.blue, 255));
+					map->floor.green, map->floor.blue, 64));
 		j++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/18 10:37:56 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:59:25 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ void		rotate_left(t_map *map);
 void		rotate_right(t_map *map);
 void		cast_rays(t_map *map);
 void		ft_hook(void *param);
+void		get_ray_distance(t_map *map, t_ray *ray);
 void		ft_remap(t_map *map);
 void		color(mlx_image_t *img, uint32_t color, t_map *map);
 void		draw_image(t_map *map, double i, double j);

@@ -12,23 +12,22 @@ SRC_BONUS = Bonus/cub3d_bonus.c Bonus/parsing/parse_bonus.c Bonus/parsing/parse_
 			Bonus/execution/hooks_bonus.c Bonus/execution/draw_image_bonus.c \
 			Bonus/.print_bonus.c Bonus/execution/door_bonus.c
 
-OBJ     = $(SRC:.c=.o)
-OBJ_BONUS     = $(SRC_BONUS:.c=.o)
-HEADER  = Mandatory/cub3d.h
-HEADER_BONUS  = Bonus/cub3d_bonus.h
-NAME    = cub3d
-NAME_BONUS    = cub3d_bonus
-CC      = cc
-CFLAGS  = -Wall -Wextra -Werror -O3 -ffast-math
-RM      = rm -f
-MLX     = .MLX42/build/libmlx42.a
-MLXFLAGS = -framework Cocoa -framework OpenGL -framework IOKit -lglfw
-INCLUDE = -Iinclude -IMLX42 -Ilibft
-LIB     = -L"/Users/${USER}/.brew/Cellar/glfw/3.4/lib/"
-LIBFT   = libft/libft.a
+CC      		= cc
+RM      		= rm -f
+OBJ     		= $(SRC:.c=.o)
+MLX     		= .MLX42/build/libmlx42.a
+LIB     		= -L"/Users/${USER}/.brew/Cellar/glfw/3.4/lib/"
+NAME    		= cub3d
+LIBFT   		= libft/libft.a
+CFLAGS			= -Wall -Wextra -Werror -O3 -ffast-math
+HEADER  		= Mandatory/cub3d.h
+INCLUDE 		= -Iinclude -IMLX42 -Ilibft
+MLXFLAGS 		= -framework Cocoa -framework OpenGL -framework IOKit -lglfw
+OBJ_BONUS		= $(SRC_BONUS:.c=.o)
+NAME_BONUS		= cub3d_bonus
+HEADER_BONUS	= Bonus/cub3d_bonus.h
 
 all: pre $(NAME)
-
 
 $(NAME): $(OBJ) $(LIBFT) $(HEADER)
 	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLX) $(LIB) $(MLXFLAGS) -o $(NAME)

@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 18:50:25 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/20 14:14:07 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/20 16:33:57 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,23 @@ void	ft_add_door_back(t_map *map, int i, int j)
 
 void	open_doors(t_map *map)
 {
+	int		cell_x;
+	int		cell_y;
 	t_door	*tmp;
 
+	cell_y = (int)(map->player.y / map->cell_height);
+	cell_x = (int)(map->player.x / map->cell_width);
 	tmp = map->door;
 	while (tmp)
 	{
-		if (map->map[tmp->x][tmp->y] == 'D')
+		if (map->map[tmp->y][tmp->x] == 'D' && (cell_y != tmp->y || cell_x != tmp->x))
 		{
-			map->map[tmp->x][tmp->y] = 'C';
-			printf("%c\n", map->map[tmp->x][tmp->y]);
+			map->map[tmp->y][tmp->x] = 'O';
 			tmp = tmp->next;
 		}
-		else if (map->map[tmp->x][tmp->y] == 'C')
+		else if (map->map[tmp->y][tmp->x] == 'O' && (cell_y != tmp->y || cell_x != tmp->x))
 		{
-			map->map[tmp->x][tmp->y] = 'D';
+			map->map[tmp->y][tmp->x] = 'D';
 			tmp = tmp->next;
 		}
 		else
