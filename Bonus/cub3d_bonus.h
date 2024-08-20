@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/18 17:52:06 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/08/20 12:48:37 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,13 @@ typedef enum e_direction
 	VERTICAL
 }				t_direction;
 
+typedef struct s_door
+{
+	int				x;
+	int				y;
+	struct s_door	*next;
+}				t_door;
+
 typedef struct s_ray
 {
 	int			wall;
@@ -85,8 +92,7 @@ typedef struct s_map
 	int				x;
 	int				y;
 	int				c;
-	double			h_max;
-	double			h_min;
+	int				m;
 	char			*north;
 	char			*south;
 	char			*west;
@@ -95,10 +101,14 @@ typedef struct s_map
 	char			*sprite;
 	char			*floor_color;
 	char			*ceiling_color;
+	bool			near_door;
+	double			h_min;
+	double			h_max;
 	double			fov;
 	double			ray_count;
 	t_mlx			mlx;
 	t_ray			ray;
+	t_door			*door;
 	t_color			floor;
 	t_color			ceiling;
 	t_player		player;
@@ -108,6 +118,7 @@ typedef struct s_map
 int			parse(char *file, t_map *map);
 int			spliter(char*str);
 int			check_map(int fd, t_map *map);
+int			check_door(t_map *map, int i, int j);
 int			ft_tablen(char **tab);
 int			check_line(char *line);
 int			check_zero(t_map *map);
@@ -120,9 +131,9 @@ int			check_ceiling_color(char *line, t_map *map);
 int			check_floor_color(char *line, t_map *map);
 int			wall_hit_hor(t_map *map, double c_x, double c_y, t_ray *ray);
 int			wall_hit_ver(t_map *map, double c_x, double c_y, t_ray *ray);
-int			check_door(t_map *map, int i, int j);
 char		**ft_split_whitespaces(char *str);
 char		*skip_empty_lines(int fd, t_map *map);
+void		set_near_door(t_map *map, int *door_x, int *door_y);
 void		add_last(char ***map, char *data);
 void		free_tab(char ***args);
 void		ft_exit(t_map map, int status);
@@ -134,13 +145,15 @@ void		move_left(t_map *map);
 void		move_right(t_map *map);
 void		rotate_left(t_map *map);
 void		rotate_right(t_map *map);
-void		cast_rays(t_map *map);
 void		ft_hook(void *param);
 void		ft_remap(t_map *map);
 void		color(mlx_image_t *img, uint32_t color, t_map *map);
 void		draw_image(t_map *map, double i, double j);
 void		draw_wall(t_map *map, t_ray ray, double i);
 void		ft_mouse_hook(t_map *map);
+void		open_doors(t_map *map);
+void		ft_add_door_back(t_map *map, int i, int j);
+void		cast_rays(t_map *map);
 uint32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 
 //printer

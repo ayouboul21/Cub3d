@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 16:45:21 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/19 15:39:20 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/08/20 14:09:27 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,15 @@
 uint32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
 {
 	return (r << 24 | g << 16 | b << 8 | a);
+}
+
+void	ft_key_hook(struct mlx_key_data key, void *arg)
+{
+	t_map	*map;
+
+	map = (t_map *)arg;
+	if (key.key == MLX_KEY_SPACE && key.action == MLX_RELEASE)
+		open_doors(map);
 }
 
 void	color(mlx_image_t *img, uint32_t color, t_map *map)
@@ -72,6 +81,7 @@ void	render_map(t_map *map)
 {
 	init_map(map);
 	render_frame(map);
+	mlx_key_hook(map->mlx.mlx, ft_key_hook, map);
 	mlx_loop_hook(map->mlx.mlx, ft_hook, map);
 	mlx_loop(map->mlx.mlx);
 	mlx_terminate(map->mlx.mlx);

@@ -3,6 +3,7 @@
 void	printer(t_map *map)
 {
 	int	i;
+	t_door	*tmp;
 
 	i = 0;
 	printf("NO :%s\n", map->north);
@@ -12,6 +13,12 @@ void	printer(t_map *map)
 	printf("FLOOR :%s\n", map->floor_color);
 	printf("CEILING :%s", map->ceiling_color);
 	printf("MAP :\n");
+	tmp = map->door;
+	while (tmp)
+	{
+		printf("door x : %d door y : %d\n", tmp->x, tmp->y);
+		tmp = tmp->next;
+	}
 	while (map->map[i])
 	{
 		printf("%s\n", map->map[i]);
