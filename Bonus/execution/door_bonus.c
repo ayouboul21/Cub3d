@@ -6,11 +6,20 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 18:50:25 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/20 16:33:57 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:04:46 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d_bonus.h"
+
+void	ft_key_hook(struct mlx_key_data key, void *arg)
+{
+	t_map	*map;
+
+	map = (t_map *)arg;
+	if (key.key == MLX_KEY_SPACE && key.action == MLX_RELEASE)
+		open_doors(map);
+}
 
 void	ft_add_door_back(t_map *map, int i, int j)
 {
@@ -43,12 +52,14 @@ void	open_doors(t_map *map)
 	tmp = map->door;
 	while (tmp)
 	{
-		if (map->map[tmp->y][tmp->x] == 'D' && (cell_y != tmp->y || cell_x != tmp->x))
+		if (map->map[tmp->y][tmp->x] == 'D'
+			&& map->map[cell_y][cell_x] != 'D')
 		{
 			map->map[tmp->y][tmp->x] = 'O';
 			tmp = tmp->next;
 		}
-		else if (map->map[tmp->y][tmp->x] == 'O' && (cell_y != tmp->y || cell_x != tmp->x))
+		else if (map->map[tmp->y][tmp->x] == 'O'
+			&& map->map[cell_y][cell_x] != 'O')
 		{
 			map->map[tmp->y][tmp->x] = 'D';
 			tmp = tmp->next;

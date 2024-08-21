@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/20 15:59:25 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/20 16:56:42 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ typedef struct s_map
 	char			*west;
 	char			*east;
 	char			**map;
-	char			*sprite;
 	char			*floor_color;
 	char			*ceiling_color;
 	double			fov;

@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 10:46:36 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/20 13:44:27 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/20 17:02:21 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	ft_mouse_hook(t_map *map)
 		y = 0;
 		mlx_set_cursor_mode(map->mlx.mlx, MLX_MOUSE_HIDDEN);
 		mlx_get_mouse_pos(map->mlx.mlx, &x, &y);
-		map->player.angle -= ((((map->mlx.width / 2) - x)) * 180
+		map->player.angle -= ((map->mlx.width / 2 - x) * 180
 				/ map->mlx.width) * M_PI / 4;
 		if (y < 0)
 			y = 0;

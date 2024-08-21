@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 16:45:21 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/20 14:09:27 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/20 17:56:10 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,6 @@
 uint32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
 {
 	return (r << 24 | g << 16 | b << 8 | a);
-}
-
-void	ft_key_hook(struct mlx_key_data key, void *arg)
-{
-	t_map	*map;
-
-	map = (t_map *)arg;
-	if (key.key == MLX_KEY_SPACE && key.action == MLX_RELEASE)
-		open_doors(map);
 }
 
 void	color(mlx_image_t *img, uint32_t color, t_map *map)
@@ -69,12 +60,32 @@ void	init_map(t_map *map)
 	map->player.speed = map->cell_width / 20;
 	map->fov = 60;
 	map->ray_count = map->mlx.width;
-	map->player.wall_height = 64;
+	map->player.wall_height = 100;
 }
 
 void	render_frame(t_map *map)
 {
-	cast_rays(map);
+	double		i;
+	t_ray		ray;
+
+	i = 0;
+	map->player.ray_angle = map->player.angle - map->fov / 2;
+	while ((int)i < map->mlx.width)
+	{
+		ft_bzero(&ray, sizeof(t_ray));
+		ray.angle = map->player.ray_angle * M_PI / 180.0;
+		ray.x = map->player.x;
+		ray.y = map->player.y;
+		get_ray_distance(map, &ray);
+		draw_wall(map, ray, i);
+		map->player.ray_angle += map->fov / map->ray_count;
+		if (map->player.ray_angle < 0)
+			map->player.ray_angle += 360;
+		if (map->player.ray_angle > 360)
+			map->player.ray_angle -= 360;
+		i++;
+	}
+	mlx_image_to_window(map->mlx.mlx, map->mlx.img, 0, 0);
 }
 
 void	render_map(t_map *map)
