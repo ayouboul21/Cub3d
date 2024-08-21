@@ -6,7 +6,7 @@
 /*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:40:05 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/18 10:38:28 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/08/21 18:13:27 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	ft_exit(t_map map, int status)
 {
+	int i;
+
+	i = -1;
 	if (map.north)
 		free(map.north);
 	if (map.south)
@@ -28,16 +31,13 @@ void	ft_exit(t_map map, int status)
 		free(map.ceiling_color);
 	if (map.map)
 		free_tab(&map.map);
-	if (map.txt[3])
-		mlx_delete_texture(map.txt[3]);
-	if (map.txt[2])
-		mlx_delete_texture(map.txt[2]);
-	if (map.txt[1])
-		mlx_delete_texture(map.txt[1]);
-	if (map.txt[0])
-		mlx_delete_texture(map.txt[0]);
-	if (map.txt[4])
-		mlx_delete_texture(map.txt[4]);
+	while (++i < 8)
+		if (map.txt2[i])
+			mlx_delete_texture(map.txt2[i]);
+	i = -1;
+	while (++i < 5)
+		if (map.txt[i])
+			mlx_delete_texture(map.txt[i]);
 	exit(status);
 }
 

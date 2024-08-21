@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 16:45:21 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/20 17:56:10 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/21 18:10:24 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,11 @@ void	init_map(t_map *map)
 	map->txt[1] = mlx_load_png(map->north);
 	map->txt[2] = mlx_load_png(map->south);
 	map->txt[3] = mlx_load_png(map->east);
-	map->txt[4] = mlx_load_png("./texture/dooro.png");
+	map->txt[4] = mlx_load_png("./texture/dooro1.png");
 	if (!map->txt[0] || !map->txt[1] || !map->txt[2]
 		|| !map->txt[3] || !map->txt[4])
 		ft_exit(*map, 1);
+	hands_init(map);
 	map->cell_height = 64;
 	map->cell_width = 64;
 	map->player.x = map->player.x * map->cell_width + map->cell_width / 2;

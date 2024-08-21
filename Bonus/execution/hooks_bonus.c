@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 10:46:36 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/20 17:02:21 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/21 18:05:43 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ void	ft_hook(void *param)
 	if (mlx_is_key_down(map->mlx.mlx, MLX_KEY_RIGHT))
 		rotate_right(map);
 	if (mlx_is_key_down(map->mlx.mlx, MLX_KEY_S))
-		move_backward(map);
+		(move_backward(map), map->fm--);
 	if (mlx_is_key_down(map->mlx.mlx, MLX_KEY_W))
-		move_forward(map);
+		(move_forward(map), map->fm++);
 	if (mlx_is_key_down(map->mlx.mlx, MLX_KEY_A))
 		move_left(map);
 	if (mlx_is_key_down(map->mlx.mlx, MLX_KEY_D))
@@ -49,6 +49,7 @@ void	ft_hook(void *param)
 	mlx_delete_image(map->mlx.mlx, map->mlx.img);
 	map->mlx.img = mlx_new_image(map->mlx.mlx, map->mlx.width, map->mlx.height);
 	render_frame(map);
+	draw_hands(map);
 }
 
 void	mouse_vis(t_map *map)

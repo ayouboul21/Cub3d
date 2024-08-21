@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/20 17:05:15 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/21 18:07:39 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct s_map
 	int				y;
 	int				c;
 	int				m;
+	int				fm;
 	char			*north;
 	char			*south;
 	char			*west;
@@ -111,6 +112,7 @@ typedef struct s_map
 	t_color			ceiling;
 	t_player		player;
 	mlx_texture_t	*txt[5];
+	mlx_texture_t	*txt2[8];
 }				t_map;
 
 int			parse(char *file, t_map *map);
@@ -127,6 +129,7 @@ int			check_east(char *line, t_map *map);
 int			first_line_last(t_map *map);
 int			check_ceiling_color(char *line, t_map *map);
 int			check_floor_color(char *line, t_map *map);
+int			mlx_get_pixel(mlx_texture_t *texture, int x, int y);
 int			wall_hit_hor(t_map *map, double c_x, double c_y, t_ray *ray);
 int			wall_hit_ver(t_map *map, double c_x, double c_y, t_ray *ray);
 char		**ft_split_whitespaces(char *str);
@@ -153,6 +156,8 @@ void		open_doors(t_map *map);
 void		get_ray_distance(t_map *map, t_ray *ray);
 void		ft_add_door_back(t_map *map, int i, int j);
 void		ft_key_hook(struct mlx_key_data key, void *arg);
+void		hands_init(t_map *map);
+void		draw_hands(t_map *map);
 uint32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 
 //printer
