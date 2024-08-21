@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 16:45:21 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/21 18:10:24 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/08/21 22:20:38 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	init_map(t_map *map)
 	map->fov = 60;
 	map->ray_count = map->mlx.width;
 	map->player.wall_height = 100;
+	map->epsilon = map->cell_width / 10;
 }
 
 void	render_frame(t_map *map)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:40:05 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/21 18:13:27 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/08/21 22:22:56 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_exit(t_map map, int status)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	if (map.north)

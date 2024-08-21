@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:02:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/18 16:46:39 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/21 22:19:56 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,16 @@ void	move_forward(t_map *map)
 	cell_x = new_x / map->cell_width;
 	cell_y = map->player.y / map->cell_height;
 	if (map->map[cell_y][cell_x] != '1' && map->map[cell_y][cell_x] != 'D'
-		&& check_diagonal(&map->player, map, cell_x, cell_y))
+		&& check_diagonal(&map->player, map, cell_x, cell_y)
+		&& distance_to_wall(map, new_x, map->player.y))
 		map->player.x = new_x;
 	new_y = map->player.y + map->player.speed
 		* sin((map->player.angle) * M_PI / 180.0);
 	cell_x = map->player.x / map->cell_width;
 	cell_y = new_y / map->cell_height;
 	if (map->map[cell_y][cell_x] != '1' && map->map[cell_y][cell_x] != 'D'
-		&& check_diagonal(&map->player, map, cell_x, cell_y))
+		&& check_diagonal(&map->player, map, cell_x, cell_y)
+		&& distance_to_wall(map, map->player.x, new_y))
 		map->player.y = new_y;
 }
 
@@ -63,14 +65,16 @@ void	move_backward(t_map *map)
 	cell_x = new_x / map->cell_width;
 	cell_y = map->player.y / map->cell_height;
 	if (map->map[cell_y][cell_x] != '1' && map->map[cell_y][cell_x] != 'D'
-		&& check_diagonal(&map->player, map, cell_x, cell_y))
+		&& check_diagonal(&map->player, map, cell_x, cell_y)
+		&& distance_to_wall(map, new_x, map->player.y))
 		map->player.x = new_x;
 	new_y = map->player.y - map->player.speed
 		* sin((map->player.angle) * M_PI / 180.0);
 	cell_x = map->player.x / map->cell_width;
 	cell_y = new_y / map->cell_height;
 	if (map->map[cell_y][cell_x] != '1' && map->map[cell_y][cell_x] != 'D'
-		&& check_diagonal(&map->player, map, cell_x, cell_y))
+		&& check_diagonal(&map->player, map, cell_x, cell_y)
+		&& distance_to_wall(map, map->player.x, new_y))
 		map->player.y = new_y;
 }
 
@@ -86,14 +90,16 @@ void	move_left(t_map *map)
 	cell_x = new_x / map->cell_width;
 	cell_y = map->player.y / map->cell_height;
 	if (map->map[cell_y][cell_x] != '1' && map->map[cell_y][cell_x] != 'D'
-		&& check_diagonal(&map->player, map, cell_x, cell_y))
+		&& check_diagonal(&map->player, map, cell_x, cell_y)
+		&& distance_to_wall(map, new_x, map->player.y))
 		map->player.x = new_x;
 	new_y = map->player.y - map->player.speed
 		* sin((map->player.angle + 90) * M_PI / 180.0);
 	cell_x = map->player.x / map->cell_width;
 	cell_y = new_y / map->cell_height;
 	if (map->map[cell_y][cell_x] != '1' && map->map[cell_y][cell_x] != 'D'
-		&& check_diagonal(&map->player, map, cell_x, cell_y))
+		&& check_diagonal(&map->player, map, cell_x, cell_y)
+		&& distance_to_wall(map, map->player.x, new_y))
 		map->player.y = new_y;
 }
 
@@ -109,13 +115,15 @@ void	move_right(t_map *map)
 	cell_x = new_x / map->cell_width;
 	cell_y = map->player.y / map->cell_height;
 	if (map->map[cell_y][cell_x] != '1' && map->map[cell_y][cell_x] != 'D'
-		&& check_diagonal(&map->player, map, cell_x, cell_y))
+		&& check_diagonal(&map->player, map, cell_x, cell_y)
+		&& distance_to_wall(map, new_x, map->player.y))
 		map->player.x = new_x;
 	new_y = map->player.y + map->player.speed
 		* sin((map->player.angle + 90) * M_PI / 180.0);
 	cell_x = map->player.x / map->cell_width;
 	cell_y = new_y / map->cell_height;
 	if (map->map[cell_y][cell_x] != '1' && map->map[cell_y][cell_x] != 'D'
-		&& check_diagonal(&map->player, map, cell_x, cell_y))
+		&& check_diagonal(&map->player, map, cell_x, cell_y)
+		&& distance_to_wall(map, map->player.x, new_y))
 		map->player.y = new_y;
 }

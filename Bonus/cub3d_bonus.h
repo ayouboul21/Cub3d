@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/21 18:07:39 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/08/21 22:18:40 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ typedef struct s_map
 	double			h_max;
 	double			fov;
 	double			ray_count;
+	double			epsilon;
 	t_mlx			mlx;
 	t_ray			ray;
 	t_door			*door;
@@ -132,6 +133,7 @@ int			check_floor_color(char *line, t_map *map);
 int			mlx_get_pixel(mlx_texture_t *texture, int x, int y);
 int			wall_hit_hor(t_map *map, double c_x, double c_y, t_ray *ray);
 int			wall_hit_ver(t_map *map, double c_x, double c_y, t_ray *ray);
+int			distance_to_wall(t_map *map, double x, double y);
 char		**ft_split_whitespaces(char *str);
 char		*skip_empty_lines(int fd, t_map *map);
 void		set_near_door(t_map *map, int *door_x, int *door_y);
