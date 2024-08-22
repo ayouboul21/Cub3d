@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:14:34 by hel-magh          #+#    #+#             */
-/*   Updated: 2024/08/20 15:24:57 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/22 12:02:50 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ void	ft_remap(t_map *map)
 		while (map->map[map->i][map->j] && map->map[map->i][map->j] != '\n')
 		{
 			new_map[map->i][map->j] = map->map[map->i][map->j];
-			if (map->map[map->i][map->j] == 'D')
-				ft_add_door_back(map, map->i, map->j);
 			map->j++;
 		}
 		free(map->map[map->i]);

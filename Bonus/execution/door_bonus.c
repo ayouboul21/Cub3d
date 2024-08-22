@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 18:50:25 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/20 18:04:46 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/22 13:50:41 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,32 @@ void	ft_key_hook(struct mlx_key_data key, void *arg)
 		open_doors(map);
 }
 
-void	ft_add_door_back(t_map *map, int i, int j)
+void	get_closest_door(t_map *map, int cell_x, int cell_y, t_door *door)
 {
-	t_door	*new_door;
-	t_door	*tmp;
+	int		i;
+	int		j;
+	double	distance;
+	double	min_distance;
 
-	new_door = (t_door *)ft_malloc(sizeof(t_door));
-	ft_bzero(new_door, sizeof(t_door));
-	new_door->x = j;
-	new_door->y = i;
-	if (!map->door)
-		map->door = new_door;
-	else
+	i = cell_y - 2;
+	min_distance = map->cell_width * 2;
+	while (++i < cell_y + 1)
 	{
-		tmp = map->door;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new_door;
+		j = cell_x - 2;
+		while (++j < map->cols + 1)
+		{
+			if ((map->map[i][j] == 'D' || map->map[i][j] == 'O')
+				&& (i != cell_y || j != cell_x))
+			{
+				distance = sqrt(pow(cell_x - j, 2) + pow(cell_y - i, 2));
+				if (distance < min_distance)
+				{
+					min_distance = distance;
+					door->x = j;
+					door->y = i;
+				}
+			}
+		}
 	}
 }
 
@@ -45,27 +54,15 @@ void	open_doors(t_map *map)
 {
 	int		cell_x;
 	int		cell_y;
-	t_door	*tmp;
+	t_door	door;
 
 	cell_y = (int)(map->player.y / map->cell_height);
 	cell_x = (int)(map->player.x / map->cell_width);
-	tmp = map->door;
-	while (tmp)
-	{
-		if (map->map[tmp->y][tmp->x] == 'D'
-			&& map->map[cell_y][cell_x] != 'D')
-		{
-			map->map[tmp->y][tmp->x] = 'O';
-			tmp = tmp->next;
-		}
-		else if (map->map[tmp->y][tmp->x] == 'O'
-			&& map->map[cell_y][cell_x] != 'O')
-		{
-			map->map[tmp->y][tmp->x] = 'D';
-			tmp = tmp->next;
-		}
-		else
-			tmp = tmp->next;
-	}
+	door = map->door;
+	get_closest_door(map, cell_x, cell_y, &door);
+	if (map->map[door.y][door.x] == 'D')
+		map->map[door.y][door.x] = 'O';
+	else if (map->map[door.y][door.x] == 'O')
+		map->map[door.y][door.x] = 'D';
 	render_frame(map);
 }

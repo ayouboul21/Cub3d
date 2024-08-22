@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 10:46:36 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/21 18:05:43 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/08/21 22:58:27 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	ft_hook(void *param)
 	mlx_delete_image(map->mlx.mlx, map->mlx.img);
 	map->mlx.img = mlx_new_image(map->mlx.mlx, map->mlx.width, map->mlx.height);
 	render_frame(map);
-	draw_hands(map);
 }
 
 void	mouse_vis(t_map *map)
