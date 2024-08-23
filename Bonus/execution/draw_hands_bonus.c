@@ -6,7 +6,7 @@
 /*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 14:36:19 by hel-magh          #+#    #+#             */
-/*   Updated: 2024/08/21 18:02:25 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/08/23 15:54:59 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,30 +32,15 @@ void	hands_init(t_map *map)
 		i++;
 	}
 }
-
-void	draw_hands(t_map *map)
+void draw_hands_2(t_map *map, int j, int i)
 {
-	double	h_x;
-	double	h_y;
-	double	j;
-	double	i;
-	int		index;
-
-	h_x = map->mlx.width / 4;
-	h_y = map->mlx.height / 2;
-	i = h_x;
-	j = h_y;
-	if (map->fm > 7)
-		map->fm = 0;
-	if (map->fm < 0)
-		map->fm = 7;
-	while (i < map->mlx.width - h_x)
-	{
-		j = h_y;
-		while (j < map->mlx.height)
+	int index;
+	
+	index = 0;
+	while (j < map->mlx.height)
 		{
-			map->x = (i - h_x) * map->txt2[map->fm]->width / (map->mlx.width / 2);
-			map->y = (j - h_y) * map->txt2[map->fm]->height / (map->mlx.height / 2);
+			map->x = (i - map->h_x) * map->txt2[map->fm]->width / (map->mlx.width / 2);
+			map->y = (j - map->h_y) * map->txt2[map->fm]->height / (map->mlx.height / 2);
 			index = (map->y * map->txt2[map->fm]->width + map->x) * map->txt2[map->fm]->bytes_per_pixel;
 			map->clr = mlx_get_pixel(map->txt2[map->fm], map->x, map->y);
 			if(map->txt2[map->fm]->pixels[index] != 0 && map->txt2[map->fm]->pixels[index + 1] != 0 
@@ -63,6 +48,24 @@ void	draw_hands(t_map *map)
 				mlx_put_pixel(map->mlx.img, i, j, map->clr);
 			j++;
 		}
+}
+void	draw_hands(t_map *map)
+{
+	double	j;
+	double	i;
+
+	map->h_x = map->mlx.width / 4;
+	map->h_y = map->mlx.height / 2;
+	i = map->h_x;
+	j = map->h_y;
+	if (map->fm > 7)
+		map->fm = 0;
+	if (map->fm < 0)
+		map->fm = 7;
+	while (i < map->mlx.width - map->h_x)
+	{
+		j = map->h_y;
+		draw_hands_2(map, j, i);
 		i++;
 	}
 }

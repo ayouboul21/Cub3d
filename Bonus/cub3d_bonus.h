@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/22 14:10:26 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/23 15:52:49 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ typedef struct s_map
 	char			*ceiling_color;
 	t_mlx			mlx;
 	t_ray			ray;
+	double			h_x;
+	double			h_y;
 	double			fov;
 	double			h_min;
 	double			h_max;

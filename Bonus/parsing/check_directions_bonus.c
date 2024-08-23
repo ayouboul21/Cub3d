@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_directions_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:29:00 by hel-magh          #+#    #+#             */
-/*   Updated: 2024/08/20 12:54:20 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/23 16:05:00 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	check_door(t_map *map, int i, int j)
 			return (0);
 		else
 		{
-			printf("Error\ndoor not surrounded by wallls\n");
+			ft_putstr_fd("Error\ndoor not surrounded by wallls\n", 2);
 			return (1);
 		}
 	}

@@ -17,14 +17,14 @@ RM      		= rm -f
 OBJ     		= $(SRC:.c=.o)
 MLX     		= .MLX42/build/libmlx42.a
 LIB     		= -L"/Users/${USER}/.brew/Cellar/glfw/3.4/lib/"
-NAME    		= cub3d
+NAME    		= cub3D
 LIBFT   		= libft/libft.a
 CFLAGS			= -Wall -Wextra -Werror -O3 -ffast-math
 HEADER  		= Mandatory/cub3d.h
 INCLUDE 		= -Iinclude -IMLX42 -Ilibft
 MLXFLAGS 		= -framework Cocoa -framework OpenGL -framework IOKit -lglfw
 OBJ_BONUS		= $(SRC_BONUS:.c=.o)
-NAME_BONUS		= cub3d_bonus
+NAME_BONUS		= cub3D_bonus
 HEADER_BONUS	= Bonus/cub3d_bonus.h
 
 all: pre $(NAME)
