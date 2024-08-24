@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 16:45:21 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/22 20:31:51 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/24 22:47:24 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	render_frame(t_map *map)
 		map->player.ray_angle += map->fov / map->ray_count;
 		i++;
 	}
-	// draw_mini_map(map);
+	draw_mini_map(map);
 	draw_hands(map);
 	mlx_image_to_window(map->mlx.mlx, map->mlx.img, 0, 0);
 }

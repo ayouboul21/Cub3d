@@ -7,7 +7,7 @@
 SRC_BONUS = Bonus/cub3d_bonus.c Bonus/parsing/parse_bonus.c Bonus/parsing/parse_utils_bonus.c \
  			Bonus/parsing/check_directions_bonus.c Bonus/parsing/check_color_bonus.c \
 			Bonus/parsing/check_map_bonus.c  Bonus/parsing/check_map_utils_bonus.c \
- 			Bonus/execution/rendering_bonus.c Bonus/execution/moves_bonus.c \
+ 			Bonus/execution/rendering_bonus.c Bonus/execution/moves_bonus.c Bonus/execution/door_ray_bonus.c \
 			Bonus/execution/ray_casting_bonus.c Bonus/execution/wall_hit_bonus.c \
 			Bonus/execution/hooks_bonus.c Bonus/execution/draw_image_bonus.c Bonus/execution/distance_to_wall_bonus.c \
 			Bonus/.print_bonus.c Bonus/execution/door_bonus.c Bonus/execution/draw_hands_bonus.c \

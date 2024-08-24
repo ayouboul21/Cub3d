@@ -6,11 +6,33 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 20:02:40 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/22 17:04:04 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/24 23:39:51 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d_bonus.h"
+
+void	draw_square_color(t_map *map, uint32_t color, double i, double j)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	map->i = i * 16;
+	while (x < 15)
+	{
+		y = 0;
+		map->j = j * 16;
+		while (y < 15)
+		{
+			mlx_put_pixel(map->mlx.img, map->i, map->j, color);
+			map->j++;
+			y++;
+		}
+		map->i++;
+		x++;
+	}
+}
 
 void	draw_square(t_map *map, double i, double j)
 {
@@ -18,34 +40,21 @@ void	draw_square(t_map *map, double i, double j)
 	double	y;
 
 	x = map->player.x - (8 - i) * map->cell_width;
-	i *= map->cell_width / 5;
-	while (x / map->cell_width < floor(x / map->cell_width) + 1)
-	{
-		y = map->player.y - (5 - j) * map->cell_height;
-		j *= map->cell_height / 5;
-		while (y / map->cell_height < floor(y / map->cell_height) + 1)
-		{
-			if (y < 0 || x < 0 || y >= map->mlx.height || x >= map->mlx.width)
-			{
-				mlx_put_pixel(map->mlx.img, i, j, ft_pixel(0, 0, 0, 0));
-				y += 5;
-				j++;
-				continue ;
-			}
-			if (map->map[(int)(y / map->cell_height)][(int)(x / map->cell_width)] == '1')
-				mlx_put_pixel(map->mlx.img, i, j, ft_pixel(255, 255, 255, 255));
-			else if (map->map[(int)(y / map->cell_height)][(int)(x / map->cell_width)] == '0')
-				mlx_put_pixel(map->mlx.img, i, j, ft_pixel(0, 255, 0, 255));
-			else if (map->map[(int)(y / map->cell_height)][(int)(x / map->cell_width)] == 'D')
-				mlx_put_pixel(map->mlx.img, i, j, ft_pixel(255, 0, 0, 255));
-			else if (map->map[(int)(y / map->cell_height)][(int)(x / map->cell_width)] == 'O')
-				mlx_put_pixel(map->mlx.img, i, j, ft_pixel(0, 0, 255, 255));
-			y += 5;
-			j++;
-		}
-		x += 5;
-		i++;
-	}
+	y = map->player.y - (4 - j) * map->cell_height;
+	map->i = i * 16;
+	map->j = j * 16;
+	if (x < 0 || y < 0 || x / map->cell_width >= map->cols || y / map->cell_height >= map->rows)
+		return ;
+	else if (map->map[(int)(y / map->cell_height)][(int)(x / map->cell_width)] == '1')
+		draw_square_color(map, ft_pixel(0, 0, 0, 255), i, j);
+	else if (map->map[(int)(y / map->cell_height)][(int)(x / map->cell_width)] == 'D')
+		draw_square_color(map, ft_pixel(255, 0, 0, 255), i, j);
+	else if (map->map[(int)(y / map->cell_height)][(int)(x / map->cell_width)] == 'O')
+		draw_square_color(map, ft_pixel(0, 255, 0, 255), i, j);
+	else if (map->map[(int)(y / map->cell_height)][(int)(x / map->cell_width)] != ' ')
+		draw_square_color(map, ft_pixel(255, 255, 255, 255), i, j);
+	if (map->player.x == x && map->player.y == y)
+		draw_square_color(map, ft_pixel(0, 0, 255, 255), i, j);
 }
 
 void	draw_mini_map(t_map *map)
@@ -57,7 +66,7 @@ void	draw_mini_map(t_map *map)
 	while (i < 16)
 	{
 		j = 0;
-		while (j < 10)
+		while (j < 9)
 		{
 			draw_square(map, i, j);
 			j++;

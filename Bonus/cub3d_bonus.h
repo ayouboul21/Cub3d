@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/24 16:15:25 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/08/24 22:27:37 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,9 @@ typedef struct s_ray
 	double		x_check;
 	double		y_check;
 	double		x_check_hor;
+	double		y_check_hor;
 	double		x_check_ver;
+	double		y_check_ver;
 	double		distance;
 	t_direction	rdir;
 }				t_ray;
@@ -162,6 +164,7 @@ void		get_ray_distance(t_map *map, t_ray *ray);
 void		ft_key_hook(struct mlx_key_data key, void *arg);
 void		hands_init(t_map *map);
 void		draw_hands(t_map *map);
+void		cast_door_ray(t_map *map, t_ray *ray, t_door *door);
 void		draw_mini_map(t_map *map);
 uint32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 
