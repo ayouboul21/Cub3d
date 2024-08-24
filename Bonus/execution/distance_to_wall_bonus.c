@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 20:02:40 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/24 23:39:51 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/24 23:41:32 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,20 @@ void	draw_square(t_map *map, double i, double j)
 	y = map->player.y - (4 - j) * map->cell_height;
 	map->i = i * 16;
 	map->j = j * 16;
-	if (x < 0 || y < 0 || x / map->cell_width >= map->cols || y / map->cell_height >= map->rows)
+	if (x < 0 || y < 0 || x / map->cell_width >= map->cols
+		|| y / map->cell_height >= map->rows)
 		return ;
-	else if (map->map[(int)(y / map->cell_height)][(int)(x / map->cell_width)] == '1')
+	else if (map->map[(int)(y / map->cell_height)]
+		[(int)(x / map->cell_width)] == '1')
 		draw_square_color(map, ft_pixel(0, 0, 0, 255), i, j);
-	else if (map->map[(int)(y / map->cell_height)][(int)(x / map->cell_width)] == 'D')
+	else if (map->map[(int)(y / map->cell_height)]
+		[(int)(x / map->cell_width)] == 'D')
 		draw_square_color(map, ft_pixel(255, 0, 0, 255), i, j);
-	else if (map->map[(int)(y / map->cell_height)][(int)(x / map->cell_width)] == 'O')
+	else if (map->map[(int)(y / map->cell_height)]
+		[(int)(x / map->cell_width)] == 'O')
 		draw_square_color(map, ft_pixel(0, 255, 0, 255), i, j);
-	else if (map->map[(int)(y / map->cell_height)][(int)(x / map->cell_width)] != ' ')
+	else if (map->map[(int)(y / map->cell_height)]
+		[(int)(x / map->cell_width)] != ' ')
 		draw_square_color(map, ft_pixel(255, 255, 255, 255), i, j);
 	if (map->player.x == x && map->player.y == y)
 		draw_square_color(map, ft_pixel(0, 0, 255, 255), i, j);
