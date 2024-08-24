@@ -6,7 +6,7 @@
 /*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 14:36:19 by hel-magh          #+#    #+#             */
-/*   Updated: 2024/08/23 15:54:59 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/08/24 11:13:06 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,29 @@ void	hands_init(t_map *map)
 		i++;
 	}
 }
-void draw_hands_2(t_map *map, int j, int i)
+
+void	draw_hands_2(t_map *map, int j, int i)
 {
-	int index;
-	
+	int	index;
+
 	index = 0;
 	while (j < map->mlx.height)
-		{
-			map->x = (i - map->h_x) * map->txt2[map->fm]->width / (map->mlx.width / 2);
-			map->y = (j - map->h_y) * map->txt2[map->fm]->height / (map->mlx.height / 2);
-			index = (map->y * map->txt2[map->fm]->width + map->x) * map->txt2[map->fm]->bytes_per_pixel;
-			map->clr = mlx_get_pixel(map->txt2[map->fm], map->x, map->y);
-			if(map->txt2[map->fm]->pixels[index] != 0 && map->txt2[map->fm]->pixels[index + 1] != 0 
-				&& map->txt2[map->fm]->pixels[index + 2] != 0)
-				mlx_put_pixel(map->mlx.img, i, j, map->clr);
-			j++;
-		}
+	{
+		map->x = (i - map->h_x) * map->txt2[map->fm]->width
+			/ (map->mlx.width / 2);
+		map->y = (j - map->h_y) * map->txt2[map->fm]->height
+			/ (map->mlx.height / 2);
+		index = (map->y * map->txt2[map->fm]->width + map->x)
+			* map->txt2[map->fm]->bytes_per_pixel;
+		map->clr = mlx_get_pixel(map->txt2[map->fm], map->x, map->y);
+		if (map->txt2[map->fm]->pixels[index] != 0
+			&& map->txt2[map->fm]->pixels[index + 1] != 0
+			&& map->txt2[map->fm]->pixels[index + 2] != 0)
+			mlx_put_pixel(map->mlx.img, i, j, map->clr);
+		j++;
+	}
 }
+
 void	draw_hands(t_map *map)
 {
 	double	j;
