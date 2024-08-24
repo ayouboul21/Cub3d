@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:14:34 by hel-magh          #+#    #+#             */
-/*   Updated: 2024/08/20 12:43:45 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/24 16:06:52 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	ft_remap(t_map *map)
 		new_map[map->i][map->cols] = '\0';
 		while (map->map[map->i][map->j] && map->map[map->i][map->j] != '\n')
 		{
+			if (map->map[map->i][map->j] == '\t')
+				map->flag = 1;
 			new_map[map->i][map->j] = map->map[map->i][map->j];
 			map->j++;
 		}

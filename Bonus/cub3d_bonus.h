@@ -6,7 +6,7 @@
 /*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/23 15:52:49 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/08/24 16:15:25 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct s_map
 	int				cols;
 	int				cell_height;
 	int				cell_width;
+	int				flag;
 	char			*north;
 	char			*south;
 	char			*west;
