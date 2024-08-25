@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:40:05 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/25 10:26:53 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/25 11:02:14 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	ft_exit(t_map map, int status)
 	(map.ceiling_color) && (free(map.ceiling_color), map.north = NULL);
 	(map.map) && (free_tab(&map.map), i = -1);
 	i = -1;
-	while (map.txt[++i])
-		mlx_delete_image(map.mlx.mlx, map.txt[i]);
+	while (++i < 4)
+		mlx_delete_texture(map.txt[i]);
 	if (map.mlx.img)
 		mlx_delete_image(map.mlx.mlx, map.mlx.img);
 	if (map.mlx.mlx)
