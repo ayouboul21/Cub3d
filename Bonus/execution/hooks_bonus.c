@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 10:46:36 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/21 22:58:27 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/25 10:38:06 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	ft_hook(void *param)
 	ft_mouse_hook(map);
 	mlx_delete_image(map->mlx.mlx, map->mlx.img);
 	map->mlx.img = mlx_new_image(map->mlx.mlx, map->mlx.width, map->mlx.height);
+	if (!map->mlx.img)
+		ft_exit(*map, 1);
 	render_frame(map);
 }
 
@@ -76,6 +78,8 @@ void	ft_mouse_hook(t_map *map)
 		y = 0;
 		mlx_set_cursor_mode(map->mlx.mlx, MLX_MOUSE_HIDDEN);
 		mlx_get_mouse_pos(map->mlx.mlx, &x, &y);
+		if (x < 0 || x >= map->mlx.width)
+			return ;
 		map->player.angle -= ((map->mlx.width / 2 - x) * 180
 				/ map->mlx.width) * M_PI / 4;
 		if (y < 0)

@@ -6,11 +6,18 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 18:50:25 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/24 22:37:57 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/25 10:49:22 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d_bonus.h"
+
+int	is_door_or_wall(t_map *map, int x, int y)
+{
+	if (map->map[y][x] == 'O' || map->map[y][x] == 'D' || map->map[y][x] == '1')
+		return (1);
+	return (0);
+}
 
 void	ft_key_hook(struct mlx_key_data key, void *arg)
 {

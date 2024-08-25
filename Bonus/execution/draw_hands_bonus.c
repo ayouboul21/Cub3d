@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_hands_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 14:36:19 by hel-magh          #+#    #+#             */
-/*   Updated: 2024/08/24 11:13:06 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/08/25 10:34:37 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	hands_init(t_map *map)
 	while (i < 8)
 	{
 		if (!map->txt2[i])
-			ft_exit(*map, 0);
+			ft_exit(*map, 1);
 		i++;
 	}
 }

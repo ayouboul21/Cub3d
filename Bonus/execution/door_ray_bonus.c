@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 16:27:48 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/24 22:41:12 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/25 10:53:00 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,16 @@ int	door_hit_ver(t_map *map, double c_x, double c_y, t_ray *ray)
 	if (x < 0 || x >= map->cols
 		|| y < 0 || y >= map->rows)
 		return (1);
-	ray->wall_ver = (map->map[y][x] == 'D');
-	if (map->map[y][x] == 'O' || map->map[y][x] == 'D' || map->map[y][x] == '1')
+	if (is_door_or_wall(map, x, y))
 		return (1);
 	if (cos(ray->angle) >= 0 && sin(ray->angle) <= 0)
-		if ((map->map[y + 1][x] == 'O' || map->map[y + 1][x] == 'D')
-			&& (map->map[y][x - 1] == 'O' || map->map[y][x - 1] == 'D'))
+		if (is_door_or_wall(map, x, y + 1) && is_door_or_wall(map, x - 1, y))
 			return (1);
 	if (cos(ray->angle) <= 0 && sin(ray->angle) <= 0)
-		if ((map->map[y + 1][x] == 'O' || map->map[y + 1][x] == 'D')
-			&& (map->map[y][x + 1] == 'O' || map->map[y][x + 1] == 'D'))
+		if (is_door_or_wall(map, x, y + 1) && is_door_or_wall(map, x + 1, y))
 			return (1);
 	if (cos(ray->angle) <= 0 && sin(ray->angle) >= 0)
-		if ((map->map[y - 1][x] == 'O' || map->map[y - 1][x] == 'D')
-			&& (map->map[y][x + 1] == 'O' || map->map[y][x + 1] == 'D'))
+		if (is_door_or_wall(map, x, y - 1) && is_door_or_wall(map, x + 1, y))
 			return (1);
 	return (0);
 }
@@ -50,20 +46,16 @@ int	door_hit_hor(t_map *map, double c_x, double c_y, t_ray *ray)
 	if (x < 0 || x >= map->cols
 		|| y < 0 || y >= map->rows)
 		return (1);
-	ray->wall_hor = (map->map[y][x] == 'D');
-	if (map->map[y][x] == 'O' || map->map[y][x] == 'D')
+	if (is_door_or_wall(map, x, y))
 		return (1);
 	if (cos(ray->angle) >= 0 && sin(ray->angle) <= 0)
-		if ((map->map[y + 1][x] == 'O' || map->map[y + 1][x] == 'D')
-			&& (map->map[y][x - 1] == 'O' || map->map[y][x - 1] == 'D'))
+		if (is_door_or_wall(map, x, y + 1) && is_door_or_wall(map, x - 1, y))
 			return (1);
 	if (cos(ray->angle) <= 0 && sin(ray->angle) <= 0)
-		if ((map->map[y + 1][x] == 'O' || map->map[y + 1][x] == 'D')
-			&& (map->map[y][x + 1] == 'O' || map->map[y][x + 1] == 'D'))
+		if (is_door_or_wall(map, x, y + 1) && is_door_or_wall(map, x + 1, y))
 			return (1);
 	if (cos(ray->angle) <= 0 && sin(ray->angle) >= 0)
-		if ((map->map[y - 1][x] == 'O' || map->map[y - 1][x] == 'D')
-			&& (map->map[y][x + 1] == 'O' || map->map[y][x + 1] == 'D'))
+		if (is_door_or_wall(map, x, y - 1) && is_door_or_wall(map, x + 1, y))
 			return (1);
 	return (0);
 }

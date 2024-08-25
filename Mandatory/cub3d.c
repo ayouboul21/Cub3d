@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:40:05 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/24 16:13:13 by hel-magh         ###   ########.fr       */
+/*   Updated: 2024/08/25 10:26:53 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,22 @@
 
 void	ft_exit(t_map map, int status)
 {
-	if (map.north)
-		free(map.north);
-	if (map.south)
-		free(map.south);
-	if (map.west)
-		free(map.west);
-	if (map.east)
-		free(map.east);
-	if (map.floor_color)
-		free(map.floor_color);
-	if (map.ceiling_color)
-		free(map.ceiling_color);
-	if (map.map)
-		free_tab(&map.map);
-	if (map.txt[3])
-		mlx_delete_texture(map.txt[3]);
-	if (map.txt[2])
-		mlx_delete_texture(map.txt[2]);
-	if (map.txt[1])
-		mlx_delete_texture(map.txt[1]);
-	if (map.txt[0])
-		mlx_delete_texture(map.txt[0]);
+	int	i;
+
+	(map.north) && (free(map.north), map.north = NULL);
+	(map.south) && (free(map.south), map.north = NULL);
+	(map.west) && (free(map.west), map.north = NULL);
+	(map.east) && (free(map.east), map.north = NULL);
+	(map.floor_color) && (free(map.floor_color), map.north = NULL);
+	(map.ceiling_color) && (free(map.ceiling_color), map.north = NULL);
+	(map.map) && (free_tab(&map.map), i = -1);
+	i = -1;
+	while (map.txt[++i])
+		mlx_delete_image(map.mlx.mlx, map.txt[i]);
+	if (map.mlx.img)
+		mlx_delete_image(map.mlx.mlx, map.mlx.img);
+	if (map.mlx.mlx)
+		mlx_terminate(map.mlx.mlx);
 	exit(status);
 }
 

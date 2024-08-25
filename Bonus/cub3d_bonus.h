@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:43:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/24 22:27:37 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/25 10:51:28 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ int			check_north(char *line, t_map *map);
 int			check_south(char *line, t_map *map);
 int			check_west(char *line, t_map *map);
 int			check_east(char *line, t_map *map);
+int			is_door_or_wall(t_map *map, int x, int y);
 int			first_line_last(t_map *map);
 int			check_ceiling_color(char *line, t_map *map);
 int			check_floor_color(char *line, t_map *map);

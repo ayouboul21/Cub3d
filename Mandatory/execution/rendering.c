@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 16:45:21 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/19 18:46:08 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/25 10:54:46 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,11 @@ void	init_map(t_map *map)
 	map->mlx.width = 1280;
 	map->mlx.height = 720;
 	map->mlx.mlx = mlx_init(map->mlx.width, map->mlx.height, "cub3d", false);
+	if (!map->mlx.mlx)
+		ft_exit(*map, 1);
 	map->mlx.img = mlx_new_image(map->mlx.mlx, map->mlx.width, map->mlx.height);
+	if (!map->mlx.img)
+		ft_exit(*map, 1);
 	map->txt[0] = mlx_load_png(map->west);
 	map->txt[1] = mlx_load_png(map->north);
 	map->txt[2] = mlx_load_png(map->south);
@@ -92,5 +96,4 @@ void	render_map(t_map *map)
 	render_frame(map);
 	mlx_loop_hook(map->mlx.mlx, ft_hook, map);
 	mlx_loop(map->mlx.mlx);
-	mlx_terminate(map->mlx.mlx);
 }

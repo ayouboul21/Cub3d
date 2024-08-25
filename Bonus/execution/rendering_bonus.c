@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 16:45:21 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/24 22:47:24 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/25 10:42:36 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,10 @@ void	init_map(t_map *map)
 	map->txt[3] = mlx_load_png(map->east);
 	map->txt[4] = mlx_load_png("./texture/dooro1.png");
 	if (!map->txt[0] || !map->txt[1] || !map->txt[2]
-		|| !map->txt[3] || !map->txt[4])
+		|| !map->txt[3] || !map->txt[4] || !map->mlx.mlx || !map->mlx.img)
 		ft_exit(*map, 1);
 	hands_init(map);
-	map->cell_height = 64;
-	map->cell_width = 64;
+	(1) && (map->cell_height = 64, map->cell_width = 64);
 	map->player.x = map->player.x * map->cell_width + map->cell_width / 2;
 	map->player.y = map->player.y * map->cell_height + map->cell_height / 2;
 	map->player.speed = map->cell_width / 20;
@@ -79,5 +78,4 @@ void	render_map(t_map *map)
 	mlx_key_hook(map->mlx.mlx, ft_key_hook, map);
 	mlx_loop_hook(map->mlx.mlx, ft_hook, map);
 	mlx_loop(map->mlx.mlx);
-	mlx_terminate(map->mlx.mlx);
 }
