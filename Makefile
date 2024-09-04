@@ -35,10 +35,13 @@ $(NAME): $(OBJ) $(LIBFT) $(HEADER)
 
 bonus : pre $(NAME_BONUS)
 
-$(NAME_BONUS): $(OBJ_BONUS) $(LIBFT) $(HEADER)
+$(NAME_BONUS): $(OBJ_BONUS) $(LIBFT) $(HEADER_BONUS)
 	$(CC) $(CFLAGS) $(OBJ_BONUS) $(LIBFT) $(MLX) $(LIB) $(MLXFLAGS) -o $(NAME_BONUS)
 
-%.o : %.c $(HEADER)
+Mandatory/%.o : Mandatory/%.c $(HEADER)
+	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+
+Bonus/%.o : Bonus/%.c $(HEADER_BONUS)
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 mlx :
@@ -53,13 +56,16 @@ clean:
 	@cd libft && make clean
 	@cd .MLX42/build && make clean
 
-fclean: clean
+fclean:
+	$(RM) $(OBJ)
+	$(RM) $(OBJ_BONUS)
 	$(RM) $(NAME) $(MLX)
 	$(RM) $(NAME_BONUS) $(MLX)
 	@cd libft && make fclean
+	@cd .MLX42 && rm -rf build
 
 re: fclean all
 
 bre: fclean bonus
 
-.PHONY: clean mlx
+.PHONY: clean mlx fclean

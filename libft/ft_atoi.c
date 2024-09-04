@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 12:51:20 by aoulahra          #+#    #+#             */
-/*   Updated: 2023/11/11 13:07:01 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/25 14:15:59 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static void	find_sign(size_t *i, int *sign, const char *str)
 int	ft_atoi(const char *str)
 {
 	size_t	i;
-	long	res;
-	long	pre;
+	int		res;
+	int		pre;
 	int		sign;
 
 	i = 0;
@@ -39,10 +39,8 @@ int	ft_atoi(const char *str)
 	while (str[i] <= '9' && str[i] >= '0')
 	{
 		res = res * 10 + str[i] - 48;
-		if (res / 10 != pre && sign == 1)
+		if (res / 10 != pre)
 			return (-1);
-		else if (res / 10 != pre)
-			return (0);
 		pre = res;
 		i++;
 	}

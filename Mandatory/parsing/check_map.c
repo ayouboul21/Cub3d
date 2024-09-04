@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 16:26:45 by hel-magh          #+#    #+#             */
-/*   Updated: 2024/08/18 10:38:22 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/25 14:31:46 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,8 @@ int	check_line_map(t_map *map)
 {
 	if (!spliter(map->map[map->i]))
 		return (0);
-	while (map->map[map->i][map->j] == ' ' || map->map[map->i][map->j] == '\t')
+	while (map->map[map->i][map->j] == ' ')
 		map->j++;
-	if (map->map[map->i][map->j] != '1')
-	{
-		ft_putstr_fd("Error middle\n", 2);
-		return (0);
-	}
 	return (1);
 }
 
@@ -109,8 +104,8 @@ int	check_map(int fd, t_map *map)
 			break ;
 		if (check_line(line))
 		{
-			(printf("Error\nEmpty line in map\n")) && ((free(line), close(fd)));
-			return (0);
+			(1) && ((free(line), close(fd)));
+			return (write(2, "Error\nEmpty line in map\n", 25) * 0);
 		}
 		if (map->cols < (int)ft_strlen(line) - 1)
 			map->cols = ft_strlen(line) - 1;

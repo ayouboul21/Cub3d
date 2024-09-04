@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_hands_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hel-magh <hel-magh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 14:36:19 by hel-magh          #+#    #+#             */
-/*   Updated: 2024/08/25 10:34:37 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/25 13:13:36 by hel-magh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,9 @@ void	draw_hands_2(t_map *map, int j, int i)
 			* map->txt2[map->fm]->bytes_per_pixel;
 		map->clr = mlx_get_pixel(map->txt2[map->fm], map->x, map->y);
 		if (map->txt2[map->fm]->pixels[index] != 0
-			&& map->txt2[map->fm]->pixels[index + 1] != 0
-			&& map->txt2[map->fm]->pixels[index + 2] != 0)
+			|| map->txt2[map->fm]->pixels[index + 1] != 0
+			|| map->txt2[map->fm]->pixels[index + 2] != 0
+			|| map->txt2[map->fm]->pixels[index + 3] != 0)
 			mlx_put_pixel(map->mlx.img, i, j, map->clr);
 		j++;
 	}

@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 16:45:21 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/25 10:54:46 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/08/25 11:43:01 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,16 +75,16 @@ void	render_frame(t_map *map)
 	while ((int)i < map->mlx.width)
 	{
 		ft_bzero(&ray, sizeof(t_ray));
+		if (map->player.ray_angle < 0)
+			map->player.ray_angle += 360;
+		if (map->player.ray_angle > 360)
+			map->player.ray_angle -= 360;
 		ray.angle = map->player.ray_angle * M_PI / 180.0;
 		ray.x = map->player.x;
 		ray.y = map->player.y;
 		get_ray_distance(map, &ray);
 		draw_wall(map, ray, i);
 		map->player.ray_angle += map->fov / map->ray_count;
-		if (map->player.ray_angle < 0)
-			map->player.ray_angle += 360;
-		if (map->player.ray_angle > 360)
-			map->player.ray_angle -= 360;
 		i++;
 	}
 	mlx_image_to_window(map->mlx.mlx, map->mlx.img, 0, 0);

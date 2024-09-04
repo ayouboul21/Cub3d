@@ -3,7 +3,7 @@ SO ./texture/Brick10.png
 EA ./texture/Brick11.png
 WE ./texture/Brick12.png
 
-F 255,255,255
+F 255,255,0
 C 0,255,255
 
 1111111111111111111111111

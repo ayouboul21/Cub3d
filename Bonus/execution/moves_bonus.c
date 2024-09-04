@@ -6,7 +6,7 @@
 /*   By: aoulahra <aoulahra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:02:38 by aoulahra          #+#    #+#             */
-/*   Updated: 2024/08/22 11:26:31 by aoulahra         ###   ########.fr       */
+/*   Updated: 2024/09/04 10:48:59 by aoulahra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	move_backward(t_map *map)
 	cell_y = map->player.y / map->cell_height;
 	if (map->map[cell_y][cell_x] != '1' && map->map[cell_y][cell_x] != 'D'
 		&& check_diagonal(&map->player, map, cell_x, cell_y)
-		&& distance_to_wall(map, new_x, map->player.y, 180))
+		&& distance_to_wall(map, new_x, map->player.y, 180.0))
 		map->player.x = new_x;
 	new_y = map->player.y - map->player.speed
 		* sin((map->player.angle) * M_PI / 180.0);
@@ -74,7 +74,7 @@ void	move_backward(t_map *map)
 	cell_y = new_y / map->cell_height;
 	if (map->map[cell_y][cell_x] != '1' && map->map[cell_y][cell_x] != 'D'
 		&& check_diagonal(&map->player, map, cell_x, cell_y)
-		&& distance_to_wall(map, map->player.x, new_y, 180))
+		&& distance_to_wall(map, map->player.x, new_y, 180.0))
 		map->player.y = new_y;
 }
 
